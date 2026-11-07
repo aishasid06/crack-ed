@@ -1,0 +1,14 @@
+{% extends "portal/base.html" %}
+{% block title %}Security check{% endblock %}
+{% block content %}
+<section id="human-verification" class="pt-challenge">
+  <h1>Security check</h1>
+  <p>We need to confirm a person is using this account before you continue.</p>
+  {% if error %}<p class="pt-error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" action="/portal/verify">
+    <input type="hidden" name="next" value="{{ next }}">
+    <label class="pt-check"><input type="checkbox" name="confirm_human" value="yes"> I am human</label>
+    <button type="submit">Continue</button>
+  </form>
+</section>
+{% endblock %}

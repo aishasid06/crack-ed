@@ -1,0 +1,37 @@
+[project]
+name = "bounty-hunter"
+version = "0.1.0"
+description = "Agentic browser-use system that polices mock marketplaces for IP infringement of a fictional brand"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=2.6,<3",
+    "sqlmodel>=0.0.22",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# Installed in later phases; kept separate so Phase 1 stays light.
+mock = ["fastapi>=0.110", "uvicorn>=0.29", "jinja2>=3.1", "python-multipart>=0.0.9", "httpx>=0.27"]
+browser = ["playwright>=1.44"]
+ml = ["pillow>=10.0", "imagehash>=4.3", "numpy>=1.26", "scikit-learn>=1.4", "sentence-transformers>=3.0", "rapidfuzz>=3.6",
+      "opencv-python-headless>=4.9", "joblib>=1.3"]
+orchestrator = ["langgraph>=0.2"]
+ui = ["streamlit>=1.35", "pandas>=2.2"]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["bh*", "mocksites*", "seed*", "eval*", "ui*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "integration: needs mock sites / browser running",
+]

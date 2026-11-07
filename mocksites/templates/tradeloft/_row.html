@@ -1,0 +1,8 @@
+<article class="tl-row">
+  <a href="/tradeloft/listing/{{ r.id }}" class="tl-row-thumb"><img src="/media/{{ r.images[0] }}" alt="{{ r.title }}" loading="lazy"></a>
+  <div class="tl-row-body">
+    <h2 class="tl-row-title"><a href="/tradeloft/listing/{{ r.id }}">{{ r.title }}</a></h2>
+    <p class="tl-row-seller">Sold by {{ r.seller_name }} ({{ r.seller_location }})</p>
+  </div>
+  <div class="tl-row-price">{{ r.price|money(r.currency) }}</div>
+</article>

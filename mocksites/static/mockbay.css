@@ -1,0 +1,26 @@
+[hidden]{display:none !important}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#191919;background:#fff}
+.mb-header{display:flex;gap:16px;align-items:center;padding:12px 24px;border-bottom:1px solid #e5e5e5}
+.mb-logo{font-size:28px;font-weight:700;color:#e53238;text-decoration:none}.mb-logo span{color:#0064d2}
+.mb-searchbar{flex:1;display:flex}.mb-searchbar input{flex:1;padding:10px;border:2px solid #191919;border-radius:20px 0 0 20px}
+.mb-searchbar button{padding:10px 24px;background:#3665f3;color:#fff;border:0;border-radius:0 20px 20px 0}
+.mb-demo-strip{background:#fff7e0;font-size:12px;padding:4px 24px}
+.mb-main{padding:16px 24px;max-width:1280px;margin:auto}
+.s-results{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.s-item{border:1px solid #eee;border-radius:8px;padding:8px}.s-item__image img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px}
+.s-item__title{font-size:14px;font-weight:400;margin:6px 0}.s-item__link{color:inherit;text-decoration:none}
+.s-item__price{font-weight:700;font-size:18px}.s-item__meta,.s-item__condition{font-size:12px;color:#707070}
+.srp-controls{display:flex;justify-content:space-between;align-items:center}.srp-count{font-size:18px}
+.pagination{display:flex;gap:12px;align-items:center;justify-content:center;margin:24px 0}
+.pagination__items{display:flex;list-style:none;gap:8px;padding:0}.pagination__current{font-weight:700}
+.vi-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px}.vi-gallery__main{width:100%;border-radius:8px}
+.vi-gallery__thumbs{list-style:none;display:flex;gap:8px;padding:0}.vi-gallery__thumbs img{width:64px;height:64px;object-fit:cover}
+.x-price-primary{font-size:28px;font-weight:700;margin:8px 0}.vi-facts{display:grid;grid-template-columns:auto 1fr;gap:4px 16px}
+.vi-buy{padding:12px 48px;border-radius:24px;background:#3665f3;color:#fff;border:0;margin:12px 0}
+.x-seller-box{border:1px solid #e5e5e5;border-radius:8px;padding:12px;margin-top:16px}
+.x-item-description{white-space:pre-line}
+.mb-consent-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;z-index:1000}
+.mb-consent-box{background:#fff;padding:20px 28px;max-width:720px;width:100%;border-radius:12px 12px 0 0}
+.mb-consent-box button{padding:10px 20px;margin-right:8px;border-radius:20px;border:1px solid #3665f3}
+#consent-accept{background:#3665f3;color:#fff}
+@media (max-width:700px){.vi-layout{grid-template-columns:1fr}}

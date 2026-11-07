@@ -1,0 +1,31 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Step 3 · Infringing listings{% endblock %}
+{% block content %}
+{% include "portal/_steps.html" %}
+<h1>Infringing listings</h1>
+<p>For each listing give its full URL and the specific provision infringed, so the platform has actual knowledge of the infringement.</p>
+{% if errors %}<p class="pt-error" role="alert">Please correct the highlighted fields.</p>{% endif %}
+{% set field = 'items' %}{% include "portal/_err.html" %}
+<form method="post" class="pt-form" id="step-form">
+  <div id="url-rows">
+  {% set items = values.get('items') or [{'url': '', 'statute': '', 'section': '', 'details': ''}] %}
+  {% for it in items %}{% set i = loop.index0 %}
+    <fieldset class="pt-url-row">
+      <legend>Listing {{ loop.index }}</legend>
+      <label>Listing URL <input name="url" type="url" value="{{ it.url }}" class="pt-url"></label>{% set field = 'url_' ~ i %}{% include "portal/_err.html" %}
+      <label>Statute
+        <select name="statute" class="pt-statute">
+          <option value="">Choose…</option>
+          {% for s in pf.STATUTES %}<option value="{{ s }}" {% if it.statute == s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+        </select></label>{% set field = 'statute_' ~ i %}{% include "portal/_err.html" %}
+      <label>Section <input name="section" value="{{ it.section }}" class="pt-section" placeholder="e.g. s.10(1)"></label>{% set field = 'section_' ~ i %}{% include "portal/_err.html" %}
+      <label>Specific infringement <textarea name="details" rows="2" class="pt-details">{{ it.details }}</textarea></label>{% set field = 'details_' ~ i %}{% include "portal/_err.html" %}
+      <button type="button" class="pt-remove-row">Remove</button>
+    </fieldset>
+  {% endfor %}
+  </div>
+  <button type="button" id="add-url">Add another listing</button>
+  <button type="submit" id="step-next">Save and continue</button>
+</form>
+{% endblock %}

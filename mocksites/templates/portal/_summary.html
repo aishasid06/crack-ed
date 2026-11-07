@@ -1,0 +1,11 @@
+<section class="pt-summary" id="summary-owner"><h2>Rights owner</h2>
+  <dl><dt>Owner</dt><dd>{{ s['1'].owner_name }}</dd><dt>Email</dt><dd>{{ s['1'].owner_email }}</dd>
+  <dt>Address</dt><dd>{{ s['1'].owner_address }}</dd><dt>Filing as</dt><dd>{{ pf.RELATIONSHIPS[s['1'].relationship] }}{% if s['1'].agent_name %} ({{ s['1'].agent_name }}){% endif %}</dd></dl></section>
+<section class="pt-summary" id="summary-right"><h2>Right relied on</h2>
+  <dl><dt>Type</dt><dd>{{ pf.RIGHT_TYPES[s['2'].right_type] }}</dd>
+  {% if s['2'].registration_number %}<dt>Registration</dt><dd>{{ s['2'].registration_number }}</dd><dt>Classes</dt><dd>{{ s['2'].classes|join(', ') }}</dd><dt>Territory</dt><dd>{{ s['2'].territory }}</dd>{% endif %}
+  {% if s['2'].work_description %}<dt>Work</dt><dd>{{ s['2'].work_description }}</dd><dt>First published</dt><dd>{{ s['2'].first_publication_date }}</dd>{% endif %}</dl></section>
+<section class="pt-summary" id="summary-listings"><h2>Infringing listings</h2>
+  <table class="pt-table"><thead><tr><th>URL</th><th>Provision</th><th>Infringement</th></tr></thead><tbody>
+  {% for it in s['3']['items'] %}<tr><td class="pt-url-cell">{{ it.url }}</td><td>{{ it.statute }} {{ it.section }}</td><td>{{ it.details }}</td></tr>{% endfor %}
+  </tbody></table></section>

@@ -1,0 +1,34 @@
+{% extends "tradeloft/base.html" %}
+{% block title %}{{ l.title }}{% endblock %}
+{% block content %}
+<div class="tl-listing">
+  <div class="tl-listing-main">
+    <h1 class="tl-listing-title">{{ l.title }}</h1>
+    <div class="tl-carousel">
+      {% for img in l.images %}<figure class="tl-photo"><img src="/media/{{ img }}" alt="{{ l.title }} image {{ loop.index }}"></figure>{% endfor %}
+    </div>
+    <h2>Specifications</h2>
+    <table class="tl-specs">
+      <tbody>
+        <tr><th scope="row">Listing ID</th><td data-field="listing-id">{{ l.id }}</td></tr>
+        <tr><th scope="row">Condition</th><td data-field="condition">{{ l.condition }}</td></tr>
+        <tr><th scope="row">Units in stock</th><td data-field="stock">{{ l.quantity }}</td></tr>
+        <tr><th scope="row">Category</th><td data-field="category">{{ l.site_category }}</td></tr>
+        {% for k, v in l.specs.items() %}<tr><th scope="row">{{ k }}</th><td>{{ v }}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+    <h2>About this item</h2>
+    <div class="tl-about">{{ l.description }}</div>
+  </div>
+  <aside class="tl-sidebar">
+    <div class="tl-pricebox"><span class="tl-price">{{ l.price|money(l.currency) }}</span><button type="button" disabled>Add to basket</button></div>
+    <section class="tl-seller-card">
+      <h3>Seller</h3>
+      <p class="tl-seller-name">{{ l.seller_name }}</p>
+      <p class="tl-seller-rating">{{ "%.1f"|format(l.seller_rating) }} / 5 ({{ l.seller_feedback_count }} reviews)</p>
+      <p class="tl-seller-loc">Based in {{ l.seller_location }}</p>
+      <p class="tl-seller-tenure">Trading on TradeLoft for {{ l.seller_age_days }} days</p>
+    </section>
+  </aside>
+</div>
+{% endblock %}

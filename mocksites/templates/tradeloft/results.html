@@ -1,0 +1,15 @@
+{% extends "tradeloft/base.html" %}
+{% block title %}Search results{% endblock %}
+{% block content %}
+<div class="tl-two-col">
+  <aside class="tl-filters">{% include "tradeloft/_searchform.html" %}</aside>
+  <section class="tl-results-col">
+    <p class="tl-total"><strong>{{ total }}</strong> items found</p>
+    <div id="tl-results" class="tl-results" data-query="{{ qs }}">
+      {% for r in rows %}{% include "tradeloft/_row.html" %}{% endfor %}
+    </div>
+    {% if not rows %}<p class="tl-empty">Nothing matched your search. Try fewer filters.</p>{% endif %}
+    <button type="button" id="tl-load-more" class="tl-load-more" data-next-offset="{{ next_offset }}" {% if not has_more %}hidden{% endif %}>Load more</button>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "mockbay/base.html" %}
+{% block content %}
+<h1>Today's picks</h1>
+<ul class="s-results">{% for l in featured %}{% include "mockbay/_card.html" %}{% endfor %}</ul>
+{% if not featured %}<p>No listings yet.</p>{% endif %}
+{% endblock %}

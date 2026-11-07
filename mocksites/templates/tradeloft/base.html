@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}TradeLoft{% endblock %} — TradeLoft</title>
+<link rel="stylesheet" href="/static/tradeloft.css"></head>
+<body class="tl">
+<nav class="tl-nav">
+  <a href="/tradeloft/" class="tl-brand">TradeLoft</a>
+  <a href="/tradeloft/visual-search" class="tl-nav-link">Search by photo</a>
+</nav>
+<p class="tl-demo">Synthetic demo marketplace — all listings are fictional.</p>
+<div class="tl-page">{% block content %}{% endblock %}</div>
+<script src="/static/tradeloft.js" defer></script>
+</body></html>

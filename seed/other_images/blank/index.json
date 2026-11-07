@@ -1,0 +1,47 @@
+{
+  "source": "ABO",
+  "items": [
+    {
+      "file": "blank_01.jpg",
+      "abo_item_id": "B07H3FDFV1",
+      "for_product": "arc-copper",
+      "abo_image_id": "61a6Ya-gLRL"
+    },
+    {
+      "file": "blank_02.jpg",
+      "abo_item_id": "B07H3FDFV1",
+      "for_product": "arc-copper",
+      "abo_image_id": "61lc2WAptEL"
+    },
+    {
+      "file": "blank_03.jpg",
+      "abo_item_id": "B07GLKKQZQ",
+      "for_product": "trail-teal",
+      "abo_image_id": "71+0V7u-MzL"
+    },
+    {
+      "file": "blank_04.jpg",
+      "abo_item_id": "B000UD63SA",
+      "for_product": "trail-teal",
+      "abo_image_id": "810xIOmGJuS"
+    },
+    {
+      "file": "blank_05.jpg",
+      "abo_item_id": "B075D9TBDL",
+      "for_product": "mule-mug",
+      "abo_image_id": "71VY5KzzYFL"
+    },
+    {
+      "file": "blank_06.jpg",
+      "abo_item_id": "B087V2F4N2",
+      "for_product": "clear-glass",
+      "abo_image_id": "61aLK4wD6dL"
+    },
+    {
+      "file": "blank_07.jpg",
+      "abo_item_id": "B087V2F4N2",
+      "for_product": "clear-glass",
+      "abo_image_id": "61u7mICBrBL"
+    }
+  ]
+}

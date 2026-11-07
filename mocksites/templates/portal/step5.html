@@ -1,0 +1,17 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Step 5 · Declarations{% endblock %}
+{% block content %}
+{% include "portal/_steps.html" %}
+<h1>Declarations</h1>
+{% if errors %}<p class="pt-error" role="alert">All declarations are required.</p>{% endif %}
+<form method="post" class="pt-form" id="step-form">
+  {% for k, text in pf.DECLARATIONS.items() %}
+    <label class="pt-check"><input type="checkbox" name="{{ k }}" {% if values.get(k) %}checked{% endif %}> {{ text }}</label>
+    {% set field = k %}{% include "portal/_err.html" %}
+  {% endfor %}
+  <label for="signature">Signature (type your full name)</label>
+  <input id="signature" name="signature" value="{{ values.get('signature', '') }}">{% set field = 'signature' %}{% include "portal/_err.html" %}
+  <button type="submit" id="step-next">Continue to review</button>
+</form>
+{% endblock %}

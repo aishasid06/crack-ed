@@ -1,0 +1,65 @@
+{
+  "source": "ABO",
+  "items": [
+    {
+      "file": "lookalike_01.jpg",
+      "abo_item_id": "B07H2XZ2J1",
+      "abo_image_id": "61uLPpa11VL"
+    },
+    {
+      "file": "lookalike_02.jpg",
+      "abo_item_id": "B07H2XZ2J1",
+      "abo_image_id": "61NDIERgPsL"
+    },
+    {
+      "file": "lookalike_03.jpg",
+      "abo_item_id": "B07H2XZ2J1",
+      "abo_image_id": "71o7pgAfs+L"
+    },
+    {
+      "file": "lookalike_04.jpg",
+      "abo_item_id": "B07H2XZ2J2",
+      "abo_image_id": "71C8SJKlxhL"
+    },
+    {
+      "file": "lookalike_05.jpg",
+      "abo_item_id": "B07H2XZ2J2",
+      "abo_image_id": "81uEcgzND0L"
+    },
+    {
+      "file": "lookalike_06.jpg",
+      "abo_item_id": "B01LXKWC9B",
+      "abo_image_id": "714pXNIXudL"
+    },
+    {
+      "file": "lookalike_07.jpg",
+      "abo_item_id": "B01LXKWC9B",
+      "abo_image_id": "71vBSSqwfKL"
+    },
+    {
+      "file": "lookalike_08.jpg",
+      "abo_item_id": "B06XQZXQ2B",
+      "abo_image_id": "71+lavaJy7L"
+    },
+    {
+      "file": "lookalike_09.jpg",
+      "abo_item_id": "B000UD1GJQ",
+      "abo_image_id": "81gQXfMizuS"
+    },
+    {
+      "file": "lookalike_10.jpg",
+      "abo_item_id": "B000UD1GJQ",
+      "abo_image_id": "81V0w8xeoyS"
+    },
+    {
+      "file": "lookalike_11.jpg",
+      "abo_item_id": "B075HWFMMC",
+      "abo_image_id": "61AcesIk79L"
+    },
+    {
+      "file": "lookalike_12.jpg",
+      "abo_item_id": "B07H2XZ2J2",
+      "abo_image_id": "71fTgDZvoLL"
+    }
+  ]
+}

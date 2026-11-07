@@ -1,0 +1,35 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Step 2 · Right relied on{% endblock %}
+{% block content %}
+{% include "portal/_steps.html" %}
+<h1>Right relied on</h1>
+{% if errors %}<p class="pt-error" role="alert">Please correct the highlighted fields.</p>{% endif %}
+<form method="post" class="pt-form" id="step-form">
+  <fieldset><legend>Type of right</legend>
+  {% for k, v in pf.RIGHT_TYPES.items() %}
+    <label class="pt-radio"><input type="radio" name="right_type" value="{{ k }}" {% if values.get('right_type') == k %}checked{% endif %}> {{ v }}</label>
+  {% endfor %}
+  </fieldset>{% set field = 'right_type' %}{% include "portal/_err.html" %}
+  <fieldset class="pt-conditional" id="tm-fields" data-show-when="right_type=trade_mark|both">
+    <legend>Trade mark registration</legend>
+    <label for="registration_number">Registration number</label>
+    <input id="registration_number" name="registration_number" placeholder="UK00000000000" value="{{ values.get('registration_number', '') }}">{% set field = 'registration_number' %}{% include "portal/_err.html" %}
+    <label for="classes">Nice classes (comma separated)</label>
+    <input id="classes" name="classes" value="{{ values.get('classes', [])|join(', ') if values.get('classes') is iterable and values.get('classes') is not string else values.get('classes', '') }}">{% set field = 'classes' %}{% include "portal/_err.html" %}
+    <label for="territory">Territory</label>
+    <select id="territory" name="territory">
+      <option value="">Choose…</option>
+      {% for t in pf.TERRITORIES %}<option value="{{ t }}" {% if values.get('territory') == t %}selected{% endif %}>{{ t }}</option>{% endfor %}
+    </select>{% set field = 'territory' %}{% include "portal/_err.html" %}
+  </fieldset>
+  <fieldset class="pt-conditional" id="cr-fields" data-show-when="right_type=copyright|both">
+    <legend>Copyright work</legend>
+    <label for="work_description">Description of the work</label>
+    <textarea id="work_description" name="work_description" rows="3">{{ values.get('work_description', '') }}</textarea>{% set field = 'work_description' %}{% include "portal/_err.html" %}
+    <label for="first_publication_date">First publication date</label>
+    <input id="first_publication_date" name="first_publication_date" type="date" value="{{ values.get('first_publication_date', '') }}">{% set field = 'first_publication_date' %}{% include "portal/_err.html" %}
+  </fieldset>
+  <button type="submit" id="step-next">Save and continue</button>
+</form>
+{% endblock %}

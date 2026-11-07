@@ -1,0 +1,29 @@
+{% extends "mockbay/base.html" %}
+{% block title %}{{ q or "All items" }}{% endblock %}
+{% block content %}
+<div class="srp-controls">
+  <h1 class="srp-count"><span class="srp-count__n">{{ total }}</span> results{% if q %} for <b>{{ q }}</b>{% endif %}</h1>
+  <form method="get" action="/mockbay/search" class="srp-sort">
+    <input type="hidden" name="q" value="{{ q }}">
+    <label>Sort: <select name="sort" onchange="this.form.submit()">
+      <option value="relevance" {% if sort == 'relevance' %}selected{% endif %}>Best match</option>
+      <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Lowest price</option>
+    </select></label>
+    <noscript><button type="submit">Apply</button></noscript>
+  </form>
+</div>
+{% if items %}
+<ul class="s-results">{% for l in items %}{% include "mockbay/_card.html" %}{% endfor %}</ul>
+{% else %}
+<p class="srp-empty">No exact matches found.</p>
+{% endif %}
+<nav class="pagination" aria-label="Results pagination">
+  {% if page > 1 %}<a class="pagination__prev" href="/mockbay/search?q={{ quote(q) }}&sort={{ sort }}&page={{ page - 1 }}">Previous</a>{% endif %}
+  <ol class="pagination__items">
+  {% for p in range(1, pages + 1) %}
+    <li>{% if p == page %}<span class="pagination__current" aria-current="page">{{ p }}</span>{% else %}<a href="/mockbay/search?q={{ quote(q) }}&sort={{ sort }}&page={{ p }}">{{ p }}</a>{% endif %}</li>
+  {% endfor %}
+  </ol>
+  {% if page < pages %}<a class="pagination__next" href="/mockbay/search?q={{ quote(q) }}&sort={{ sort }}&page={{ page + 1 }}">Next</a>{% endif %}
+</nav>
+{% endblock %}

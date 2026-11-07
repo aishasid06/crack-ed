@@ -1,0 +1,22 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Step 4 · Evidence{% endblock %}
+{% block content %}
+{% include "portal/_steps.html" %}
+<h1>Evidence</h1>
+<p>Upload screenshots of each listing (PNG or JPEG).</p>
+{% set field = 'evidence' %}{% include "portal/_err.html" %}
+{% if d.evidence %}
+<ul class="pt-evidence" id="evidence-list">
+{% for e in d.evidence %}
+  <li><a href="/portal/evidence/{{ d.id }}/{{ e }}" target="_blank">{{ e }}</a>
+    <form method="post" action="/portal/report/{{ d.id }}/evidence/{{ e }}/delete" class="pt-inline"><button type="submit" class="pt-link">Remove</button></form></li>
+{% endfor %}
+</ul>
+{% endif %}
+<form method="post" class="pt-form" id="step-form" enctype="multipart/form-data">
+  <label for="evidence">Add files</label>
+  <input id="evidence" name="evidence" type="file" accept="image/png,image/jpeg" multiple>
+  <button type="submit" id="step-next">Upload and continue</button>
+</form>
+{% endblock %}

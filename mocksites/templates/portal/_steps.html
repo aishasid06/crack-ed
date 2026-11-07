@@ -1,0 +1,8 @@
+<ol class="pt-steps" aria-label="Report progress">
+{% for i, title in titles.items() %}
+  <li class="{% if i == n %}current{% elif i in done %}done{% endif %}">
+    {% if i in done and i != n %}<a href="/portal/report/{{ d.id }}/step/{{ i }}">{{ i }}. {{ title }}</a>{% else %}<span>{{ i }}. {{ title }}</span>{% endif %}
+  </li>
+{% endfor %}
+  <li class="{% if n == 6 %}current{% endif %}"><span>Review &amp; submit</span></li>
+</ol>

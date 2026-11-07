@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Report portal{% endblock %} · IP Report Portal</title>
+<link rel="stylesheet" href="/static/portal.css"></head>
+<body class="pt-body">
+<header class="pt-header">
+  <span class="pt-brand">IP Report Portal</span>
+  <span class="pt-sub">for MockBay &amp; TradeLoft (synthetic demo)</span>
+  {% block headernav %}{% endblock %}
+</header>
+<main class="pt-main">{% block content %}{% endblock %}</main>
+<script src="/static/portal.js" defer></script>
+</body></html>

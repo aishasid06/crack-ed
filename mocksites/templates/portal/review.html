@@ -1,0 +1,14 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Review report{% endblock %}
+{% block content %}
+{% include "portal/_steps.html" %}
+<h1 id="review-heading">Review your report</h1>
+<p>Check everything below. Once submitted, the report is sent to the platform and cannot be edited.</p>
+{% include "portal/_summary.html" %}
+<section class="pt-summary" id="summary-evidence"><h2>Evidence</h2><ul>{% for e in d.evidence %}<li>{{ e }}</li>{% endfor %}</ul></section>
+<section class="pt-summary" id="summary-declarations"><h2>Declarations</h2><p>All declarations confirmed. Signed: {{ s['5'].signature }}</p></section>
+<form method="post" action="/portal/report/{{ d.id }}/submit" id="submit-form">
+  <button type="submit" id="final-submit" class="pt-primary">Submit</button>
+</form>
+{% endblock %}

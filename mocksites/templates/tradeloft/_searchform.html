@@ -1,0 +1,17 @@
+<form id="tl-search-form" class="tl-search" action="/tradeloft/search" method="get">
+  <fieldset>
+    <legend>Find items</legend>
+    <label for="tl-q">Keywords</label>
+    <input id="tl-q" name="q" type="text" value="{{ q }}">
+    <label for="tl-category">Category</label>
+    <select id="tl-category" name="category">
+      <option value="">All categories</option>
+      {% for c in categories %}<option value="{{ c }}" {% if c == category %}selected{% endif %}>{{ c }}</option>{% endfor %}
+    </select>
+    <label for="tl-min">Min price (£)</label>
+    <input id="tl-min" name="min_price" type="number" step="0.01" min="0" value="{{ min_price }}">
+    <label for="tl-max">Max price (£)</label>
+    <input id="tl-max" name="max_price" type="number" step="0.01" min="0" value="{{ max_price }}">
+    <button type="submit" id="tl-search-submit">Search</button>
+  </fieldset>
+</form>

@@ -1,0 +1,10 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Report {{ sub.ref }}{% endblock %}
+{% block content %}
+{% if new %}<p class="pt-success" role="status" id="submit-confirmation">Thank you. Your report has been submitted. Reference: <strong id="submission-ref">{{ sub.ref }}</strong></p>{% endif %}
+<h1>Report {{ sub.ref }}</h1>
+<p>Submitted {{ sub.submitted_at.strftime('%Y-%m-%d %H:%M') }} UTC · Status: {{ sub.status|capitalize }}</p>
+{% include "portal/_summary.html" %}
+<section class="pt-summary"><h2>Evidence</h2><ul>{% for e in sub.evidence %}<li><a href="/portal/evidence/{{ sub.draft_id }}/{{ e }}">{{ e }}</a></li>{% endfor %}</ul></section>
+{% endblock %}

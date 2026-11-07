@@ -1,0 +1,16 @@
+{% extends "tradeloft/base.html" %}
+{% block title %}Search by photo{% endblock %}
+{% block content %}
+<h1>Search by photo</h1>
+<form id="tl-visual-form" action="/tradeloft/visual-search" method="post" enctype="multipart/form-data">
+  <label for="tl-photo">Upload a photo of an item</label>
+  <input id="tl-photo" type="file" name="photo" accept="image/png,image/jpeg" required>
+  <button type="submit">Find similar items</button>
+</form>
+{% if error %}<p class="tl-error" role="alert">{{ error }}</p>{% endif %}
+{% if rows is not none %}
+<h2>Visually similar items</h2>
+<div id="tl-results" class="tl-results">{% for r in rows %}{% include "tradeloft/_row.html" %}{% endfor %}</div>
+{% if not rows %}<p class="tl-empty">No similar items found.</p>{% endif %}
+{% endif %}
+{% endblock %}

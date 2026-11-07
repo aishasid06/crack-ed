@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}MockBay{% endblock %} | MockBay</title>
+<link rel="stylesheet" href="/static/mockbay.css"></head>
+<body>
+<header class="mb-header">
+  <a class="mb-logo" href="/mockbay/">Mock<span>Bay</span></a>
+  <form class="mb-searchbar" action="/mockbay/search" method="get" role="search">
+    <input type="search" name="q" value="{{ q|default('') }}" placeholder="Search for anything" aria-label="Search MockBay">
+    <button type="submit">Search</button>
+  </form>
+</header>
+<div class="mb-demo-strip">Synthetic demo marketplace — all listings are fictional.</div>
+<main class="mb-main">{% block content %}{% endblock %}</main>
+{% if consent_needed %}
+<div id="cookie-consent" class="mb-consent-overlay" role="dialog" aria-modal="true" aria-labelledby="consent-title">
+  <div class="mb-consent-box">
+    <h2 id="consent-title">We value your privacy</h2>
+    <p>MockBay uses cookies to remember your preferences. Choose an option to continue browsing.</p>
+    <form method="post" action="/mockbay/consent">
+      <input type="hidden" name="next" value="{{ path }}">
+      <button type="submit" name="choice" value="all" id="consent-accept">Accept all</button>
+      <button type="submit" name="choice" value="essential" id="consent-essential">Essential only</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+</body></html>

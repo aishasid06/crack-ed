@@ -1,0 +1,144 @@
+# Classification rules grounded in UK law (SPEC §7.3).
+# Legal bases live here as data; the LLM may assess elements but never invent a basis.
+# Rules are evaluated in order; the first rule whose `requires` elements are all met wins.
+# Element names map to predicates in bh/classify.py (Phase 6), each returning
+# met | unmet | unknown plus an evidence string.
+# Decision support for a lawyer — not legal advice.
+
+background:
+  - area: Trade mark infringement
+    law: "Trade Marks Act 1994 s.10"
+    summary: >-
+      s.10(1): identical sign for identical goods; confusion need not be shown.
+      s.10(2): identical/similar sign for identical/similar goods with a likelihood of confusion.
+      s.10(3): mark with a reputation; unfair advantage or detriment.
+  - area: Lawful resale
+    law: "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    summary: >-
+      Rights in genuine goods placed on the UK or EEA market with the owner's consent are exhausted
+      in the UK, so resale is lawful. Exception (s.12(2)): legitimate reasons to oppose, especially
+      where the goods are changed or impaired.
+  - area: Grey imports
+    law: "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    summary: Genuine goods first marketed outside the UK/EEA can still infringe when imported into the UK.
+  - area: Copied photos
+    law: "Copyright, Designs and Patents Act 1988"
+    summary: Product photographs are artistic works; copying them or communicating them to the public infringes.
+  - area: Look-alikes
+    law: "Passing off (common law); UK registered/unregistered design rights"
+    summary: Requires goodwill, misrepresentation and damage, or a protected design; needs human judgement.
+  - area: Platform notices
+    law: "Electronic Commerce (EC Directive) Regulations 2002 reg.19"
+    summary: >-
+      Hosts lose protection once they have actual knowledge and fail to act, so notices must identify
+      the exact URL, the right relied on and its owner.
+  - area: Threats
+    law: "Trade Marks Act 1994 ss.21-21F"
+    summary: Unjustified threats of infringement proceedings create liability; notices stay factual and human-approved.
+  - area: Criminal counterfeiting
+    law: "Trade Marks Act 1994 s.92"
+    summary: Large-scale dealing in counterfeit goods is an offence; refer to Trading Standards.
+
+rules:
+  - id: authorised
+    category: authorised
+    legal_basis: null
+    requires: [seller_authorised]
+    action: ignore
+
+  - id: unrelated
+    category: unrelated
+    legal_basis: null
+    requires: [no_image_match, no_mark_in_text]
+    action: ignore
+
+  - id: copied_photos
+    category: copied_photos
+    legal_basis:
+      statute: "Copyright, Designs and Patents Act 1988"
+      section: "ss.16-17, 20"
+      summary: "Copying the rights owner's product photographs and communicating them to the public"
+    requires: [own_photo, mark_not_used_for_goods]
+    action: platform_report
+    min_confidence: 0.80
+
+  - id: tm_identical
+    category: counterfeit_identical
+    legal_basis:
+      statute: "Trade Marks Act 1994"
+      section: "s.10(1)"
+      summary: "Identical sign used for identical goods; likelihood of confusion need not be shown"
+    requires: [mark_exact_in_text_or_logo_match, goods_in_registered_class, not_authorised_seller, not_exhausted]
+    action: platform_report
+    min_confidence: 0.85
+
+  - id: tm_similar
+    category: counterfeit_similar
+    legal_basis:
+      statute: "Trade Marks Act 1994"
+      section: "s.10(2)"
+      summary: "Similar sign used for identical or similar goods with a likelihood of confusion"
+    requires: [similar_sign, goods_same_or_similar, confusion_indicator, not_authorised_seller, not_exhausted]
+    action: platform_report
+    min_confidence: 0.70           # = act_threshold; below it the action is downgraded to escalate
+
+  - id: modified_goods
+    category: modified_goods
+    legal_basis:
+      statute: "Trade Marks Act 1994"
+      section: "s.12(2)"
+      summary: "Exhaustion does not apply where genuine goods have been changed or impaired"
+    requires: [genuine_indicators, modification_kw]
+    action: escalate
+
+  - id: grey_import
+    category: grey_import
+    legal_basis:
+      statute: "Trade Marks Act 1994"
+      section: "s.10 (s.12 not applying)"
+      summary: "Genuine goods first marketed outside the UK/EEA without consent to UK marketing"
+    requires: [genuine_indicators, origin_outside_uk_eea]
+    action: escalate
+
+  - id: exhausted_resale
+    category: genuine_resale
+    legal_basis:
+      statute: "Trade Marks Act 1994"
+      section: "s.12 (UK+ exhaustion)"
+      summary: "Rights exhausted once genuine goods are placed on the UK or EEA market with consent"
+    requires: [own_photo_or_brand, price_ratio_ge_resale_min, no_replica_kw, no_modification_kw, origin_uk_eea_or_unknown]
+    action: monitor
+
+  - id: lookalike
+    category: lookalike
+    legal_basis:
+      statute: "Passing off (common law) / design rights"
+      section: "goodwill, misrepresentation, damage"
+      summary: "Similar get-up without the mark; requires human judgement"
+    requires: [clip_ge_lookalike, no_hash_match, inspired_kw_or_no_mark]
+    action: escalate
+
+  - id: fallback
+    category: unrelated
+    legal_basis: null
+    requires: []
+    action: ignore
+
+overlays:
+  - id: trading_standards
+    applies_to_categories: [counterfeit_identical, counterfeit_similar]
+    legal_basis:
+      statute: "Trade Marks Act 1994"
+      section: "s.92"
+      summary: "Large-scale dealing in counterfeit goods (criminal); refer to Trading Standards"
+    requires: [bulk_seller_or_quantity]
+    action: refer_trading_standards
+
+# Brand-neutral phrase lists used by the element predicates.
+vocabulary:
+  replica: ["replica", "1:1", "aaa", "aaa quality", "mirror quality", "mirror grade", "super copy"]
+  inspired: ["inspired by", "dupe", "-style", " style", "similar to", "alternative to", "not affiliated"]
+  modification: ["customised", "customized", "relabelled", "relabeled", "refurbished", "repackaged",
+                 "personalised", "personalized", "engraved", "modified"]
+  official: ["official", "original", "genuine", "authentic"]
+  imported_from: ["imported from", "import from", "version)", "edition", "international shipping"]

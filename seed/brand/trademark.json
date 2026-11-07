@@ -1,0 +1,24 @@
+[
+  {
+    "mark_text": "VAELO",
+    "mark_type": "word",
+    "registration_number": "UK00004123456",
+    "classes": [
+      21
+    ],
+    "territory": "UK",
+    "status": "registered",
+    "logo_path": null
+  },
+  {
+    "mark_text": "VAELO",
+    "mark_type": "figurative",
+    "registration_number": "UK00004123457",
+    "classes": [
+      21
+    ],
+    "territory": "UK",
+    "status": "registered",
+    "logo_path": "logo.png"
+  }
+]

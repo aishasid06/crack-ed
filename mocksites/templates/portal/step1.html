@@ -1,0 +1,26 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Step 1 · Rights owner{% endblock %}
+{% block content %}
+{% include "portal/_steps.html" %}
+<h1>Rights owner details</h1>
+{% if errors %}<p class="pt-error" role="alert">Please correct the highlighted fields.</p>{% endif %}
+<form method="post" class="pt-form" id="step-form">
+  <label for="owner_name">Rights owner (company or person)</label>
+  <input id="owner_name" name="owner_name" value="{{ values.get('owner_name', '') }}">{% set field = 'owner_name' %}{% include "portal/_err.html" %}
+  <label for="owner_email">Contact email</label>
+  <input id="owner_email" name="owner_email" type="email" value="{{ values.get('owner_email', '') }}">{% set field = 'owner_email' %}{% include "portal/_err.html" %}
+  <label for="owner_address">Registered address</label>
+  <textarea id="owner_address" name="owner_address" rows="3">{{ values.get('owner_address', '') }}</textarea>{% set field = 'owner_address' %}{% include "portal/_err.html" %}
+  <fieldset><legend>You are filing as</legend>
+  {% for k, v in pf.RELATIONSHIPS.items() %}
+    <label class="pt-radio"><input type="radio" name="relationship" value="{{ k }}" {% if values.get('relationship') == k %}checked{% endif %}> {{ v }}</label>
+  {% endfor %}
+  </fieldset>{% set field = 'relationship' %}{% include "portal/_err.html" %}
+  <div class="pt-conditional" data-show-when="relationship=authorised_agent">
+    <label for="agent_name">Agent / firm name</label>
+    <input id="agent_name" name="agent_name" value="{{ values.get('agent_name', '') }}">{% set field = 'agent_name' %}{% include "portal/_err.html" %}
+  </div>
+  <button type="submit" id="step-next">Save and continue</button>
+</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "mockbay/base.html" %}
+{% block title %}{{ l.title }}{% endblock %}
+{% block content %}
+<div class="vi-layout">
+  <section class="vi-gallery" aria-label="Item photos">
+    <img id="vi-main-image" class="vi-gallery__main" src="/media/{{ l.images[0] }}" alt="{{ l.title }}">
+    <ul class="vi-gallery__thumbs">
+    {% for img in l.images %}
+      <li><a href="/media/{{ img }}" target="_blank"><img src="/media/{{ img }}" alt="{{ l.title }} photo {{ loop.index }}"></a></li>
+    {% endfor %}
+    </ul>
+  </section>
+  <section class="vi-summary">
+    <h1 class="x-item-title">{{ l.title }}</h1>
+    <div class="x-price-primary">{{ l.price|money(l.currency) }}</div>
+    <dl class="vi-facts">
+      <dt>Condition</dt><dd class="x-item-condition">{{ l.condition }}</dd>
+      <dt>Quantity</dt><dd class="x-quantity">{{ l.quantity }} available</dd>
+      <dt>Item number</dt><dd class="x-item-number">{{ l.id }}</dd>
+      <dt>Category</dt><dd>{{ l.site_category }}</dd>
+    </dl>
+    <button type="button" class="vi-buy" disabled>Buy it now</button>
+    <aside class="x-seller-box" aria-label="Seller information">
+      <h2>Seller information</h2>
+      <div class="x-seller-name">{{ l.seller_name }}</div>
+      <div class="x-seller-feedback">{{ "%.0f"|format(l.seller_rating / 5 * 100) }}% positive feedback ({{ l.seller_feedback_count }})</div>
+      <div class="x-seller-since">Member for <span class="x-seller-age">{{ l.seller_age_days }}</span> days</div>
+      <div class="x-seller-location">Item location: <span>{{ l.seller_location }}</span></div>
+    </aside>
+  </section>
+</div>
+<section class="vi-desc">
+  <h2>Item description from the seller</h2>
+  <div class="x-item-description">{{ l.description }}</div>
+</section>
+{% endblock %}

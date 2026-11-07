@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "arc-copper",
+    "name": "Vaelo Arc Copper Bottle 900ml",
+    "rrp": 32.0,
+    "goods_class": 21,
+    "product_type": "bottle",
+    "generic_name": "Copper water bottle",
+    "material": "Copper",
+    "colour_name": "Polished copper",
+    "images": [
+      "photos/arc-copper_1.jpg",
+      "photos/arc-copper_2.jpg",
+      "photos/arc-copper_3.jpg",
+      "photos/arc-copper_4.jpg"
+    ],
+    "source": {
+      "dataset": "ABO",
+      "abo_item_id": "B07H2SZGHV",
+      "abo_image_ids": [
+        "51ieucbIAIL",
+        "51+76e7DcgL",
+        "71S3-rKod-L",
+        "61WCf6dboKL"
+      ],
+      "licence": "CC BY 4.0",
+      "modified": "resized/padded; fictional mark composited"
+    }
+  },
+  {
+    "slug": "trail-teal",
+    "name": "Vaelo Trail Insulated Bottle 600ml",
+    "rrp": 28.0,
+    "goods_class": 21,
+    "product_type": "tall_bottle",
+    "generic_name": "Insulated stainless steel sports bottle",
+    "material": "Stainless steel",
+    "colour_name": "Teal",
+    "images": [
+      "photos/trail-teal_1.jpg",
+      "photos/trail-teal_2.jpg",
+      "photos/trail-teal_3.jpg",
+      "photos/trail-teal_4.jpg"
+    ],
+    "source": {
+      "dataset": "ABO",
+      "abo_item_id": "B07ZVK5GW1",
+      "abo_image_ids": [
+        "71UZhoi1MpL",
+        "71g9WktiyCL",
+        "71nRv5mDHFL",
+        "71-AXcXSksL"
+      ],
+      "licence": "CC BY 4.0",
+      "modified": "resized/padded; fictional mark composited"
+    }
+  },
+  {
+    "slug": "mule-mug",
+    "name": "Vaelo Copper Mule Mug 500ml",
+    "rrp": 24.0,
+    "goods_class": 21,
+    "product_type": "mug",
+    "generic_name": "Copper drinking mug",
+    "material": "Copper",
+    "colour_name": "Brushed copper",
+    "images": [
+      "photos/mule-mug_1.jpg",
+      "photos/mule-mug_2.jpg",
+      "photos/mule-mug_3.jpg"
+    ],
+    "source": {
+      "dataset": "ABO",
+      "abo_item_id": "B00MWRWZYI",
+      "abo_image_ids": [
+        "718B8-V8SPL",
+        "91t543rcSjL",
+        "71zEObDpbrL"
+      ],
+      "licence": "CC BY 4.0",
+      "modified": "resized/padded; fictional mark composited"
+    }
+  },
+  {
+    "slug": "clear-glass",
+    "name": "Vaelo Clear Glass Bottle 1L",
+    "rrp": 22.0,
+    "goods_class": 21,
+    "product_type": "bottle",
+    "generic_name": "Glass water bottle",
+    "material": "Borosilicate glass",
+    "colour_name": "Clear",
+    "images": [
+      "photos/clear-glass_1.jpg",
+      "photos/clear-glass_2.jpg",
+      "photos/clear-glass_3.jpg",
+      "photos/clear-glass_4.jpg"
+    ],
+    "source": {
+      "dataset": "ABO",
+      "abo_item_id": "B087RZBP2R",
+      "abo_image_ids": [
+        "61+vVuWFZgL",
+        "61PFbRuLh3L",
+        "61+jXH6ZqxL",
+        "91q5a-NyOkL"
+      ],
+      "licence": "CC BY 4.0",
+      "modified": "resized/padded; fictional mark composited"
+    }
+  }
+]

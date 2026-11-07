@@ -1,0 +1,16 @@
+{
+  "name": "Vaelo",
+  "slug": "vaelo",
+  "fictional": true,
+  "image_source": "ABO",
+  "note": "Fictional brand and registrations for a hackathon demo. Product photos from ABO (CC BY 4.0) with the fictional mark composited.",
+  "owner": {
+    "name": "Vaelo Ltd (fictional)",
+    "email": "legal@vaelo.example",
+    "address": "1 Fictional Way, London EC1A 1AA, United Kingdom"
+  },
+  "copyright": {
+    "work_description": "Vaelo product photographs (catalogue and lifestyle images of the Vaelo range)",
+    "first_published": "2024-03-01"
+  }
+}

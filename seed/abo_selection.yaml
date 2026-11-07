@@ -1,0 +1,132 @@
+# Hand-reviewed subset of the Amazon Berkeley Objects (ABO) dataset used for seed images.
+# Source: https://amazon-berkeley-objects.s3.amazonaws.com/index.html — licence CC BY 4.0.
+# Review rule: gold items and every listed photo show NO visible real brand, logo or text
+# (checked visually on data/abo/review contact sheets; infographic/dimension shots excluded).
+# Each ABO item appears in at most one pool, so counterfeit photos never share a base photo
+# with lookalikes. Products are re-branded with the fictional mark; names, prices are fictional.
+
+gold:
+  - slug: arc-copper
+    name: "Vaelo Arc Copper Bottle 900ml"
+    rrp: 32.00
+    goods_class: 21
+    product_type: bottle
+    generic_name: "Copper water bottle"
+    material: "Copper"
+    colour_name: "Polished copper"
+    abo_item_id: B07H2SZGHV
+    images: ["51ieucbIAIL", "51+76e7DcgL", "71S3-rKod-L", "61WCf6dboKL"]
+    placement: {anchor_x: 0.5, anchor_y: 0.58, rel_width: 0.62}
+    # per-photo product boxes (0-1 image coords) where the background is not plain white
+    overrides:
+      "71S3-rKod-L": {box: [0.25, 0.07, 0.45, 0.82]}
+      "61WCf6dboKL": {box: [0.35, 0.22, 0.57, 0.95], rel_width: 0.68}
+  - slug: trail-teal
+    name: "Vaelo Trail Insulated Bottle 600ml"
+    rrp: 28.00
+    goods_class: 21
+    product_type: tall_bottle
+    generic_name: "Insulated stainless steel sports bottle"
+    material: "Stainless steel"
+    colour_name: "Teal"
+    abo_item_id: B07ZVK5GW1
+    images: ["71UZhoi1MpL", "71g9WktiyCL", "71nRv5mDHFL", "71-AXcXSksL"]
+    placement: {anchor_x: 0.5, anchor_y: 0.6, rel_width: 0.6}
+    overrides:  # boxes exclude the cap loop / separate lid
+      "71UZhoi1MpL": {box: [0.445, 0.27, 0.6, 0.87], anchor_y: 0.5, rel_width: 0.8}
+      "71g9WktiyCL": {box: [0.21, 0.15, 0.32, 0.87], anchor_y: 0.5, rel_width: 0.8}
+      "71nRv5mDHFL": {box: [0.445, 0.4, 0.6, 0.9], anchor_y: 0.45, rel_width: 0.8}
+      "71-AXcXSksL": {box: [0.335, 0.38, 0.51, 0.86], anchor_y: 0.45, rel_width: 0.78}
+  - slug: mule-mug
+    name: "Vaelo Copper Mule Mug 500ml"
+    rrp: 24.00
+    goods_class: 21
+    product_type: mug
+    generic_name: "Copper drinking mug"
+    material: "Copper"
+    colour_name: "Brushed copper"
+    abo_item_id: B00MWRWZYI
+    images: ["718B8-V8SPL", "91t543rcSjL", "71zEObDpbrL"]
+    placement: {anchor_x: 0.4, anchor_y: 0.5, rel_width: 0.4}
+    overrides:
+      "91t543rcSjL": {box: [0.12, 0.52, 0.43, 0.97], anchor_x: 0.5, anchor_y: 0.5, rel_width: 0.55}
+      # top view: small stamp on the inner base
+      "71zEObDpbrL": {box: [0.25, 0.3, 0.55, 0.64], anchor_x: 0.5, anchor_y: 0.5, rel_width: 0.45, opacity: 0.55}
+  - slug: clear-glass
+    name: "Vaelo Clear Glass Bottle 1L"
+    rrp: 22.00
+    goods_class: 21
+    product_type: bottle
+    generic_name: "Glass water bottle"
+    material: "Borosilicate glass"
+    colour_name: "Clear"
+    abo_item_id: B087RZBP2R
+    images: ["61+vVuWFZgL", "61PFbRuLh3L", "61+jXH6ZqxL", "91q5a-NyOkL"]
+    placement: {anchor_x: 0.5, anchor_y: 0.55, rel_width: 0.6}
+    overrides:  # clear glass on white defeats the background mask, so every photo has a box
+      "61+vVuWFZgL": {box: [0.36, 0.06, 0.64, 0.99]}
+      "61PFbRuLh3L": {box: [0.37, 0.06, 0.63, 0.99]}
+      "61+jXH6ZqxL": {box: [0.27, 0.1, 0.53, 0.98]}
+      "91q5a-NyOkL": {box: [0.48, 0.17, 0.6, 0.92], rel_width: 0.8}
+
+# Same-category products with no mark, used as the base for counterfeit photos
+# (the mark — or a misspelling — is composited on, sloppily). for_product = what it imitates.
+blank:
+  - {abo_item_id: B07H3FDFV1, image: "61a6Ya-gLRL", for_product: arc-copper}
+  - {abo_item_id: B07H3FDFV1, image: "61lc2WAptEL", for_product: arc-copper}
+  - {abo_item_id: B07GLKKQZQ, image: "71+0V7u-MzL", for_product: trail-teal}
+  - {abo_item_id: B000UD63SA, image: "810xIOmGJuS", for_product: trail-teal}
+  - {abo_item_id: B075D9TBDL, image: "71VY5KzzYFL", for_product: mule-mug}
+  - {abo_item_id: B087V2F4N2, image: "61aLK4wD6dL", for_product: clear-glass}
+  - {abo_item_id: B087V2F4N2, image: "61u7mICBrBL", for_product: clear-glass}
+
+# Same-category products without the mark (look-alike get-up).
+lookalike:
+  - {abo_item_id: B07H2XZ2J1, image: "61uLPpa11VL"}
+  - {abo_item_id: B07H2XZ2J1, image: "61NDIERgPsL"}
+  - {abo_item_id: B07H2XZ2J1, image: "71o7pgAfs+L"}
+  - {abo_item_id: B07H2XZ2J2, image: "71C8SJKlxhL"}
+  - {abo_item_id: B07H2XZ2J2, image: "81uEcgzND0L"}
+  - {abo_item_id: B01LXKWC9B, image: "714pXNIXudL"}
+  - {abo_item_id: B01LXKWC9B, image: "71vBSSqwfKL"}
+  - {abo_item_id: B06XQZXQ2B, image: "71+lavaJy7L"}
+  - {abo_item_id: B000UD1GJQ, image: "81gQXfMizuS"}
+  - {abo_item_id: B000UD1GJQ, image: "81V0w8xeoyS"}
+  - {abo_item_id: B075HWFMMC, image: "61AcesIk79L"}
+  - {abo_item_id: B07H2XZ2J2, image: "71fTgDZvoLL"}
+
+# Other categories. Titles are written here (generic, no real brand names).
+# title_hard contains a brand-like word to probe fuzzy-match false positives.
+unrelated:
+  - {abo_item_id: B0853VKX9H, image: "713l1tk26tL", kind: armchair, site_category: Furniture,
+     title: "Button-back leather armchair", title_hard: "Vale button-back armchair"}
+  - {abo_item_id: B07B4N1S1V, image: "A1nc2XYN0aL", kind: armchair, site_category: Furniture,
+     title: "Mid-century fabric armchair, navy", title_hard: "Velo lounge armchair, navy"}
+  - {abo_item_id: B075X5TN1Y, image: "910DYlc7HhL", kind: ottoman, site_category: Furniture,
+     title: "Upholstered footstool ottoman", title_hard: "Vaal upholstered ottoman"}
+  - {abo_item_id: B0766C6W2M, image: "81MR1+DMzvL", kind: tote, site_category: Fashion,
+     title: "Black faux-leather tote bag", title_hard: "Velo everyday tote bag"}
+  - {abo_item_id: B013R3P0Z6, image: "81p0bm1gg+L", kind: beanie, site_category: Fashion,
+     title: "Ribbed knit beanie, black", title_hard: "Vale knit beanie"}
+  - {abo_item_id: B07YGKGNLB, image: "71H8qq9bjEL", kind: cap, site_category: Fashion,
+     title: "Cotton baseball cap, orange", title_hard: "Velo cycling cap, orange"}
+  - {abo_item_id: B07QF91NYT, image: "81+W9lH47bL", kind: floor_lamp, site_category: Home,
+     title: "Tripod floor lamp with linen shade", title_hard: "Vale Park tripod floor lamp"}
+  - {abo_item_id: B07B4YZ5Y9, image: "81sdsybNZvL", kind: table_lamp, site_category: Home,
+     title: "Table lamp with drum shade", title_hard: "Vale table lamp"}
+  - {abo_item_id: B07B4XK5KS, image: "71+KMW6iPyL", kind: floor_lamp, site_category: Home,
+     title: "Arched reading floor lamp", title_hard: "Velo arched floor lamp"}
+  - {abo_item_id: B07HK86RXZ, image: "71zgCU8uHGL", kind: pendant, site_category: Home,
+     title: "Black metal pendant light with wood top", title_hard: "Vaal pendant light"}
+  - {abo_item_id: B07J26NL56, image: "71jwjiQABSL", kind: shoes, site_category: Fashion,
+     title: "Canvas slip-on shoes", title_hard: "Velo slip-on shoes"}
+  - {abo_item_id: B0845BQC37, image: "81lPfpTudeL", kind: shoes, site_category: Fashion,
+     title: "Knit running trainers, light blue", title_hard: "Velo knit running trainers"}
+  - {abo_item_id: B0142RX1DE, image: "712GTg-YFFL", kind: boots, site_category: Fashion,
+     title: "Suede ankle boots, grey", title_hard: "Vale suede ankle boots"}
+  - {abo_item_id: B07GNWMK3F, image: "71hqiIMW7GL", kind: suitcase, site_category: Travel,
+     title: "Hard-shell cabin suitcase, green", title_hard: "Velo cabin suitcase"}
+  - {abo_item_id: B07VVBSC92, image: "81oqkkGl0yL", kind: magazine_file, site_category: Office,
+     title: "Mesh magazine file holder", title_hard: "Vale desk file holder"}
+  - {abo_item_id: B07XXRT8W3, image: "71RtFFaVdEL", kind: dog_bed, site_category: Pets,
+     title: "Round plush dog bed, grey", title_hard: "Vaal plush pet bed"}

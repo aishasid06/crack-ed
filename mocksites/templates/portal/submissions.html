@@ -1,0 +1,17 @@
+{% extends "portal/base.html" %}
+{% block headernav %}{% include "portal/_usernav.html" %}{% endblock %}
+{% block title %}Submissions{% endblock %}
+{% block content %}
+<h1>Submitted reports</h1>
+{% if subs %}
+<table class="pt-table" id="submissions">
+  <thead><tr><th>Reference</th><th>Submitted</th><th>Right</th><th>Listings</th><th>Status</th></tr></thead>
+  <tbody>{% for sub in subs %}
+    <tr class="pt-submission-row"><td><a href="/portal/submissions/{{ sub.ref }}">{{ sub.ref }}</a></td>
+    <td>{{ sub.submitted_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ pf.RIGHT_TYPES[sub.data['2'].right_type] }}</td>
+    <td>{% for it in sub.data['3']['items'] %}<div class="pt-url-cell">{{ it.url }}</div>{% endfor %}</td>
+    <td>{{ sub.status|capitalize }}</td></tr>{% endfor %}
+  </tbody>
+</table>
+{% else %}<p>No reports submitted yet.</p>{% endif %}
+{% endblock %}

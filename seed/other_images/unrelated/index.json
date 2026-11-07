@@ -1,0 +1,149 @@
+{
+  "source": "ABO",
+  "items": [
+    {
+      "file": "unrelated_01.jpg",
+      "abo_item_id": "B0853VKX9H",
+      "kind": "armchair",
+      "site_category": "Furniture",
+      "title": "Button-back leather armchair",
+      "title_hard": "Vale button-back armchair",
+      "abo_image_id": "713l1tk26tL"
+    },
+    {
+      "file": "unrelated_02.jpg",
+      "abo_item_id": "B07B4N1S1V",
+      "kind": "armchair",
+      "site_category": "Furniture",
+      "title": "Mid-century fabric armchair, navy",
+      "title_hard": "Velo lounge armchair, navy",
+      "abo_image_id": "A1nc2XYN0aL"
+    },
+    {
+      "file": "unrelated_03.jpg",
+      "abo_item_id": "B075X5TN1Y",
+      "kind": "ottoman",
+      "site_category": "Furniture",
+      "title": "Upholstered footstool ottoman",
+      "title_hard": "Vaal upholstered ottoman",
+      "abo_image_id": "910DYlc7HhL"
+    },
+    {
+      "file": "unrelated_04.jpg",
+      "abo_item_id": "B0766C6W2M",
+      "kind": "tote",
+      "site_category": "Fashion",
+      "title": "Black faux-leather tote bag",
+      "title_hard": "Velo everyday tote bag",
+      "abo_image_id": "81MR1+DMzvL"
+    },
+    {
+      "file": "unrelated_05.jpg",
+      "abo_item_id": "B013R3P0Z6",
+      "kind": "beanie",
+      "site_category": "Fashion",
+      "title": "Ribbed knit beanie, black",
+      "title_hard": "Vale knit beanie",
+      "abo_image_id": "81p0bm1gg+L"
+    },
+    {
+      "file": "unrelated_06.jpg",
+      "abo_item_id": "B07YGKGNLB",
+      "kind": "cap",
+      "site_category": "Fashion",
+      "title": "Cotton baseball cap, orange",
+      "title_hard": "Velo cycling cap, orange",
+      "abo_image_id": "71H8qq9bjEL"
+    },
+    {
+      "file": "unrelated_07.jpg",
+      "abo_item_id": "B07QF91NYT",
+      "kind": "floor_lamp",
+      "site_category": "Home",
+      "title": "Tripod floor lamp with linen shade",
+      "title_hard": "Vale Park tripod floor lamp",
+      "abo_image_id": "81+W9lH47bL"
+    },
+    {
+      "file": "unrelated_08.jpg",
+      "abo_item_id": "B07B4YZ5Y9",
+      "kind": "table_lamp",
+      "site_category": "Home",
+      "title": "Table lamp with drum shade",
+      "title_hard": "Vale table lamp",
+      "abo_image_id": "81sdsybNZvL"
+    },
+    {
+      "file": "unrelated_09.jpg",
+      "abo_item_id": "B07B4XK5KS",
+      "kind": "floor_lamp",
+      "site_category": "Home",
+      "title": "Arched reading floor lamp",
+      "title_hard": "Velo arched floor lamp",
+      "abo_image_id": "71+KMW6iPyL"
+    },
+    {
+      "file": "unrelated_10.jpg",
+      "abo_item_id": "B07HK86RXZ",
+      "kind": "pendant",
+      "site_category": "Home",
+      "title": "Black metal pendant light with wood top",
+      "title_hard": "Vaal pendant light",
+      "abo_image_id": "71zgCU8uHGL"
+    },
+    {
+      "file": "unrelated_11.jpg",
+      "abo_item_id": "B07J26NL56",
+      "kind": "shoes",
+      "site_category": "Fashion",
+      "title": "Canvas slip-on shoes",
+      "title_hard": "Velo slip-on shoes",
+      "abo_image_id": "71jwjiQABSL"
+    },
+    {
+      "file": "unrelated_12.jpg",
+      "abo_item_id": "B0845BQC37",
+      "kind": "shoes",
+      "site_category": "Fashion",
+      "title": "Knit running trainers, light blue",
+      "title_hard": "Velo knit running trainers",
+      "abo_image_id": "81lPfpTudeL"
+    },
+    {
+      "file": "unrelated_13.jpg",
+      "abo_item_id": "B0142RX1DE",
+      "kind": "boots",
+      "site_category": "Fashion",
+      "title": "Suede ankle boots, grey",
+      "title_hard": "Vale suede ankle boots",
+      "abo_image_id": "712GTg-YFFL"
+    },
+    {
+      "file": "unrelated_14.jpg",
+      "abo_item_id": "B07GNWMK3F",
+      "kind": "suitcase",
+      "site_category": "Travel",
+      "title": "Hard-shell cabin suitcase, green",
+      "title_hard": "Velo cabin suitcase",
+      "abo_image_id": "71hqiIMW7GL"
+    },
+    {
+      "file": "unrelated_15.jpg",
+      "abo_item_id": "B07VVBSC92",
+      "kind": "magazine_file",
+      "site_category": "Office",
+      "title": "Mesh magazine file holder",
+      "title_hard": "Vale desk file holder",
+      "abo_image_id": "81oqkkGl0yL"
+    },
+    {
+      "file": "unrelated_16.jpg",
+      "abo_item_id": "B07XXRT8W3",
+      "kind": "dog_bed",
+      "site_category": "Pets",
+      "title": "Round plush dog bed, grey",
+      "title_hard": "Vaal plush pet bed",
+      "abo_image_id": "71RtFFaVdEL"
+    }
+  ]
+}

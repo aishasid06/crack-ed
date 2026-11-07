@@ -1,0 +1,155 @@
+# Bounty Hunter configuration. Secrets do NOT go here — they come from .env.
+
+brand: vaelo                       # fictional brand slug (seed/brand/)
+
+paths:
+  db_url: "sqlite:///data/bounty_hunter.db"
+  data_dir: "data"                 # screenshots, downloaded images, embeddings cache
+  sessions_dir: ".sessions"        # persistent Playwright contexts: .sessions/<site>/
+  rules_file: "rules.yaml"
+  brand_dir: "seed/brand"          # gold assets of the brand being protected (brand.json, products.json, ...)
+
+llm:
+  # small: navigation / extraction fallback; strong: borderline classification + drafting.
+  small:
+    model: "claude-haiku-5-5"
+    effort: "low"
+    max_tokens: 4000
+    fallbacks: false               # no server-side refusal fallback on Haiku 5.5
+  strong:
+    model: "claude-opus-5-5"
+    effort: "high"
+    max_tokens: 16000
+    fallbacks: true                # server-side refusal fallback ("default" routing)
+  timeout_s: 120
+  max_retries: 2
+  enable_query_extension: false    # optional single LLM call in generate_queries
+  enable_llm_seed_text: false      # optional LLM title/description generation in seed
+
+budgets:
+  max_llm_tokens_per_run: 400000   # hard ceiling across all LLM calls in a run
+  max_listings_per_run: 300
+  review_budget_minutes: 120       # optional greedy EV/cost selection of cases
+
+mocksites:
+  host: "127.0.0.1"
+  port: 8000
+  challenge_probability: 0.05      # chance /portal interposes /portal/verify
+  challenge_rapid_requests: 30     # more than N requests ...
+  challenge_window_s: 10           # ... within this window triggers the challenge
+  challenge_cooldown_s: 300        # after a human passes /portal/verify, no challenge for this long
+  db_url: "sqlite:///data/mocksites.db"   # mock sites' own DB (portal sessions, drafts, submissions)
+  catalog_dir: "data/mocksites"    # catalog.json + images/ written by seed/generate.py
+  max_upload_mb: 5
+  seed: null                       # RNG seed for the random challenge (null = nondeterministic)
+
+vision:
+  clip_model: "clip-ViT-B-32"
+  embeddings_dir: "data/embeddings"   # cached gold CLIP embeddings per brand
+
+discovery:
+  max_queries: 14                  # (site, query) fan-out = sites x queries
+  misspelling_variants: 4          # typo variants of each mark generated for search
+  thumb_concurrency: 8             # parallel thumbnail downloads (prefilter)
+  image_concurrency: 8             # parallel listing image downloads (capture)
+  max_images_per_listing: 6
+  max_image_mb: 8
+  screenshot_full_page: true
+  stop_after_empty_pages: 2        # stop paging after N consecutive pages with no prefilter-passing card
+
+own_photo:                         # "listing photo is the brand's own photo"; thresholds tuned on DEV only
+  # values from `python -m eval.tune_own_photo` (dev: 91/91 gold-derived images matched, 0/15 lookalikes)
+  phash_max: 10                    #   route 1: pHash <= phash_max AND dHash <= dhash_max on the same gold variant
+  dhash_max: 8
+  clip_min: 0.854                  #   route 2: CLIP similarity to a gold photo (dev lookalike max 0.844 + 0.01)
+  orb_min_inliers: 16              #   route 3: ORB keypoint matches surviving RANSAC homography (crops/resizes)
+  crops: [0.9, 0.8]                # gold centre-crop variants (also mirrored)
+
+text:
+  misspelling_min_score: 80        # BrandMatcher fuzzy score for a misspelt mark
+  non_uk_eea_countries: ["USA", "US", "United States", "America", "Japan", "China", "Hong Kong", "Canada",
+    "Australia", "Turkey", "India", "Korea", "South Korea", "Taiwan", "Mexico", "Brazil", "UAE", "Singapore",
+    "Vietnam", "Thailand", "Indonesia", "Malaysia", "New Zealand", "South Africa", "Russia", "Switzerland"]
+
+models:
+  scorer_path: "data/models/scorer.joblib"   # fitted by python -m eval.fit_scorer (dev split)
+
+enforce:
+  require_final_confirm: false     # true: after review-page verification, wait for a second UI confirmation
+  max_evidence_mb: 4               # screenshots above this are re-encoded as JPEG before upload
+  draft_only_in_budget: true       # draft portal reports only for cases selected within review_budget_minutes
+
+sites:
+  mockbay:
+    base_url: "http://127.0.0.1:8000/mockbay"
+    adapter: mockbay
+    max_concurrency: 3
+    max_pages: 10                  # hard safety cap; adaptive stopping usually ends sooner
+    min_delay_ms: 250              # polite pacing between requests (not evasion)
+  tradeloft:
+    base_url: "http://127.0.0.1:8000/tradeloft"
+    adapter: tradeloft
+    max_concurrency: 2
+    max_pages: 15                  # hard cap on "Load more" batches of 8; adaptive stopping usually ends sooner
+    min_delay_ms: 250
+  portal:
+    base_url: "http://127.0.0.1:8000/portal"
+    adapter: null                  # enforcement target, not a marketplace
+    max_concurrency: 1
+    max_pages: 1
+    min_delay_ms: 500
+
+browser:
+  headless: true
+  navigation_timeout_ms: 15000
+  retries: 1                       # 1 retry with a fresh page, then generic fallback, then fail
+  selector_timeout_ms: 3000
+  snapshot_max_chars: 12000        # distilled accessibility snapshot sent to the small model
+  max_image_candidates: 24
+  # Challenge detection: any match pauses the task as waiting_human. The agent never solves challenges.
+  challenge:
+    url_patterns: ["/verify", "/captcha", "/challenge"]
+    selectors: ["#human-verification", "iframe[src*='captcha']", "iframe[src*='challenge']"]
+    title_patterns: ["security check", "verify you are human", "are you a robot", "captcha"]
+
+thresholds:
+  prefilter_clip: 0.73             # dev-derived: python -m eval.derive_prefilter (see SPEC decisions log)
+  prefilter_hash: 12               # ... or phash distance <= this
+  prefilter_brand_fuzzy: 80        # ... or brand fuzzy-match score (0-100) >= this
+  hash_match: 8                    # phash distance <= this counts as "own photo"
+  lookalike_clip: 0.758            # dev-tuned: python -m eval.tune_own_photo (unrelated max 0.726, lookalike min 0.79)
+  counterfeit_price_ratio: 0.50    # price/RRP below this = "not exhausted" indicator
+  resale_min_ratio: 0.55
+  act_threshold: 0.70
+  bulk_listing_threshold: 5        # seller listings to trigger Trading Standards overlay
+  bulk_quantity: 50                # quantity on one listing that counts as bulk
+  borderline_low: 0.40
+  borderline_high: 0.70
+
+decision:
+  currency: "GBP"
+  lawyer_rate_per_minute: 2.50     # converts lawyer-minutes into GBP
+  lawyer_minutes:                  # fixed cost per action
+    ignore: 0
+    monitor: 1
+    platform_report: 6
+    escalate: 20
+    refer_trading_standards: 30
+  # p_success priors keyed "<platform>|<rule_id>"; "*" acts as wildcard.
+  p_success:
+    "mockbay|tm_identical": 0.90
+    "mockbay|tm_similar": 0.70
+    "mockbay|copied_photos": 0.85
+    "tradeloft|tm_identical": 0.85
+    "tradeloft|tm_similar": 0.60
+    "tradeloft|copied_photos": 0.80
+    "*|grey_import": 0.40
+    "*|modified_goods": 0.40
+    "*|lookalike": 0.25
+    "*|*": 0.30
+
+uk_eea_countries: ["UK", "GB", "United Kingdom", "Ireland", "France", "Germany", "Spain", "Italy",
+  "Netherlands", "Belgium", "Portugal", "Austria", "Sweden", "Denmark", "Finland", "Poland",
+  "Czechia", "Greece", "Hungary", "Romania", "Bulgaria", "Croatia", "Slovakia", "Slovenia",
+  "Estonia", "Latvia", "Lithuania", "Luxembourg", "Malta", "Cyprus", "Norway", "Iceland",
+  "Liechtenstein"]
