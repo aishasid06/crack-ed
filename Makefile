@@ -1,11 +1,11 @@
-PY ?= .venv/bin/python
+PY ?= $(if $(wildcard .venv/Scripts/python.exe),.venv/Scripts/python.exe,.venv/bin/python)
 BRAND ?= vaelo
 
-.PHONY: install mock mock-sample abo seed discover tune classify decide draft submit run ui eval test
+.PHONY: install mock mock-sample abo seed discover tune classify decide draft submit run bootstrap ui eval test
 
 install:
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev,mock,ml,browser]"
+	uv pip install --python $(PY) -e ".[dev,mock,ml,browser,orchestrator,ui]"
 	$(PY) -m playwright install chromium
 
 test:
@@ -45,8 +45,13 @@ draft:  # needs `make mock`: fill portal steps 1-4 for in-budget awaiting_approv
 submit:  # needs `make mock`: sign + verify + submit cases a lawyer approved ("Approve and submit"); polls every 10 s
 	$(PY) -m bh.enforce.submit --poll 10
 
-run:
-	@echo "run: implemented in Phase 8 (orchestrator)"; exit 1
+run:  # needs `make mock`: full LangGraph pipeline as one traced run (discover → classify → decide → draft → report)
+	$(PY) -m bh.orchestrator.run --brand $(BRAND) $(ARGS)
+
+bootstrap:  # first run on a fresh DB: capture listings, fit the dev-split scorer, then run everything
+	$(PY) -m bh.orchestrator.run --brand $(BRAND) --until discovery
+	$(PY) -m eval.fit_scorer
+	$(PY) -m bh.orchestrator.run --brand $(BRAND)
 
 ui:
 	@echo "ui: implemented in Phase 9 (Streamlit UI)"; exit 1

@@ -18,7 +18,25 @@ make mock                    # mock sites on http://127.0.0.1:8000
 .venv/bin/python -m bh.browser.demo   # (other terminal) search both marketplaces, parse listings
 ```
 
-`make test` runs the test suite. Later phases add `make run`, `make ui` and `make eval`.
+`make test` runs the test suite. Later phases add `make ui` and `make eval`.
+
+### Running the pipeline
+
+With `make mock` running in another terminal:
+
+```bash
+make bootstrap               # first time: capture listings, fit the dev-split scorer, then a full run
+make run                     # later runs: discover → classify → decide → draft (portal steps 1-4) → report
+make submit                  # separate loop: signs + submits only the cases a lawyer approved
+```
+
+`make run` is `python -m bh.orchestrator.run --brand vaelo`, a LangGraph pipeline that writes everything to
+one `Run` (tasks, tokens per model, wall time). Useful flags: `--llm` (borderline vision check and generic
+extractor fallback), `--until discovery|classify|decide`, `--sites mockbay`, `--max-queries N`. If a portal
+challenge pauses drafting, a human clears it in their own browser and then runs
+`python -m bh.orchestrator.run --resume <run_id>`, which continues the same run without searching again.
+
+On Windows, set `PYTHONUTF8=1` so the CLIs can print non-ASCII output.
 
 ### Seed images
 

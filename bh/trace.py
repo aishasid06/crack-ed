@@ -79,8 +79,11 @@ def _start_task(
                     task = Task(run_id=run_id, type=type_, site=site, dedup_key=dedup_key, parent_id=parent_id,
                                 payload=payload or {})
                     s.add(task)
-                elif payload:
-                    task.payload = payload
+                else:
+                    if payload:
+                        task.payload = payload
+                    if task.id is not None:
+                        _supersede_waiting_steps(s, run_id, task.id)
                 task.status = TaskStatus.running
                 task.attempts += 1
                 task.started_at = utcnow()
@@ -94,6 +97,19 @@ def _start_task(
         except IntegrityError:
             continue
     raise RuntimeError(f"could not create task {dedup_key!r} for run {run_id}")
+
+
+def _supersede_waiting_steps(s: Session, run_id: int, task_id: int) -> None:
+    """A retried task's step spans (one-off dedup keys, never re-entered) that recorded the challenge would
+    otherwise stay waiting_human for good. Mark them failed: they did not complete, and the retry replaces them."""
+    frontier = [task_id]
+    while frontier:
+        children = list(s.exec(select(Task).where(Task.run_id == run_id, Task.parent_id.in_(frontier))))  # type: ignore[union-attr]
+        for c in children:
+            if c.status == TaskStatus.waiting_human:
+                c.status, c.waiting_url = TaskStatus.failed, None
+                c.error = (c.error + "; " if c.error else "") + "superseded: parent task retried after human handoff"
+        frontier = [c.id for c in children if c.id is not None]
 
 
 def _finish_task(engine: Engine, task_id: int, status: TaskStatus, error: str | None = None,
@@ -195,9 +211,24 @@ def run_tokens_used(run_id: int, engine: Engine | None = None) -> int:
 # ---------------------------------------------------------------- async spans
 
 
+def _reopen_run(engine: Engine, run_id: int) -> int | None:
+    """Mark a run running again and requeue tasks a crashed worker left ``running`` (their span never
+    closed; left as is they would count as in progress and be skipped forever). Returns its brand_id."""
+    with session_scope(engine) as s:
+        run = s.get(Run, run_id)
+        if run is None:
+            raise KeyError(f"run {run_id} not found")
+        run.status, run.finished_at = RunStatus.running, None
+        for t in s.exec(select(Task).where(Task.run_id == run_id, Task.status == TaskStatus.running)):
+            t.status, t.error = TaskStatus.pending, "interrupted; requeued on resume"
+        return run.brand_id
+
+
 @asynccontextmanager
 async def run_span(brand_id: int | None, config_snapshot: dict[str, Any],
-                   engine: Engine | None = None) -> AsyncIterator[RunHandle]:
+                   engine: Engine | None = None, resume_run_id: int | None = None) -> AsyncIterator[RunHandle]:
+    """Trace one run. With ``resume_run_id`` the existing run is reopened instead of creating a new one:
+    tasks keyed by the same dedup_key that already succeeded are then skipped by ``task_span``."""
     eng = engine or get_engine()
 
     def _create() -> int:
@@ -208,7 +239,11 @@ async def run_span(brand_id: int | None, config_snapshot: dict[str, Any],
             assert run.id is not None
             return run.id
 
-    run_id = await asyncio.to_thread(_create)
+    if resume_run_id is not None:
+        stored_brand = await asyncio.to_thread(_reopen_run, eng, resume_run_id)
+        run_id, brand_id = resume_run_id, brand_id if brand_id is not None else stored_brand
+    else:
+        run_id = await asyncio.to_thread(_create)
     token = _current_run.set(run_id)
     status = RunStatus.failed
     try:

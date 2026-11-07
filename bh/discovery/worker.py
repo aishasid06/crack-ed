@@ -67,6 +67,18 @@ class Scored:
     def priority(self) -> float:
         return max(self.clip_sim or 0.0, 1.0 - (self.hash_dist or 64) / 64.0, self.brand_score / 100.0)
 
+    def to_payload(self) -> dict[str, Any]:
+        """JSON-safe record of a kept card, stored on its discovery task so a resumed run can restore it."""
+        return {"card": self.card.model_dump(mode="json"), "queries": list(self.queries), "clip_sim": self.clip_sim,
+                "hash_dist": self.hash_dist, "brand_score": self.brand_score,
+                "matched_product_id": self.matched_product_id, "keep": self.keep, "reasons": list(self.reasons)}
+
+    @classmethod
+    def from_payload(cls, d: dict[str, Any]) -> "Scored":
+        return cls(Card.model_validate(d["card"]), list(d.get("queries", [])), d.get("clip_sim"), d.get("hash_dist"),
+                   d.get("brand_score", 0.0), d.get("matched_product_id"), keep=bool(d.get("keep")),
+                   reasons=list(d.get("reasons", [])))
+
 
 @dataclass
 class DiscoveryResult:
@@ -193,6 +205,20 @@ class Prefilter:
             if s.thumb_path is None and s.card.thumbnail_url is None:
                 s.reasons.append("no thumbnail")
             s.keep = bool(s.reasons)
+
+    def kept_for(self, site: str, query: str) -> list[Scored]:
+        """Prefilter-passing cards this (site, query) search saw."""
+        return [s for s in self.cache.values() if s.keep and s.card.site == site and query in s.queries]
+
+    def restore(self, items: list[dict[str, Any]]) -> None:
+        """Re-add kept cards recorded by an already-finished discovery task (resumed runs)."""
+        for d in items:
+            s = Scored.from_payload(d)
+            have = self.cache.get(s.card.url)
+            if have is None:
+                self.cache[s.card.url] = s
+            else:
+                have.queries.extend(q for q in s.queries if q not in have.queries)
 
     def finalize(self) -> list[Scored]:
         """All scored cards; kept ones beyond the listing budget are dropped (highest priority first)."""
@@ -321,8 +347,9 @@ async def capture_one(run_id: int, s: Scored, browser: BrowserManager, llm: Any 
     site = s.card.site
     async with site_sem, task_span(run_id, "capture", site, f"capture:{s.card.url}",
                                    payload={"url": s.card.url, "queries": s.queries, "prefilter": s.reasons}) as t:
-        if t.already_done:
-            return None
+        if t.already_done:  # captured earlier in this run (resume): report the stored listing
+            lid = t.payload.get("listing_id")
+            return int(lid) if lid is not None else None
         shot_tmp = cfg.paths.resolve(cfg.paths.data_dir) / "runs" / str(run_id) / "shots" / \
             f"{hashlib.sha1(s.card.url.encode()).hexdigest()}.png"
         data = await capture_listing(browser, site, s.card.url, llm, screenshot_path=shot_tmp)
