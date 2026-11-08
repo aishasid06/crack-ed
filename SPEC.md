@@ -325,4 +325,12 @@ Pages:
 - Resume: `--resume <run_id>` reopens the same run. Succeeded tasks are skipped by dedup_key; discovery tasks store their kept cards and capture tasks their listing id, so nothing is searched again. Classification is skipped when every listing already has a case. Decide and draft are idempotent and re-run. Resuming releases this run's drafts paused by a challenge (`resume_case`). Tasks a crashed worker left `running` are requeued. When a task is retried, browser step spans beneath it that are still `waiting_human` are marked failed ("superseded").
 - `--until discovery|classify|decide` cuts the graph short (report always runs). The first run on a fresh DB needs `--until discovery` before `eval.fit_scorer`, because classification requires a fitted scorer; preflight checks this, the brand, portal credentials and site reachability before any browsing.
 - LLM calls are opt-in (`--llm`), as in the stage CLIs. Without it, borderline cases are noted "LLM check not configured" and no tokens are spent.
+- Evaluation (`python -m eval.evaluate`, `make eval`): reads the cases of one run (default: latest run with cases), right-joins `seed/labels.json` by URL path, test split by default.
+  - Report precision / recall: predicted `platform_report` vs `should_report`.
+  - Escalate recall: headline is lenient (predicted escalate or platform_report, i.e. the listing reaches a lawyer); strict (exactly escalate) is reported alongside.
+  - Discovery recall: captured / actionable. Uncaptured `ignore` listings count as correct ignores.
+  - End-to-end action accuracy treats uncaptured listings as ignore.
+  - Intervals: Wilson score 95% for proportions (the percentile bootstrap collapses at 0/n and n/n) and bootstrap percentile 95% (2000 resamples, seed 0) for accuracies; `metrics.json` carries both.
+  - Outputs: `data/eval/run_<id>_<split>/metrics.json` (schema_version 1, read by the UI's Evaluation page) and `report.md`.
+- Task status `superseded`: a step span (e.g. a login or navigation that hit a portal challenge) whose parent task was retried after the human hand-off. The retry replaces it, so it is not an error. Run output, the evaluation report and the UI must show it neutrally, e.g. "2 superseded by human hand-off" (`bh.trace.describe_task_statuses`), never as a failure. Earlier runs had these recorded as `failed`; they were migrated in place (backup `data/bounty_hunter.<timestamp>.bak.db`).
 

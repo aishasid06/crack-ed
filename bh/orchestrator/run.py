@@ -30,7 +30,7 @@ from bh.db import Case, CaseStatus, Run, RunStatus, get_engine
 from bh.discovery.worker import marketplace_sites
 from bh.enforce.approvals import resume_case
 from bh.orchestrator.graph import STAGES, PipelineDeps, Stage, build_graph
-from bh.trace import run_span
+from bh.trace import describe_task_statuses, run_span
 from bh.vision import ClipEncoder, ImageEncoder
 
 log = logging.getLogger(__name__)
@@ -150,6 +150,7 @@ def summarise(state: dict[str, Any]) -> dict[str, Any]:
         "drafting": state.get("drafting"),
         "tokens_by_model": totals.get("llm", {}).get("by_model", {}),
         "tasks_by_status": totals.get("tasks", {}).get("by_status", {}),
+        "tasks_summary": describe_task_statuses(totals.get("tasks", {}).get("by_status", {})),
         "max_parallelism": totals.get("max_parallelism"), "wall_time_s": totals.get("wall_time_s"),
     }
     waiting = [x for x in disc + caps if x["status"] == "waiting_human"]

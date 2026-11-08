@@ -99,17 +99,32 @@ def _start_task(
     raise RuntimeError(f"could not create task {dedup_key!r} for run {run_id}")
 
 
+SUPERSEDED_NOTE = "superseded: parent task retried after human hand-off"
+
+
 def _supersede_waiting_steps(s: Session, run_id: int, task_id: int) -> None:
     """A retried task's step spans (one-off dedup keys, never re-entered) that recorded the challenge would
-    otherwise stay waiting_human for good. Mark them failed: they did not complete, and the retry replaces them."""
+    otherwise stay waiting_human for good. Mark them superseded: the retry replaced them; nothing failed."""
     frontier = [task_id]
     while frontier:
         children = list(s.exec(select(Task).where(Task.run_id == run_id, Task.parent_id.in_(frontier))))  # type: ignore[union-attr]
         for c in children:
             if c.status == TaskStatus.waiting_human:
-                c.status, c.waiting_url = TaskStatus.failed, None
-                c.error = (c.error + "; " if c.error else "") + "superseded: parent task retried after human handoff"
+                c.status, c.waiting_url = TaskStatus.superseded, None
+                c.finished_at = c.finished_at or utcnow()
+                c.error = (c.error + "; " if c.error else "") + SUPERSEDED_NOTE
         frontier = [c.id for c in children if c.id is not None]
+
+
+_STATUS_PHRASE = {"superseded": "superseded by human hand-off", "waiting_human": "waiting for a human"}
+_STATUS_ORDER = ["succeeded", "superseded", "running", "pending", "waiting_human", "failed"]
+
+
+def describe_task_statuses(by_status: dict[str, int]) -> str:
+    """Human-readable task status summary. Superseded steps are reported neutrally, never as errors,
+    e.g. "1045 succeeded · 2 superseded by human hand-off"."""
+    keys = sorted(by_status, key=lambda k: (_STATUS_ORDER.index(k) if k in _STATUS_ORDER else 99, k))
+    return " · ".join(f"{by_status[k]} {_STATUS_PHRASE.get(k, k)}" for k in keys if by_status[k]) or "no tasks"
 
 
 def _finish_task(engine: Engine, task_id: int, status: TaskStatus, error: str | None = None,

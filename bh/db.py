@@ -78,6 +78,7 @@ class TaskStatus(StrEnum):
     succeeded = "succeeded"
     failed = "failed"
     waiting_human = "waiting_human"
+    superseded = "superseded"  # step span replaced by its parent's retry after a human hand-off (not an error)
 
 
 class RunStatus(StrEnum):

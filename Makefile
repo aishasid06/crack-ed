@@ -56,5 +56,5 @@ bootstrap:  # first run on a fresh DB: capture listings, fit the dev-split score
 ui:
 	@echo "ui: implemented in Phase 9 (Streamlit UI)"; exit 1
 
-eval:
-	@echo "eval: implemented in Phase 10 (evaluation)"; exit 1
+eval:  # test split: discovery recall, report precision, escalate recall, CIs, per site/difficulty → data/eval/
+	$(PY) -m eval.evaluate $(ARGS)

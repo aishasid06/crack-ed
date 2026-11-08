@@ -206,7 +206,9 @@ async def test_challenge_pauses_and_resume_skips_finished_work(challenge_portal:
     assert run.status == RunStatus.finished
     assert Counter(t.type for t in tasks)["discovery"] == len(first["sites"]) * len(first["queries"])  # no dupes
     assert not [t for t in tasks if t.status in (TaskStatus.waiting_human, TaskStatus.running)]
-    assert all("superseded" in t.error for t in tasks if t.parent_id == draft_task.id and t.status == TaskStatus.failed)
+    assert not [t for t in tasks if t.status == TaskStatus.failed]  # a hand-off is not a failure
+    stale = [t for t in tasks if t.status == TaskStatus.superseded]
+    assert stale and all("superseded" in t.error and t.finished_at for t in stale)
     assert next(t for t in tasks if t.id == draft_task.id).status == TaskStatus.succeeded
 
     with pytest.raises(PreflightError, match="not found"):
