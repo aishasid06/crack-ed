@@ -101,6 +101,7 @@ class NavigatorConfig(_Strict):
     settle_ms: int = Field(default=400, ge=0)  # wait after an action before re-observing
     action_timeout_ms: int = Field(default=3000, gt=0)
     max_result_pages: int = Field(default=3, gt=0)
+    recipes_dir: str = "data/recipes"  # learned recipes, one JSON per site (replayed without an LLM)
 
 
 class ChallengeConfig(_Strict):

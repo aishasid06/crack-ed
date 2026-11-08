@@ -92,6 +92,7 @@ navigator:                         # agentic navigator for adapter-less sites (b
   settle_ms: 400                   # wait after each action before re-observing
   action_timeout_ms: 3000
   max_result_pages: 3
+  recipes_dir: "data/recipes"      # learned recipes: replayed without an LLM, re-learned by the agent if they break
 
 sites:
   mockbay:

@@ -36,6 +36,7 @@ from urllib.parse import urljoin, urlparse
 
 from playwright.async_api import Page
 
+from bh.browser import recipes
 from bh.browser.adapters.base import Card, ListingData
 from bh.browser.generic_extract import (LISTING_SYSTEM, ExtractedListing, extract_results, snapshot)
 from bh.browser.session import BrowserManager, detect_challenge
@@ -71,6 +72,7 @@ def choose_consent(elements: list[dict[str, Any]]) -> tuple[dict[str, Any], str]
 
 _OBSERVE_JS = """
 (max) => {
+%CSS_FOR%
   document.querySelectorAll('[data-bh-idx]').forEach(e => e.removeAttribute('data-bh-idx'));
   const sel = 'a[href], button, input:not([type=hidden]), select, textarea, [role=button], [role=tab], [role=link]';
   const visible = el => {
@@ -103,11 +105,14 @@ _OBSERVE_JS = """
                       + (dialog.getAttribute('aria-labelledby') ? (document.getElementById(dialog.getAttribute('aria-labelledby')) || {}).innerText || '' : '')
                       + ' ' + dialog.innerText),
       selected: el.getAttribute('aria-selected'),
+      css: bhCss(el),
     });
   }
   return out;
 }
 """
+
+_OBSERVE_JS = _OBSERVE_JS.replace("%CSS_FOR%", recipes.CSS_FOR_JS)
 
 _HIGHLIGHT_JS = """
 (idx) => {
@@ -187,7 +192,9 @@ class NavOutcome:
     output_tokens: int = 0
     pages_read: int = 0
     consent: list[str] = field(default_factory=list)  # consent buttons pressed by code
+    recipe_version: int | None = None  # recipe replayed, or learned from this agent run
     history: list[StepRecord] = field(default_factory=list)
+    trace: list[dict[str, Any]] = field(default_factory=list)  # what was done, for learning a recipe
 
     @property
     def tokens(self) -> int:
@@ -236,8 +243,10 @@ def _merge(a: ListingData | None, b: ListingData) -> ListingData:
 
 
 class Navigator:
-    def __init__(self, browser: BrowserManager, site: str, llm: Any) -> None:
+    def __init__(self, browser: BrowserManager, site: str, llm: Any,
+                 store: recipes.RecipeStore | None = None) -> None:
         self.b, self.site, self.llm = browser, site, llm
+        self.store = store  # when set, successful agent runs are turned into a recipe
         self.cfg = browser.cfg
         self.nav = browser.cfg.navigator
         self.host = (urlparse(browser.cfg.site(site).base_url).hostname or "").lower()
@@ -461,6 +470,11 @@ class Navigator:
                         result = "done"
                     elif action == "extract_results":
                         cards, _ = await extract_results(page, llm, self.site, cfg=self.cfg)
+                        cards = [c for c in cards if self._same_host(c.url)]
+                        outcome.trace.append({"action": action, "url": page.url, "outcome": "ok",
+                                              "cards": [c.url for c in cards],
+                                              "probe": await recipes.probe_cards(page, cards) if cards else None,
+                                              "next": recipes.next_candidate(obs["elements"])})
                         new = [c for c in cards if c.url not in seen_cards]
                         for c in new:
                             seen_cards[c.url] = c
@@ -495,6 +509,9 @@ class Navigator:
                 changed = obs["sig"] != sig_before
                 if action in ("click", "type", "scroll", "back") and result == "ok" and not changed:
                     result = "no visible effect"
+                if action in ("click", "type"):
+                    outcome.trace.append({"action": action, "el": el, "args": dict(args), "outcome": result,
+                                          "url_before": url_before, "url_after": obs["url"]})
                 if sp is not None:
                     sp.payload = {**sp.payload, "outcome": result, "url_after": obs["url"],
                                   "tokens": outcome.tokens - tokens_before, "extracted": extracted}
@@ -538,9 +555,15 @@ class Navigator:
                 f"Call done when there are no more pages.")
         await self.b.goto(self.site, page, self.b.site_url(self.site, "/"))
         async with self._task_span("search", query, outcome):
-            async for kind, value in self._steps(page, goal, "search", outcome, pages):
-                if kind == "results" and value:
-                    yield value
+            try:
+                async for kind, value in self._steps(page, goal, "search", outcome, pages):
+                    if kind == "results" and value:
+                        yield value
+            except GeneratorExit:  # the caller stopped reading pages: the trace can still teach a recipe
+                await self._learn("search", outcome, query)
+                raise
+            if outcome.success:
+                await self._learn("search", outcome, query)
 
     async def listing(self, page: Page, url: str, outcome: NavOutcome | None = None) -> ListingData:
         """Open a listing and collect its details, including any behind tabs."""
@@ -554,9 +577,35 @@ class Navigator:
             async for kind, value in self._steps(page, goal, "listing", outcome, 1):
                 if kind == "listing":
                     result = value
+            if result is not None:
+                await self._learn("listing", outcome, url, page=page, data=result)
         if result is None:
             raise NavigationFailed(f"no listing data collected from {url}")
         return result.model_copy(update={"url": url})
+
+    async def _learn(self, part: str, outcome: NavOutcome, subject: str, page: Page | None = None,
+                     data: ListingData | None = None) -> None:
+        """Turn this agent run into a recipe (code only, no LLM) and store it; traced as ``recipe:learn``."""
+        if self.store is None:
+            return
+        async with _span("recipe:learn", self.site, f"recipe:learn:{part}:{self._seq}:{hashlib.sha1(subject.encode()).hexdigest()[:10]}",
+                         {"kind": CODE_STEP, "part": part, "subject": subject[:200]}) as sp:
+            learned: Any = None
+            try:
+                if part == "search":
+                    learned = recipes.learn_search(outcome)
+                elif page is not None and data is not None:
+                    learned = await recipes.learn_listing(self, page, subject, data, outcome)
+            except HumanRequired:
+                raise
+            except Exception as e:  # noqa: BLE001 - learning never fails the task
+                log.warning("could not learn a %s recipe on %s: %s", part, self.site, e)
+            if learned is not None:
+                outcome.recipe_version = await self.store.save_part(
+                    self.site, part, learned, f"agent {part} succeeded: {subject[:120]}")  # type: ignore[arg-type]
+            if sp is not None:
+                sp.payload = {**sp.payload, "learned": learned is not None, "recipe_version": outcome.recipe_version,
+                              "fields": sorted(learned.fields) if part == "listing" and learned is not None else None}
 
     @asynccontextmanager
     async def _task_span(self, kind: str, subject: str, outcome: NavOutcome) -> AsyncIterator[None]:
@@ -570,4 +619,5 @@ class Navigator:
                     sp.payload = {**sp.payload, "success": outcome.success, "reason": outcome.reason,
                                   "steps": outcome.steps, "model_calls": outcome.model_calls,
                                   "input_tokens": outcome.input_tokens, "output_tokens": outcome.output_tokens,
-                                  "pages_read": outcome.pages_read, "consent": outcome.consent}
+                                  "pages_read": outcome.pages_read, "consent": outcome.consent,
+                                  "mode": outcome.mode, "recipe_version": outcome.recipe_version}

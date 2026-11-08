@@ -90,6 +90,7 @@ class RunStatus(StrEnum):
 class ExtractionMethod(StrEnum):
     adapter = "adapter"
     generic_llm = "generic_llm"
+    recipe = "recipe"  # learned recipe replayed by code (no LLM), adapter-less sites
 
 
 # ---------------------------------------------------------------- brand assets

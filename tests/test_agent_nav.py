@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 import re
+import tempfile
 from collections.abc import Iterator
 from pathlib import Path
 from types import SimpleNamespace
@@ -34,9 +36,12 @@ def bz_live(tmp_path_factory: pytest.TempPathFactory, bz_catalog: Path) -> Itera
     yield from _start(tmp_path_factory.mktemp("bzsrv"), bz_catalog)
 
 
-def _cfg(live: LiveServer, **nav: Any) -> AppConfig:
+def _cfg(live: LiveServer, recipes_dir: Path | None = None, **nav: Any) -> AppConfig:
+    """Fast navigator settings; recipes in a fresh temp dir (never the real data/recipes)."""
     cfg = _cfg_for(live.base)
-    navigator = cfg.navigator.model_copy(update={"settle_ms": 50, "action_timeout_ms": 2000, **nav})
+    rdir = str(recipes_dir or Path(tempfile.mkdtemp(prefix="bh-recipes-")))
+    navigator = cfg.navigator.model_copy(update={"settle_ms": 50, "action_timeout_ms": 2000, "recipes_dir": rdir,
+                                                 **nav})
     return cfg.model_copy(update={"navigator": navigator})
 
 
@@ -104,7 +109,8 @@ class ScriptedModel:
                 seller_location=grab(r"From ([^\"\n]+)"), seller_age_days=int(age) if age else None,
                 seller_rating_out_of_5=float(rating) if rating else None,
                 quantity_available=int(qty) if qty else None, condition=grab(r"Condition: ([^\"\n]+)"),
-                image_urls=[])
+                image_urls=json.loads(text.split("Candidate image URLs:\n", 1)[1].split("\n", 1)[0])
+                if "Candidate image URLs:\n" in text else [])
         return self._resp([], 800, 120, parsed)
 
 
