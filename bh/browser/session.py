@@ -202,6 +202,9 @@ class BrowserManager:
 
     async def login(self, site: str, page: Page) -> None:
         """Ensure ``page``'s context is logged into ``site``. Raises HumanRequired on a challenge."""
+        from bh.enforce.guard import check_site
+
+        check_site(self.cfg, site)  # login means typing credentials: allowlisted, non-read_only hosts only
         form = LOGIN_FORMS.get(site)
         if form is None:
             raise KeyError(f"no login form configured for site {site!r}")

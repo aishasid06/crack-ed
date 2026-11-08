@@ -27,6 +27,7 @@ from bh.brand import BrandAssets, load_brand_assets
 from bh.browser.session import BrowserManager
 from bh.config import AppConfig, get_config
 from bh.db import Case, CaseStatus, get_engine, utcnow
+from bh.enforce.guard import check_site
 from bh.enforce.portal import SITE, PortalClient, load_case, set_case
 from bh.errors import HumanRequired, ReviewMismatch
 from bh.notice import ReportPlan, build_plan
@@ -121,6 +122,7 @@ def approved_cases(engine: Engine) -> list[int]:
 
 async def process_approved(run_id: int, cfg: AppConfig, browser: BrowserManager,
                            engine: Engine | None = None) -> dict[str, Any]:
+    check_site(cfg, SITE)  # before any case is loaded or any page opened
     eng = engine or get_engine()
     assets = load_brand_assets(cfg.paths.resolve(cfg.paths.brand_dir))
     client = PortalClient(browser, cfg)
@@ -142,6 +144,7 @@ async def process_approved(run_id: int, cfg: AppConfig, browser: BrowserManager,
 
 async def run_submit_once(cfg: AppConfig | None = None, engine: Engine | None = None) -> dict[str, Any] | None:
     cfg = cfg or get_config()
+    check_site(cfg, SITE)  # refuse before launching a browser
     if not approved_cases(engine or get_engine()):
         return None
     async with run_span(None, {"stage": "submit"}, engine=engine) as run, BrowserManager(cfg) as b:

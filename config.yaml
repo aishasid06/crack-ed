@@ -78,22 +78,28 @@ enforce:
   require_final_confirm: false     # true: after review-page verification, wait for a second UI confirmation
   max_evidence_mb: 4               # screenshots above this are re-encoded as JPEG before upload
   draft_only_in_budget: true       # draft portal reports only for cases selected within review_budget_minutes
+  # Hosts enforcement may touch. Must be a subset of the allowlist in code (bh/config.py ENFORCEMENT_HOSTS):
+  # config can narrow it, never widen it.
+  allowed_hosts: ["127.0.0.1", "localhost"]
 
 sites:
   mockbay:
     base_url: "http://127.0.0.1:8000/mockbay"
+    mode: full                     # full | read_only (read_only sites are never logged into or submitted to)
     adapter: mockbay
     max_concurrency: 3
     max_pages: 10                  # hard safety cap; adaptive stopping usually ends sooner
     min_delay_ms: 250              # polite pacing between requests (not evasion)
   tradeloft:
     base_url: "http://127.0.0.1:8000/tradeloft"
+    mode: full
     adapter: tradeloft
     max_concurrency: 2
     max_pages: 15                  # hard cap on "Load more" batches of 8; adaptive stopping usually ends sooner
     min_delay_ms: 250
   portal:
     base_url: "http://127.0.0.1:8000/portal"
+    mode: full
     adapter: null                  # enforcement target, not a marketplace
     max_concurrency: 1
     max_pages: 1

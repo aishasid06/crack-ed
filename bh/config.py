@@ -73,8 +73,15 @@ class MockSitesConfig(_Strict):
     seed: int | None = None
 
 
+# Hosts that enforcement (portal login, drafting, verification, submission) may ever touch (SPEC §1:
+# submissions only go to our own mock sites). Widening this set requires a code change; config may only
+# narrow it (enforce.allowed_hosts).
+ENFORCEMENT_HOSTS: frozenset[str] = frozenset({"127.0.0.1", "localhost"})
+
+
 class SiteConfig(_Strict):
     base_url: str
+    mode: Literal["full", "read_only"] = "full"  # read_only: search/extract only; bh/enforce refuses it
     max_concurrency: int = Field(gt=0)
     max_pages: int = Field(gt=0)
     min_delay_ms: int = Field(ge=0)
@@ -175,6 +182,15 @@ class EnforceConfig(_Strict):
     require_final_confirm: bool = False
     max_evidence_mb: float = Field(default=4, gt=0)
     draft_only_in_budget: bool = True
+    allowed_hosts: list[str] = Field(default_factory=lambda: sorted(ENFORCEMENT_HOSTS))
+
+    @model_validator(mode="after")
+    def _narrow_only(self) -> "EnforceConfig":
+        extra = sorted({h.lower() for h in self.allowed_hosts} - ENFORCEMENT_HOSTS)
+        if extra:
+            raise ValueError(f"enforce.allowed_hosts may only narrow the code allowlist {sorted(ENFORCEMENT_HOSTS)}; "
+                             f"not allowed: {extra} (widening requires a code change)")
+        return self
 
 
 class AppConfig(_Strict):
