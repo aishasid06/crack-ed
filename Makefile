@@ -1,7 +1,7 @@
 PY ?= $(if $(wildcard .venv/Scripts/python.exe),.venv/Scripts/python.exe,.venv/bin/python)
 BRAND ?= vaelo
 
-.PHONY: install mock mock-sample abo seed discover tune classify decide draft submit run bootstrap ui eval test
+.PHONY: install mock mock-sample abo seed real-listings discover tune classify decide draft submit run bootstrap ui eval test
 
 install:
 	uv venv --python 3.11 .venv
@@ -24,6 +24,9 @@ abo:  # ABO metadata + selected images (cached in data/abo/) → seed/brand + se
 seed:  # renders synthetic brand/other assets if missing, then 120 listings + seed/labels.json
 	$(PY) -m seed.assets
 	$(PY) -m seed.generate
+
+real-listings:  # after `make seed`: add ~215 real ABO drinkware listings (all "ignore") → seed/labels_real.json
+	$(PY) -m seed.real_listings
 
 discover:  # needs `make mock` running
 	$(PY) -m bh.discovery.worker

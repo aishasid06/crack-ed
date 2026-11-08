@@ -97,6 +97,13 @@ def escalate_recall_strict(rows: list[Row]) -> float | None:
     return _ratio(sum(r.pred_action == "escalate" for r in pos), len(pos))
 
 
+def false_alarm_rate(rows: list[Row]) -> float | None:
+    """Listings that should be ignored but were sent to a lawyer (reported or escalated) / expected-ignore
+    listings. Uncaptured listings were not sent anywhere. The headline number for real background listings."""
+    neg = [r for r in rows if r.expected_action == "ignore"]
+    return _ratio(sum(r.pred_action in ("platform_report", "escalate") for r in neg), len(neg))
+
+
 def e2e_action_accuracy(rows: list[Row]) -> float | None:
     return _ratio(sum(r.e2e_action == r.expected_action for r in rows), len(rows))
 
@@ -116,6 +123,7 @@ HEADLINE: dict[str, Callable[[list[Row]], float | None]] = {
     "report_recall": report_recall,
     "escalate_recall_lenient": escalate_recall_lenient,
     "escalate_recall_strict": escalate_recall_strict,
+    "false_alarm_rate": false_alarm_rate,
     "e2e_action_accuracy": e2e_action_accuracy,
     "discovery_recall": discovery_recall,
     "category_accuracy_captured": category_accuracy_captured,
@@ -136,6 +144,9 @@ def counts(rows: list[Row]) -> dict[str, int]:
                                         ("escalate", "platform_report") for r in rows),
         "escalate_exact": sum(r.expected_action == "escalate" and r.pred_action == "escalate" for r in rows),
         "uncaptured_ignore_correct": sum(not r.captured and r.expected_action == "ignore" for r in rows),
+        "expected_ignore": sum(r.expected_action == "ignore" for r in rows),
+        "false_alarms": sum(r.expected_action == "ignore" and r.pred_action in ("platform_report", "escalate")
+                            for r in rows),
     }
 
 
@@ -160,6 +171,7 @@ FRACTIONS = {
     "escalate_recall_lenient": ("escalate_reaching_lawyer", "expected_escalate"),
     "escalate_recall_strict": ("escalate_exact", "expected_escalate"),
     "discovery_recall": ("actionable_captured", "actionable"),
+    "false_alarm_rate": ("false_alarms", "expected_ignore"),
 }
 
 

@@ -38,6 +38,19 @@ challenge pauses drafting, a human clears it in their own browser and then runs
 
 On Windows, set `PYTHONUTF8=1` so the CLIs can print non-ASCII output.
 
+### Real listings as background noise
+
+To check the system on data it wasn't built around, mix real product listings into the mock sites:
+
+```bash
+make real-listings                                    # ~215 real ABO drinkware listings, all should be ignored
+make run ARGS="--until decide"                        # same config and scorer as before
+make eval ARGS="--labels seed/labels_real.json"       # adds a "real" row and the false-alarm rate
+```
+
+Titles, descriptions and photos are real (ABO, CC BY 4.0). Prices and sellers are generated, because ABO has
+none. `make seed` restores the synthetic-only catalog.
+
 ### Seed images
 
 Brand and listing photos come from the Amazon Berkeley Objects dataset (see Attribution):
