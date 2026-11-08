@@ -1,0 +1,22 @@
+[hidden]{display:none !important}
+body.bz{margin:0;font-family:"Trebuchet MS",Verdana,sans-serif;background:#fbf7f2;color:#2d2a26}
+.bz-top{display:flex;gap:16px;align-items:center;padding:12px 24px;background:#ff7a59;flex-wrap:wrap}
+.bz-wordmark{font-size:26px;font-weight:700;color:#fff;text-decoration:none;letter-spacing:-1px}
+.bz-find{display:flex;flex:1;min-width:240px}.bz-find input{flex:1;padding:9px;border:0;border-radius:6px 0 0 6px}
+.bz-find button{padding:9px 16px;border:0;border-radius:0 6px 6px 0;background:#2d2a26;color:#fff}
+.bz-newsletter input{padding:7px;border:0;border-radius:6px}.bz-newsletter button{padding:7px 10px;border:0;border-radius:6px}
+.bz-strip{margin:0;padding:3px 24px;font-size:12px;background:#ffe6dc}
+.bz-main{max-width:1100px;margin:auto;padding:20px}
+.bz-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.bz-tile{background:#fff;border-radius:10px;padding:10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.bz-tile figure{margin:0}.bz-tile img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px}
+.bz-tile-name{font-size:14px;margin:6px 0}.bz-tile-price{font-weight:700;margin:0 0 6px}
+.bz-pager{display:flex;gap:14px;align-items:center;justify-content:center;margin:22px 0}
+.bz-next{padding:10px 28px;border:0;border-radius:20px;background:#2d2a26;color:#fff}
+.bz-product [role=tablist]{display:flex;gap:6px;margin-bottom:14px}
+.bz-product [role=tab]{padding:8px 16px;border:1px solid #d9cfc4;border-radius:16px;background:#fff}
+.bz-product [role=tab][aria-selected=true]{background:#2d2a26;color:#fff}
+.bz-photos img{width:240px;height:240px;object-fit:cover;margin-right:8px;border-radius:8px}
+.bz-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:50}
+.bz-modal{background:#fff;padding:22px 26px;border-radius:12px;max-width:420px}
+.bz-modal button{margin:6px 6px 0 0;padding:9px 14px;border-radius:8px;border:1px solid #2d2a26}

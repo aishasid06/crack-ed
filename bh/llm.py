@@ -41,6 +41,8 @@ class LLMResult(Generic[T]):
     stop_reason: str | None
     call_id: int | None
     parsed: T | None = None
+    tool_name: str | None = None  # complete_tools: the tool the model chose (None if it answered in text)
+    tool_input: dict[str, Any] | None = None
 
 
 class LLMClient:
@@ -83,10 +85,18 @@ class LLMClient:
                            result.stop_reason)
         return result
 
+    async def complete_tools(self, *, role: Role, purpose: str, messages: list[dict[str, Any]],
+                             tools: list[dict[str, Any]], system: str | None = None,
+                             max_tokens: int | None = None) -> LLMResult[Any]:
+        """Tool calling: the model picks (at most) one tool. ``tool_choice`` is ``auto`` (forced tool choice
+        is rejected by current models); ``result.tool_name`` is None if the model answered in text."""
+        return await self._call(role, purpose, messages, system, max_tokens, None, tools)
+
     # ------------------------------------------------------------ internals
 
     async def _call(self, role: Role, purpose: str, messages: list[dict[str, Any]], system: str | None,
-                    max_tokens: int | None, schema: type[BaseModel] | None) -> LLMResult[Any]:
+                    max_tokens: int | None, schema: type[BaseModel] | None,
+                    tools: list[dict[str, Any]] | None = None) -> LLMResult[Any]:
         rc = self.role(role)
         assert_no_secrets(system, messages, secrets=self.secrets.secret_values())
 
@@ -110,6 +120,9 @@ class LLMClient:
             kwargs["fallbacks"] = "default"
         if schema is not None:
             kwargs["output_format"] = schema
+        if tools:
+            kwargs["tools"] = tools
+            kwargs["tool_choice"] = {"type": "auto", "disable_parallel_tool_use": True}
 
         api = self.client.beta.messages
         t0 = time.perf_counter()
@@ -145,9 +158,12 @@ class LLMClient:
         parsed = getattr(resp, "parsed_output", None) if schema is not None else None
         if schema is not None and resp.stop_reason == "max_tokens":
             raise LLMError(f"{purpose}: structured output truncated at max_tokens", "max_tokens")
+        tool = next((b for b in resp.content if getattr(b, "type", None) == "tool_use"), None) if tools else None
         return LLMResult(text=text, model=served, requested_model=rc.model,
                          input_tokens=call.input_tokens, output_tokens=call.output_tokens,
-                         latency_ms=latency, stop_reason=resp.stop_reason, call_id=call_id, parsed=parsed)
+                         latency_ms=latency, stop_reason=resp.stop_reason, call_id=call_id, parsed=parsed,
+                         tool_name=getattr(tool, "name", None) if tool else None,
+                         tool_input=dict(getattr(tool, "input", None) or {}) if tool else None)
 
     def _record(self, call: LLMCall) -> int | None:
         with session_scope(self._engine or get_engine()) as s:

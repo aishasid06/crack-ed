@@ -1,0 +1,32 @@
+{% extends "bazaarly/base.html" %}
+{% block title %}{{ l.title }}{% endblock %}
+{% block content %}
+<div class="bz-product">
+  <div role="tablist" aria-label="Item information">
+    <button role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+    <button role="tab" id="tab-details" aria-controls="panel-details" aria-selected="false">Details</button>
+    <button role="tab" id="tab-seller" aria-controls="panel-seller" aria-selected="false">Seller</button>
+  </div>
+  <section role="tabpanel" id="panel-overview" aria-labelledby="tab-overview">
+    <h1 class="bz-title">{{ l.title }}</h1>
+    <p class="bz-price">Asking {{ l.price|money(l.currency) }}</p>
+    <div class="bz-photos">{% for img in l.images %}<img src="/media/{{ img }}" alt="Photo {{ loop.index }} of {{ l.title }}">{% endfor %}</div>
+  </section>
+  <section role="tabpanel" id="panel-details" aria-labelledby="tab-details" hidden>
+    <h2>About this item</h2>
+    <p class="bz-desc">{{ l.description }}</p>
+    <ul class="bz-facts">
+      <li>Condition: {{ l.condition }}</li>
+      <li>Available: {{ l.quantity }}</li>
+      <li>Ref: {{ l.id }}</li>
+    </ul>
+  </section>
+  <section role="tabpanel" id="panel-seller" aria-labelledby="tab-seller" hidden>
+    <h2>Seller</h2>
+    <p class="bz-seller">{{ l.seller_name }}</p>
+    <p>From {{ l.seller_location }}</p>
+    <p>Rated {{ "%.1f"|format(l.seller_rating) }} out of 5 by {{ l.seller_feedback_count }} buyers</p>
+    <p>On Bazaarly for {{ l.seller_age_days }} days</p>
+  </section>
+</div>
+{% endblock %}

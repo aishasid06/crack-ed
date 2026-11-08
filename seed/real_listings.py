@@ -133,10 +133,11 @@ def add_real_listings(catalog_dir: Path, base_labels: Path = DEFAULT_LABELS, out
     labels: dict[str, dict[str, Any]] = json.loads(base_labels.read_text(encoding="utf-8"))
     synthetic_paths = {v["url_path"] for v in labels.values()}
     catalog = load_catalog(catalog_dir)
-    keep = [l for l in catalog.listings if listing_path(l.site, l.id) in synthetic_paths]
+    # Bazaarly listings belong to seed/bazaarly.py (their own labels group); keep them as they are.
+    keep = [l for l in catalog.listings if listing_path(l.site, l.id) in synthetic_paths or l.site == "bazaarly"]
     images_dir = catalog_dir / "images"
     for old in catalog.listings:  # real listings from an earlier run of this script
-        if listing_path(old.site, old.id) not in synthetic_paths:
+        if listing_path(old.site, old.id) not in synthetic_paths and old.site != "bazaarly":
             for img in old.images:
                 (images_dir / img).unlink(missing_ok=True)
     used_ids = {l.id for l in keep}

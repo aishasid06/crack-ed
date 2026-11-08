@@ -1,0 +1,19 @@
+{% extends "bazaarly/base.html" %}
+{% block title %}Results{% endblock %}
+{% block content %}
+<p class="bz-count">{% if total %}{{ first }}–{{ last }} of {{ total }} results for “{{ term }}”{% else %}Nothing found for “{{ term }}”{% endif %}</p>
+<div class="bz-tiles">
+{% for t in tiles %}
+  <article class="bz-tile">
+    <figure><img src="/media/{{ t.images[0] }}" alt="{{ t.title }}" loading="lazy"></figure>
+    <h2 class="bz-tile-name">{{ t.title }}</h2>
+    <p class="bz-tile-price">{{ t.price|money(t.currency) }}</p>
+    <a class="bz-tile-open" href="/bazaarly/p/{{ t.id }}" aria-label="Open {{ t.title }}">Open</a>
+  </article>
+{% endfor %}
+</div>
+<nav class="bz-pager" aria-label="More results">
+  <span>Page {{ page }} of {{ pages }}</span>
+  {% if next_url %}<button type="button" class="bz-next" data-go="{{ next_url }}">Next</button>{% endif %}
+</nav>
+{% endblock %}

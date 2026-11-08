@@ -86,7 +86,21 @@ class SiteConfig(_Strict):
     max_pages: int = Field(gt=0)
     min_delay_ms: int = Field(ge=0)
     adapter: str | None = None  # None → generic LLM extractor
+    navigator: bool = False  # adapter-less site browsed by the agentic navigator (needs an LLM)
     search_url: str | None = None  # for sites without an adapter: "{base}/search?q={query}&page={page}"
+
+
+class NavigatorConfig(_Strict):
+    """Agentic navigator (bh/browser/agent_nav.py). Opt-in: navigator sites are searched only when
+    ``enabled`` (or ``--navigator``) and an LLM is available (``--llm``)."""
+
+    enabled: bool = False
+    max_steps: int = Field(default=30, gt=0)  # agent steps per task (search or listing)
+    max_tokens_per_task: int = Field(default=60000, gt=0)
+    max_elements: int = Field(default=80, gt=0)  # indexed interactive elements shown to the model
+    settle_ms: int = Field(default=400, ge=0)  # wait after an action before re-observing
+    action_timeout_ms: int = Field(default=3000, gt=0)
+    max_result_pages: int = Field(default=3, gt=0)
 
 
 class ChallengeConfig(_Strict):
@@ -103,6 +117,8 @@ class BrowserConfig(_Strict):
     snapshot_max_chars: int = Field(default=12000, gt=500)
     max_image_candidates: int = Field(default=24, gt=0)
     challenge: ChallengeConfig = Field(default_factory=ChallengeConfig)
+    demo_mode: bool = False  # headed browser + highlight each element before the agent acts on it
+    demo_highlight_ms: int = Field(default=700, ge=0)
 
 
 class ThresholdsConfig(_Strict):
@@ -215,6 +231,7 @@ class AppConfig(_Strict):
     own_photo: OwnPhotoConfig = Field(default_factory=OwnPhotoConfig)
     text: TextConfig = Field(default_factory=TextConfig)
     models: ModelsConfig = Field(default_factory=ModelsConfig)
+    navigator: NavigatorConfig = Field(default_factory=NavigatorConfig)
 
     def site(self, name: str) -> SiteConfig:
         try:

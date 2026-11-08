@@ -44,7 +44,8 @@ from bh.config import AppConfig
 from bh.db import Case, Run, session_scope
 from bh.decide import decide_cases
 from bh.discovery.queries import Query, generate_queries
-from bh.discovery.worker import Prefilter, capture_one, finalize_prefilter, marketplace_sites, search_adaptive
+from bh.discovery.worker import (Prefilter, capture_one, finalize_prefilter, marketplace_sites, navigator_active,
+                                 search_adaptive)
 from bh.enforce.portal import draft_cases
 from bh.errors import HumanRequired
 from bh.rules import get_rules
@@ -126,7 +127,7 @@ async def node_load_brand(state: PipelineState, runtime: Rt) -> dict[str, Any]:
                      "gold_images": len(d.brand.gold)}
     await asyncio.to_thread(_set_run_brand, d.engine, d.run_id, d.brand.brand_id)
     d.prefilter = Prefilter(d.run_id, d.brand, d.cfg, d.encoder, d.http)
-    sites = marketplace_sites(d.cfg, d.sites)
+    sites = marketplace_sites(d.cfg, d.sites, with_navigator=navigator_active(d.cfg, d.llm))
     d.site_sems = {s: asyncio.Semaphore(d.cfg.site(s).max_concurrency) for s in sites}
     d.img_sem = asyncio.Semaphore(d.cfg.discovery.image_concurrency)
     return {"brand_id": d.brand.brand_id, "sites": sites}

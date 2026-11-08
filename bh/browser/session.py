@@ -95,6 +95,8 @@ class BrowserManager:
         self.secrets = secrets or get_secrets()
         self.sessions_dir = sessions_dir or self.cfg.paths.resolve(self.cfg.paths.sessions_dir)
         self.headless = self.cfg.browser.headless if headless is None else headless
+        if self.cfg.browser.demo_mode and headless is None:  # demo mode: show the browser to follow the agent
+            self.headless = False
         self._pw: Playwright | None = None
         self._contexts: dict[str, BrowserContext] = {}
         self._ctx_lock = asyncio.Lock()

@@ -524,6 +524,8 @@ def _split(keys_by_stratum: dict[tuple[str, str], list[str]], rng: random.Random
 
 
 def listing_path(site: str, lid: str) -> str:
+    if site == "bazaarly":
+        return f"/bazaarly/p/{lid}"
     return f"/mockbay/item/{lid}" if site == "mockbay" else f"/tradeloft/listing/{lid}"
 
 

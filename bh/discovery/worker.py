@@ -95,8 +95,18 @@ class DiscoveryResult:
     pages_read: int = 0
 
 
-def marketplace_sites(cfg: AppConfig, only: list[str] | None = None) -> list[str]:
-    sites = [s for s, c in cfg.sites.items() if c.adapter or c.search_url]
+def navigator_active(cfg: AppConfig, llm: Any | None) -> bool:
+    """Navigator sites are opt-in (navigator.enabled / --navigator) and need an LLM."""
+    return cfg.navigator.enabled and llm is not None
+
+
+def enable_navigator(cfg: AppConfig) -> AppConfig:
+    return cfg.model_copy(update={"navigator": cfg.navigator.model_copy(update={"enabled": True})})
+
+
+def marketplace_sites(cfg: AppConfig, only: list[str] | None = None, with_navigator: bool = False) -> list[str]:
+    """Searchable marketplaces. Navigator sites are included only with ``with_navigator`` (see navigator_active)."""
+    sites = [s for s, c in cfg.sites.items() if c.adapter or c.search_url or (c.navigator and with_navigator)]
     return [s for s in sites if not only or s in only]
 
 
@@ -401,7 +411,7 @@ async def discover(run_id: int, cfg: AppConfig, browser: BrowserManager, encoder
     async with task_span(run_id, "generate_queries", None, "generate_queries") as t:
         queries = await generate_queries(ctx, cfg, get_rules().vocabulary, llm)
         t.payload = {"queries": [q.text for q in queries]}
-    site_list = marketplace_sites(cfg, sites)
+    site_list = marketplace_sites(cfg, sites, with_navigator=navigator_active(cfg, llm))
     async with httpx.AsyncClient(timeout=20) as client:
         prefilter = Prefilter(run_id, ctx, cfg, encoder, client)
         cards_seen, pages, waiting = await fan_out_discovery(run_id, site_list, queries, browser, prefilter, llm)
@@ -431,7 +441,13 @@ def main() -> None:
     ap.add_argument("--sites", nargs="+", default=None)
     ap.add_argument("--max-queries", type=int, default=None)
     ap.add_argument("--llm", action="store_true", help="enable the generic LLM fallback / query extension")
+    ap.add_argument("--navigator", action="store_true",
+                    help="also search navigator sites (e.g. bazaarly) with the agentic navigator; needs --llm")
     args = ap.parse_args()
+    if args.navigator:
+        if not args.llm:
+            ap.error("--navigator needs --llm (the agentic navigator is driven by the small model)")
+        cfg = enable_navigator(cfg)
     if args.max_queries:
         cfg = cfg.model_copy(update={"discovery": cfg.discovery.model_copy(update={"max_queries": args.max_queries})})
     llm = None

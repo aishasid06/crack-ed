@@ -1,0 +1,887 @@
+{
+  "bazaarly:BZ-11669": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-11669",
+    "group": "bazaarly",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg+crop+resize",
+      "gold:photos/mule-mug_1.jpg+watermark"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-12138": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-12138",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61XmpqCot5L",
+      "abo:61QQYc+0PoL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1DM7Z9"
+  },
+  "bazaarly:BZ-14117": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-14117",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71QAGTVMiLL",
+      "abo:31vt5QxJTLL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KSWVL3"
+  },
+  "bazaarly:BZ-15594": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-15594",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51Xe6w8XMfL",
+      "abo:61yvJVqkluL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07XP35FPL"
+  },
+  "bazaarly:BZ-15973": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-15973",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71EHh5+EqQL",
+      "abo:71I6MdDnGqL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FY1R6DY"
+  },
+  "bazaarly:BZ-18331": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-18331",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61-6cngVJDL",
+      "abo:81zT6q7qyZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B081W5Q426"
+  },
+  "bazaarly:BZ-18413": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-18413",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51xMFNkU8cL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B076VXL12X"
+  },
+  "bazaarly:BZ-18892": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-18892",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:91b5pWrq2vL",
+      "abo:51q4g5BvW7L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C3SF2B1"
+  },
+  "bazaarly:BZ-19287": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-19287",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51q-8lsWjXL",
+      "abo:212zB0sR3rL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZL4MR5V"
+  },
+  "bazaarly:BZ-25069": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-25069",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71gAeOiwOXL",
+      "abo:71kOboXo4mL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H2RDTPN"
+  },
+  "bazaarly:BZ-28846": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-28846",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:5112ft0GC8L",
+      "abo:21YqtsssRWL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K7LM5X"
+  },
+  "bazaarly:BZ-29417": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-29417",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51QcmKIViVL",
+      "abo:41GDvIQj4lL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WXBX5KR"
+  },
+  "bazaarly:BZ-30975": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-30975",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81Z3REHu7dL",
+      "abo:61mNrAClt1L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0898BJL1Q"
+  },
+  "bazaarly:BZ-31009": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-31009",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71eniMVLNEL",
+      "abo:61LCjJAdGSL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WVXNH1"
+  },
+  "bazaarly:BZ-35437": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-35437",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:612zy0EvwoL",
+      "abo:618QqFmEdTL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0814J4K7W"
+  },
+  "bazaarly:BZ-38760": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-38760",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51fOeFKi-6L",
+      "abo:71To3aDq2jL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B082PTH87V"
+  },
+  "bazaarly:BZ-46991": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-46991",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:617y6C8lw0L",
+      "abo:41D-5FO7aQL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HGVK63H"
+  },
+  "bazaarly:BZ-48604": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-48604",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:416CFhHPU6L",
+      "abo:71CeytE4xZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B078S84K9Z"
+  },
+  "bazaarly:BZ-49032": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-49032",
+    "group": "bazaarly",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_4.jpg"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-49413": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-49413",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:813IOWFKjqL",
+      "abo:31nUXrQG1mL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HCJJKTY"
+  },
+  "bazaarly:BZ-55793": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-55793",
+    "group": "bazaarly",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-57054": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-57054",
+    "group": "bazaarly",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_05.jpg+mark:VAELO"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-57628": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-57628",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51qS7rIOOfL",
+      "abo:717q-NAyfJL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WW7JH7B"
+  },
+  "bazaarly:BZ-61304": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-61304",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:416LzmND4HL",
+      "abo:61H6SYfi0CL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XGG1B1"
+  },
+  "bazaarly:BZ-61781": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-61781",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41r6ipqEpTL",
+      "abo:51Fg2l9yZaL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XGZ6PZ"
+  },
+  "bazaarly:BZ-62483": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-62483",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51wUSOrraoL",
+      "abo:81PE-G6vHiL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07Z2M4WBV"
+  },
+  "bazaarly:BZ-62658": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-62658",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_04.jpg"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-65279": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-65279",
+    "group": "bazaarly",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+brightness",
+      "gold:photos/arc-copper_2.jpg+crop+jpeg_q25"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-65705": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-65705",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51acyU3HTSL",
+      "abo:61D5gUrYg2L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XGMSWW"
+  },
+  "bazaarly:BZ-72580": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-72580",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:710KYnqNHWL",
+      "abo:71qSM07sx7L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KS785P"
+  },
+  "bazaarly:BZ-73632": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-73632",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:618J4LVt3QL",
+      "abo:21Gnwt914nL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1FC25L"
+  },
+  "bazaarly:BZ-81559": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-81559",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81a902J5clL",
+      "abo:713NYHGvhIL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HCLLQ24"
+  },
+  "bazaarly:BZ-82115": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-82115",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71pNuoH7MBL",
+      "abo:717yiYQz1yL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KSLNGF"
+  },
+  "bazaarly:BZ-83103": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-83103",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71I177nUSEL",
+      "abo:71K24YpKI3L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KRCVXW"
+  },
+  "bazaarly:BZ-83665": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-83665",
+    "group": "bazaarly",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_3.jpg+crop+jpeg_q25",
+      "gold:photos/arc-copper_4.jpg+watermark+crop+mirror"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-84450": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-84450",
+    "group": "bazaarly",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_03.jpg+mark:VAELO",
+      "blank:blank/blank_04.jpg+mark:VAELO"
+    ],
+    "source": "seeded"
+  },
+  "bazaarly:BZ-87489": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-87489",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81HmHN3yUjL",
+      "abo:81n26dlmzZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WW22SH"
+  },
+  "bazaarly:BZ-87762": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-87762",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61lSYzeLytL",
+      "abo:61pdEUr+ehL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1C9GHW"
+  },
+  "bazaarly:BZ-91349": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-91349",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61TrScjBCpL",
+      "abo:51M39MBAwDL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H8W5K9L"
+  },
+  "bazaarly:BZ-92828": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-92828",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61cWzgEbtxL",
+      "abo:71AADyKc9hL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FY8M6QV"
+  },
+  "bazaarly:BZ-97432": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-97432",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:517OfSH9a1L",
+      "abo:81Y+8xYz6XL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B089Y6P6M6"
+  },
+  "bazaarly:BZ-99055": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "bazaarly",
+    "url_path": "/bazaarly/p/BZ-99055",
+    "group": "bazaarly",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81O1ibhAFyL",
+      "abo:71kSuuU7W+L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HJ6PQZ8"
+  }
+}

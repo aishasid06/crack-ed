@@ -29,7 +29,7 @@ from bh.browser.session import BrowserManager
 from bh.classify import Scorer
 from bh.config import AppConfig, Secrets, get_config, get_secrets, load_config
 from bh.db import Case, CaseStatus, Run, RunStatus, get_engine
-from bh.discovery.worker import marketplace_sites
+from bh.discovery.worker import enable_navigator, marketplace_sites, navigator_active
 from bh.enforce.approvals import resume_case
 from bh.orchestrator.graph import STAGES, PipelineDeps, Stage, build_graph
 from bh.trace import describe_task_statuses, run_span
@@ -47,13 +47,15 @@ def _includes(until: Stage, stage: Stage) -> bool:
 
 
 async def preflight(cfg: AppConfig, until: Stage, secrets: Secrets, sites: list[str] | None,
-                    brand: str | None, scorer: Scorer | None = None) -> Scorer | None:
+                    brand: str | None, scorer: Scorer | None = None, with_navigator: bool = False) -> Scorer | None:
     """Check brand, scorer, portal credentials and site reachability. Returns the scorer to use (None
     when classification is not part of this run)."""
     if brand is not None and brand != cfg.brand:
         raise PreflightError(f"--brand {brand!r} but config.yaml protects {cfg.brand!r}; "
                              "use a config for that brand (--config / BH_CONFIG)")
-    chosen = marketplace_sites(cfg, sites)
+    if cfg.navigator.enabled and not with_navigator:
+        raise PreflightError("the agentic navigator is enabled but no LLM is available; add --llm")
+    chosen = marketplace_sites(cfg, sites, with_navigator)
     if not chosen:
         raise PreflightError(f"no marketplace sites selected (configured: {marketplace_sites(cfg)})")
     if not _includes(until, "classify"):
@@ -110,7 +112,7 @@ async def run_pipeline(cfg: AppConfig | None = None, *, until: Stage = "draft", 
     cfg = cfg or get_config()
     eng = engine or get_engine()
     secrets = secrets or (browser.secrets if browser is not None else get_secrets())
-    scorer = await preflight(cfg, until, secrets, sites, brand, scorer)
+    scorer = await preflight(cfg, until, secrets, sites, brand, scorer, with_navigator=navigator_active(cfg, llm))
     if resume_run_id is not None:
         _check_resumable(eng, resume_run_id, force)
         released = release_paused_drafts(eng, resume_run_id)
@@ -174,6 +176,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--llm", action="store_true",
                     help="enable LLM calls: generic extractor fallback, borderline vision check, query extension "
                          "(if enabled in config)")
+    ap.add_argument("--navigator", action="store_true",
+                    help="also search navigator sites (e.g. bazaarly) with the agentic navigator; needs --llm")
     ap.add_argument("--resume", type=int, default=None, metavar="RUN_ID", help="continue an earlier run")
     ap.add_argument("--force", action="store_true", help="with --resume: reopen a run still marked running")
     args = ap.parse_args(argv)
@@ -188,6 +192,12 @@ def main(argv: list[str] | None = None) -> int:
     except InvalidBrandDir as e:
         print(f"cannot start: {e}", file=sys.stderr)
         return 2
+    if args.navigator:
+        if not args.llm:
+            print("cannot start: --navigator needs --llm (the agentic navigator is driven by the small model)",
+                  file=sys.stderr)
+            return 2
+        cfg = enable_navigator(cfg)
     if args.max_queries:
         cfg = cfg.model_copy(update={"discovery": cfg.discovery.model_copy(update={"max_queries": args.max_queries})})
     llm = None

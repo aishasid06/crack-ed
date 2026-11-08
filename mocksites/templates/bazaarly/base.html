@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Bazaarly{% endblock %} · Bazaarly</title>
+<link rel="stylesheet" href="/static/bazaarly.css"></head>
+<body class="bz">
+<div class="bz-top">
+  <a class="bz-wordmark" href="/bazaarly/">bazaarly</a>
+  <form class="bz-find" method="post" action="/bazaarly/search" role="search" aria-label="Find items">
+    <input type="text" name="term" aria-label="What are you looking for?" placeholder="What are you looking for?"
+           value="{{ term|default('') }}" autocomplete="off">
+    <button type="submit">Find</button>
+  </form>
+  <form class="bz-newsletter" method="post" action="/bazaarly/newsletter" aria-label="Newsletter">
+    <input type="email" name="email" aria-label="Email for deals" placeholder="Email for deals">
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+<p class="bz-strip">Synthetic demo marketplace — all listings are fictional or sample data.</p>
+<main class="bz-main">{% block content %}{% endblock %}</main>
+{% if consent_needed %}
+<div class="bz-modal-backdrop">
+  <div class="bz-modal" role="dialog" aria-modal="true" aria-label="Cookie choices">
+    <p>Bazaarly uses cookies to keep the site working and to understand how it is used.</p>
+    <form method="post" action="/bazaarly/consent">
+      <input type="hidden" name="next" value="{{ here }}">
+      <button type="submit" name="choice" value="all">Allow all</button>
+      <button type="submit" name="choice" value="necessary">Only necessary</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+<script src="/static/bazaarly.js" defer></script>
+</body></html>
