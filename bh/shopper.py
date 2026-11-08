@@ -95,7 +95,8 @@ def search_sites(cfg: AppConfig, llm: Any | None) -> list[str]:
     sites = marketplace_sites(cfg)
     if not cfg.shopper.navigator_sites:
         return sites
-    navigable = [s for s, c in cfg.sites.items() if c.navigator and s not in sites]
+    # real (read_only) marketplaces are never searched from the shopper app: only by name, from the command line
+    navigable = [s for s, c in cfg.sites.items() if c.navigator and c.mode != "read_only" and s not in sites]
     if llm is not None:
         return sites + navigable
     from bh.browser.recipes import RecipeStore

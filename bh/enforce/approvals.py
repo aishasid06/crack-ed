@@ -19,6 +19,7 @@ from sqlalchemy.engine import Engine
 from sqlmodel import Session
 
 from bh.db import Case, CaseStatus, Listing, get_engine, session_scope, utcnow
+from bh.errors import EnforcementBlocked
 
 APPROVABLE = {CaseStatus.awaiting_approval, CaseStatus.drafted}
 REJECTABLE = {CaseStatus.awaiting_approval, CaseStatus.drafted, CaseStatus.approved, CaseStatus.waiting_human,
@@ -27,6 +28,11 @@ REJECTABLE = {CaseStatus.awaiting_approval, CaseStatus.drafted, CaseStatus.appro
 
 class DecisionError(ValueError):
     pass
+
+
+class ClaimRefused(DecisionError, EnforcementBlocked):
+    """Approval refused by the enforcement guard (real-site listing or real-brand demo). A DecisionError, so the
+    review UI shows the message; an EnforcementBlocked, so callers that guard enforcement still catch it."""
 
 
 def _user(user: str) -> str:
@@ -48,10 +54,13 @@ def approve_case(case_id: int, user: str, engine: Engine | None = None) -> None:
         from bh.config import get_config
         from bh.enforce.guard import check_case_claimable, check_listing_target
 
-        check_case_claimable(get_config(), s, c)  # no claim from a real-brand demo run
         listing = s.get(Listing, c.listing_id)
-        if listing is not None:  # real sellers are never reported (SPEC §1); refuse before any approval is stored
-            check_listing_target(get_config(), listing.platform, listing.url)
+        try:
+            check_case_claimable(get_config(), s, c)  # no claim from a real-brand demo run
+            if listing is not None:  # real sellers are never reported (SPEC §1); refuse before any approval is stored
+                check_listing_target(get_config(), listing.platform, listing.url)
+        except EnforcementBlocked as e:
+            raise ClaimRefused(str(e)) from e
         c.status, c.decided_by, c.decided_at = CaseStatus.approved, u, utcnow()
 
 

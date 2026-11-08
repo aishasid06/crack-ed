@@ -37,6 +37,7 @@ class CaseBundle:
     listing: Listing
     features: Features | None
     product: Product | None
+    demo_banner: str | None = None  # set for cases from a real-brand demo run (Run.config_snapshot.demo_banner)
 
     @property
     def listing_image(self) -> Path | None:
@@ -65,10 +66,14 @@ def _bundles(s: Session, cases: list[Case]) -> list[CaseBundle]:
     feats = {f.listing_id: f for f in s.exec(select(Features).where(col(Features.listing_id).in_(lids)))}
     pids = {f.matched_product_id for f in feats.values() if f.matched_product_id}
     products = {p.id: p for p in s.exec(select(Product).where(col(Product.id).in_(pids)))} if pids else {}
+    rids = {c.run_id for c in cases if c.run_id is not None}
+    banners = {r.id: (r.config_snapshot or {}).get("demo_banner")
+               for r in s.exec(select(Run).where(col(Run.id).in_(rids)))} if rids else {}
     out = []
     for c in cases:
         f = feats.get(c.listing_id)
-        out.append(CaseBundle(c, listings[c.listing_id], f, products.get(f.matched_product_id) if f else None))
+        out.append(CaseBundle(c, listings[c.listing_id], f, products.get(f.matched_product_id) if f else None,
+                              banners.get(c.run_id)))
     return out
 
 

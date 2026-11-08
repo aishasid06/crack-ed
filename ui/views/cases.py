@@ -5,6 +5,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
+from bh.money import money
 from ui import theme
 from ui.data import all_cases
 from ui.views import dossier
@@ -17,12 +18,17 @@ def render() -> None:
     if not bundles:
         theme.empty("No cases yet", "Cases are created when a run classifies captured listings.")
         return
+    demo = sorted({b.demo_banner for b in bundles if b.demo_banner})
+    if demo:
+        st.info(f"{demo[0]} (applies to cases from real-brand demo runs)")
     df = pd.DataFrame([{
         "Case": b.case.id, "Run": b.case.run_id, "Status": str(b.case.status),
         "Category": theme.CATEGORY_LABEL.get(str(b.case.category), str(b.case.category)),
         "Action": theme.ACTION_LABEL.get(str(b.case.action), str(b.case.action)),
         "Rule": b.case.rule_id, "Confidence": b.case.confidence, "Expected value": b.case.expected_value,
-        "Platform": b.listing.platform.capitalize(), "Seller": b.listing.seller_name, "Price": b.listing.price,
+        "Platform": b.listing.platform.capitalize(), "Seller": b.listing.seller_name,
+        "Price": money(b.listing.price, b.listing.currency) if b.listing.price is not None else None,
+        "Model": "disagrees — review" if b.case.model_disagrees else "",
         "Listing": b.listing.title, "Decided by": b.case.decided_by, "Portal ref": b.case.submission_ref,
         "URL": b.listing.url,
     } for b in bundles])
@@ -56,7 +62,6 @@ def render() -> None:
         column_config={
             "Confidence": st.column_config.ProgressColumn(min_value=0, max_value=1, format="percent"),
             "Expected value": st.column_config.NumberColumn(format="£%.2f"),
-            "Price": st.column_config.NumberColumn(format="£%.2f"),
             "Listing": st.column_config.TextColumn(width="large"),
             "URL": st.column_config.LinkColumn(display_text="open"),
         })

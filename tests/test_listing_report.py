@@ -75,7 +75,9 @@ async def test_report_on_a_read_only_site_is_refused_before_any_page_opens(live:
 
     listing = live.catalog.for_site("mockbay")[0]
     rid = _report(engine, f"{live.base}/mockbay/item/{listing.id}", None)
-    cfg = _cfg_for(live.base, mockbay={"mode": "read_only"})
+    # read_only sites must also stay within the hard limits (bh/config.py), or the browser refuses to start
+    cfg = _cfg_for(live.base, mockbay={"mode": "read_only", "max_concurrency": 1, "max_pages": 2,
+                                       "min_delay_ms": 2000})
     before = len(live.requests)
     async with BrowserManager(cfg, secrets, sessions_dir=tmp_path / "s", headless=True) as b:
         with pytest.raises(EnforcementBlocked):

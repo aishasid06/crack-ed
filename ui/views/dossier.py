@@ -5,6 +5,9 @@ from __future__ import annotations
 
 import streamlit as st
 
+from bh.config import get_config
+from bh.decide import DISAGREE_LABEL
+from bh.money import money
 from bh.rules import get_rules
 from mocksites.portal_forms import DECLARATIONS
 from ui import theme
@@ -31,7 +34,8 @@ def overlay_text(b: CaseBundle) -> str | None:
 def header(b: CaseBundle) -> None:
     c, l = b.case, b.listing
     facts = [("Platform", l.platform.capitalize()), ("Seller", l.seller_name or "unknown"),
-             ("Price", theme.money(l.price)), ("Confidence", f"{c.confidence:.0%}"),
+             ("Price", money(l.price, l.currency) if l.price is not None else "—"),
+             ("Confidence", f"{c.confidence:.0%}"),
              ("Expected value", theme.money(c.expected_value)),
              ("Action", theme.ACTION_LABEL.get(str(c.action), str(c.action)))]
     if c.shopper_reports:
@@ -77,8 +81,27 @@ def evidence(b: CaseBundle) -> None:
             ("Rating", l.rating), ("Quantity", l.quantity),
             ("Price vs RRP", f"{f.price_ratio:.0%}" if f and f.price_ratio is not None else None),
             ("Found by query", l.discovered_by_query),
-            ("Extracted by", "LLM fallback extractor" if str(l.extraction_method) == "generic_llm" else "site adapter"),
+            ("Extracted by", extraction_label(l)),
         ]), unsafe_allow_html=True)
+
+
+def extraction_label(l: object) -> str:
+    """How the listing's details were read: adapter, learned recipe (no LLM), navigator or LLM fallback."""
+    method = str(getattr(l, "extraction_method", ""))
+    site = get_config().sites.get(getattr(l, "platform", ""))
+    if method == "recipe":
+        return "learned recipe (replayed, no LLM)"
+    if method == "generic_llm":
+        return "agentic navigator" if site is not None and site.navigator else "LLM fallback extractor"
+    return "site adapter"
+
+
+def flags(b: CaseBundle) -> None:
+    """Banners that must be seen before anything else in the case file."""
+    if b.demo_banner:
+        st.info(b.demo_banner)
+    if b.case.model_disagrees:
+        st.warning(f"**{DISAGREE_LABEL.capitalize()}.** {b.case.model_disagreement or ''}")
 
 
 def statute(b: CaseBundle) -> None:
@@ -120,6 +143,7 @@ def declarations(signatory: str | None) -> None:
 
 
 def full(b: CaseBundle) -> None:
+    flags(b)
     header(b)
     st.write("")
     evidence(b)

@@ -321,14 +321,18 @@ def test_shopper_search_covers_navigator_sites_by_recipe_or_with_claude(monkeypa
     from bh import shopper
     from bh.browser import recipes
 
-    navigable = [s for s, c in cfg.sites.items() if c.navigator]
+    navigable = [s for s, c in cfg.sites.items() if c.navigator and c.mode != "read_only"]
     assert navigable, "config should define an adapter-less site for the navigator"
+    real = [s for s, c in cfg.sites.items() if c.mode == "read_only"]
     monkeypatch.setattr(recipes.RecipeStore, "load", lambda self, site: None)
     without = shopper.search_sites(cfg, llm=None)
     assert not set(navigable) & set(without) and {"mockbay", "tradeloft"} <= set(without)
     assert set(navigable) <= set(shopper.search_sites(cfg, llm=object()))
     monkeypatch.setattr(recipes.RecipeStore, "load", lambda self, site: NS(search=object(), version=2))
     assert set(navigable) <= set(shopper.search_sites(cfg, llm=None))  # learned recipe: replay with no tokens
+    # real (read_only) marketplaces are never searched from the shopper app, with or without Claude or a recipe
+    assert not set(real) & set(shopper.search_sites(cfg, llm=object()))
+    assert not set(real) & set(shopper.search_sites(cfg, llm=None))
     off = cfg.model_copy(update={"shopper": cfg.shopper.model_copy(update={"navigator_sites": False})})
     assert not set(navigable) & set(shopper.search_sites(off, llm=object()))
 

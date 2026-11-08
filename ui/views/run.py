@@ -69,7 +69,9 @@ def _start_panel() -> None:
                 st.warning(w)
         else:
             st.error("This brand folder can't be used:\n\n" + "\n".join(f"- {e}" for e in check.errors))
-        marketplaces = [s for s, c in cfg.sites.items() if c.adapter or c.search_url or c.navigator]
+        # real (read_only) sites run from the command line only (--sites, --query, --until classify)
+        marketplaces = [s for s, c in cfg.sites.items()
+                        if (c.adapter or c.search_url or c.navigator) and c.mode != "read_only"]
         use_llm = st.toggle("Use Claude", value=False, disabled=not has_key,
                             help="Borderline vision checks (strong model), the extractor fallback when a site's "
                                  "adapter breaks, and the navigator. Off: adapters, image matching and rules only, "

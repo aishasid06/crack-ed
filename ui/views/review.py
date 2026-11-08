@@ -24,6 +24,7 @@ def _queue_table(queue: list[CaseBundle]) -> int | None:
         "Confidence": b.case.confidence, "Platform": b.listing.platform.capitalize(),
         "Listing": b.listing.title, "Draft": "Ready" if b.case.portal_draft_id else "Not drafted",
         "In budget": b.case.in_review_budget,
+        "Model": "disagrees — review" if b.case.model_disagrees else "",
     } for i, b in enumerate(queue, 1)])
     ev = st.dataframe(
         df, hide_index=True, width="stretch", on_select="rerun", selection_mode="single-row",
