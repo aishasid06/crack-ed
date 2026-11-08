@@ -21,7 +21,7 @@ from bh.classify import (PREDICATES, EvalCtx, LLMVerdict, Scorer, apply_rules, b
                          evaluate_elements)
 from bh.config import AppConfig
 from bh.db import Case, Features, Listing, session_scope
-from bh.features import (FEATURE_NAMES, FeatureExtractor, ListingFeatures, ListingInput, OwnPhotoMatcher,
+from bh.features import (FEATURE_NAMES, FeatureExtractor, ImageMatch, ListingFeatures, ListingInput, OwnPhotoMatcher,
                          assign_clusters, mark_occurrences, origin, phrase_hits, vector)
 from bh.llm import LLMClient
 from bh.rules import get_rules
@@ -118,6 +118,45 @@ def test_lookalike_with_referential_mark(cfg: AppConfig) -> None:
     assert rule == "lookalike" and els["mark_exact_in_text_or_logo_match"].status == "unmet"
 
 
+def _silent(**kw: Any) -> ListingFeatures:
+    """A listing that looks like a brand product, with no own-photo match, no mark and no copying wording."""
+    base = dict(own_photo=False, own_photo_routes=[], hash_dist=20, orb_inliers=4, matched_by="clip",
+                brand_in_text=False, inspired_kw=[], price_ratio=0.5)
+    return _f(**{**base, **kw})
+
+
+def test_resemblance_alone_is_not_a_lookalike(cfg: AppConfig) -> None:
+    silent = cfg.thresholds.lookalike_silent_clip
+    assert silent is not None and cfg.thresholds.lookalike_clip < silent
+    below = round((cfg.thresholds.lookalike_clip + silent) / 2, 3)  # similar, but not a close copy
+    rule, els, _ = _classify(cfg, _silent(clip_sim=below))
+    assert rule == "fallback" and els["inspired_kw_or_close_copy"].status == "unmet"
+    assert "resemblance only" in els["inspired_kw_or_close_copy"].evidence
+    rule, els, _ = _classify(cfg, _silent(clip_sim=silent + 0.01))  # very close copy, no wording needed
+    assert rule == "lookalike" and els["inspired_kw_or_close_copy"].status == "met"
+    rule, _, _ = _classify(cfg, _silent(clip_sim=below, inspired_kw=["dupe"]))  # wording is evidence of copying
+    assert rule == "lookalike"
+
+
+def test_original_lookalike_rule_when_silent_threshold_unset(cfg: AppConfig) -> None:
+    c = cfg.model_copy(update={"thresholds": cfg.thresholds.model_copy(update={"lookalike_silent_clip": None})})
+    rule, _, _ = _classify(c, _silent(clip_sim=cfg.thresholds.lookalike_clip + 0.01))
+    assert rule == "lookalike"
+
+
+def test_orb_needs_clip_corroboration(cfg: AppConfig) -> None:
+    m = OwnPhotoMatcher.__new__(OwnPhotoMatcher)  # routes() only reads the config
+    m.cfg = cfg
+    op = cfg.own_photo
+    assert op.orb_clip_min > 0
+    keypoints_only = ImageMatch(orb_inliers=op.orb_min_inliers + 20, clip=op.orb_clip_min - 0.05)
+    assert m.routes(keypoints_only) == []  # e.g. a real studio shot of a similar bottle
+    corroborated = ImageMatch(orb_inliers=op.orb_min_inliers, clip=op.orb_clip_min)
+    assert m.routes(corroborated) == ["orb"]
+    m.cfg = cfg.model_copy(update={"own_photo": op.model_copy(update={"orb_clip_min": 0.0})})
+    assert m.routes(keypoints_only) == ["orb"]  # 0 restores ORB-alone matching
+
+
 def test_authorised_seller_wins_even_when_cheap(cfg: AppConfig) -> None:
     rule, _, _ = _classify(cfg, _f(authorised=True, price_ratio=0.6))
     assert rule == "authorised"
@@ -201,7 +240,9 @@ def test_own_photo_routes(cfg: AppConfig, brand_env: Path, tmp_path: Path, engin
     c = _cfg_brand(cfg, brand_env, tmp_path)
     # ORB inlier counts are data-dependent: on the synthetic renders lookalikes reach ~41 inliers (flat shading,
     # identical drawn shapes) vs ~160 for a cropped gold photo, so the ABO-tuned 16 does not transfer here.
-    c = c.model_copy(update={"own_photo": c.own_photo.model_copy(update={"orb_min_inliers": 80})})
+    # No CLIP vectors here (match(..., None)), so the CLIP corroboration of ORB is switched off to test ORB itself;
+    # test_orb_needs_clip_corroboration covers the corroboration.
+    c = c.model_copy(update={"own_photo": c.own_photo.model_copy(update={"orb_min_inliers": 80, "orb_clip_min": 0.0})})
     ctx = load_brand_sync(c, TinyImageEncoder(), engine)
     m = OwnPhotoMatcher(ctx, c)
     gold = Image.open(ctx.gold[0].path).convert("RGB")

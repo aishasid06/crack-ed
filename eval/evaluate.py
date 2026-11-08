@@ -75,6 +75,7 @@ def evaluate(run_id: int | None = None, split: str = "test", labels_path: Path =
                              "(uncaptured = not reported)",
             "escalate_recall_lenient": "expected escalate predicted escalate or platform_report (reaches a lawyer)",
             "escalate_recall_strict": "expected escalate predicted exactly escalate",
+            "false_alarm_rate": "expected ignore but reported or escalated (sent to a lawyer) / expected ignore",
             "e2e_action_accuracy": "predicted action == expected action over all listings (uncaptured = ignore)",
             "discovery_recall": "captured / actionable (expected_action != ignore)",
             "category_accuracy_captured": "predicted category == label category over captured listings",
@@ -125,7 +126,7 @@ def _matrix(cm: dict[str, Any]) -> list[str]:
 
 def report_markdown(res: dict[str, Any]) -> str:
     h, c = res["headline"], res["counts"]
-    names = ["report_precision", "report_recall", "escalate_recall_lenient", "discovery_recall",
+    names = ["report_precision", "report_recall", "escalate_recall_lenient", "false_alarm_rate", "discovery_recall",
              "e2e_action_accuracy"]
     tot = res["run"].get("totals") or {}
     llm = tot.get("llm", {})
@@ -141,6 +142,8 @@ def report_markdown(res: dict[str, Any]) -> str:
            f"({c['escalate_reaching_lawyer']}/{c['expected_escalate']}); strictly escalate: "
            f"{_fmt(h['escalate_recall_strict'])} ({c['escalate_exact']}/{c['expected_escalate']})",
            f"- Recall on should_report: {_fmt(h['report_recall'])} ({c['true_report']}/{c['should_report']})",
+           f"- **False alarms** (should be ignored, sent to a lawyer): {_fmt(h['false_alarm_rate'])} "
+           f"({c['false_alarms']}/{c['expected_ignore']})",
            f"- **Discovery recall:** {_fmt(h['discovery_recall'])} ({c['actionable_captured']}/{c['actionable']} "
            f"actionable captured; {c['uncaptured_ignore_correct']} uncaptured ignore listings counted correct)",
            f"- End-to-end action accuracy: {_fmt(h['e2e_action_accuracy'])} · category accuracy on captured: "

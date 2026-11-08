@@ -3,7 +3,9 @@
 Image: own-photo matching with three routes (thresholds tuned on the dev split only):
   1. pHash AND dHash both within threshold on the same gold variant (original, mirrored, centre crops)
   2. CLIP similarity to a gold photo
-  3. ORB keypoint matches that survive a RANSAC homography (robust to crops and resizes)
+  3. ORB keypoint matches that survive a RANSAC homography (robust to crops and resizes), counted only when
+     the same image is also CLIP-similar to a gold photo (own_photo.orb_clip_min): real studio shots of
+     similar bottles reach the inlier threshold on their own
 wHash is deliberately not used (unreliable on white studio shots).
 
 Text: exact mark, misspelt mark, referential-only use ("not X", "inspired by X"), keyword lists from
@@ -137,7 +139,7 @@ class OwnPhotoMatcher:
             out.append("hash")
         if m.clip >= op.clip_min:
             out.append("clip")
-        if m.orb_inliers >= op.orb_min_inliers:
+        if m.orb_inliers >= op.orb_min_inliers and m.clip >= op.orb_clip_min:  # keypoints alone are not enough
             out.append("orb")
         return out
 

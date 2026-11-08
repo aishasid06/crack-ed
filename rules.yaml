@@ -115,7 +115,7 @@ rules:
       statute: "Passing off (common law) / design rights"
       section: "goodwill, misrepresentation, damage"
       summary: "Similar get-up without the mark; requires human judgement"
-    requires: [clip_ge_lookalike, no_hash_match, inspired_kw_or_no_mark]
+    requires: [clip_ge_lookalike, no_hash_match, inspired_kw_or_close_copy]
     action: escalate
 
   - id: fallback

@@ -56,7 +56,7 @@ def test_headline_counts_and_values(rows: list[M.Row]) -> None:
     c = M.counts(rows)
     assert c == {"listings": 8, "captured": 5, "actionable": 7, "actionable_captured": 5, "predicted_report": 2,
                  "true_report": 1, "should_report": 3, "expected_escalate": 3, "escalate_reaching_lawyer": 2,
-                 "escalate_exact": 1, "uncaptured_ignore_correct": 1}
+                 "escalate_exact": 1, "uncaptured_ignore_correct": 1, "expected_ignore": 1, "false_alarms": 0}
     assert M.report_precision(rows) == 0.5  # 1 of 2 reports correct (grey import reported)
     assert M.report_recall(rows) == pytest.approx(1 / 3)  # uncaptured copy counts as a miss
     assert M.escalate_recall_lenient(rows) == pytest.approx(2 / 3)
@@ -64,6 +64,20 @@ def test_headline_counts_and_values(rows: list[M.Row]) -> None:
     assert M.discovery_recall(rows) == pytest.approx(5 / 7)
     assert M.e2e_action_accuracy(rows) == pytest.approx(4 / 8)  # 1, 5, 7, 8
     assert M.category_accuracy_captured(rows) == 1.0
+
+
+def test_false_alarm_rate_counts_ignores_sent_to_a_lawyer() -> None:
+    labels = dict([_lab(1, "unrelated", "ignore"), _lab(2, "unrelated", "ignore"), _lab(3, "unrelated", "ignore"),
+                   _lab(4, "authorised", "ignore"), _lab(5, "counterfeit_identical", "platform_report")])
+    preds = {"/mockbay/item/1": M.Prediction("lookalike", "escalate", 0.3),          # false alarm
+             "/mockbay/item/2": M.Prediction("copied_photos", "platform_report", 0.8),  # false alarm
+             "/mockbay/item/4": M.Prediction("authorised", "ignore", 0.1),
+             "/mockbay/item/5": M.Prediction("counterfeit_identical", "platform_report", 0.9)}
+    rows = M.join(labels, preds, "test")  # 3 uncaptured → not sent anywhere
+    assert M.false_alarm_rate(rows) == pytest.approx(2 / 4)
+    c = M.counts(rows)
+    assert (c["false_alarms"], c["expected_ignore"]) == (2, 4)
+    assert M.wilson_intervals(rows)["false_alarm_rate"]["num"] == 2
 
 
 def test_metric_undefined_without_denominator() -> None:
