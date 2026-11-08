@@ -1,7 +1,7 @@
 PY ?= $(if $(wildcard .venv/Scripts/python.exe),.venv/Scripts/python.exe,.venv/bin/python)
 BRAND ?= vaelo
 
-.PHONY: install mock mock-sample abo seed real-listings discover tune classify decide draft submit run bootstrap ui eval test
+.PHONY: install mock mock-sample abo seed real-listings discover tune classify decide draft submit run bootstrap ui staff search eval test
 
 install:
 	uv venv --python 3.11 .venv
@@ -56,8 +56,14 @@ bootstrap:  # first run on a fresh DB: capture listings, fit the dev-split score
 	$(PY) -m eval.fit_scorer
 	$(PY) -m bh.orchestrator.run --brand $(BRAND)
 
-ui:
-	@echo "ui: implemented in Phase 9 (Streamlit UI)"; exit 1
+ui:  # shoppers: search by name or photo, watch the agent, see which listings look genuine
+	$(PY) -m streamlit run ui/app.py
+
+staff:  # the brand's lawyers: review queue, approvals, human-required, cases, trace, evaluation
+	$(PY) -m streamlit run ui/staff.py --server.port 8502
+
+search:  # one shopper search from the command line, e.g. make search Q="vaelo bottle"
+	$(PY) -m bh.shopper --search-id cli$$(date +%s) --text "$(Q)"
 
 eval:  # test split: discovery recall, report precision, escalate recall, CIs, per site/difficulty → data/eval/
 	$(PY) -m eval.evaluate $(ARGS)

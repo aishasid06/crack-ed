@@ -108,6 +108,10 @@ class SiteConfig(_Strict):
     search_url: str | None = None  # for sites without an adapter: "{base}/search?q={query}&page={page}"
     # read_only only: other hosts of the same site the browser may read (e.g. "m.example.com"); never enforced on
     extra_hosts: list[str] = Field(default_factory=list)
+    display_name: str | None = None  # how the site is named to shoppers (defaults to the capitalised key)
+
+    def label(self, key: str) -> str:
+        return self.display_name or key.capitalize()
 
     @model_validator(mode="after")
     def _real_sites_read_only(self) -> SiteConfig:
@@ -258,6 +262,21 @@ class EnforceConfig(_Strict):
         return self
 
 
+class ShopperConfig(_Strict):
+    """Shopper-facing search ("is this listing genuine?"). Runs in its own DB so shopper searches never
+    mix with the enforcement pipeline's runs, cases and review queue."""
+    db_url: str = "sqlite:///data/shopper.db"
+    uploads_dir: str = "data/shopper/uploads"
+    max_queries: int = Field(default=3, gt=0)        # the shopper's words, the identified product, the mark
+    max_listings: int = Field(default=24, gt=0)      # listings opened per search (highest match first)
+    max_pages: int = Field(default=3, gt=0)          # per (site, query); shoppers want answers quickly
+    photo_match_min: float = Field(default=0.80, gt=0, le=1)  # CLIP similarity to name the product in a photo
+    # auto: use the LLM features (extractor fallback, borderline vision check, navigator) when an API key is set
+    use_llm: Literal["auto", "always", "never"] = "auto"
+    # include adapter-less sites: replay their learned recipe (no LLM), or let the navigator browse (LLM only)
+    navigator_sites: bool = True
+
+
 class AppConfig(_Strict):
     brand: str
     paths: PathsConfig
@@ -275,6 +294,7 @@ class AppConfig(_Strict):
     own_photo: OwnPhotoConfig = Field(default_factory=OwnPhotoConfig)
     text: TextConfig = Field(default_factory=TextConfig)
     models: ModelsConfig = Field(default_factory=ModelsConfig)
+    shopper: ShopperConfig = Field(default_factory=ShopperConfig)
     navigator: NavigatorConfig = Field(default_factory=NavigatorConfig)
     # Real-brand demo run (set only by config_for_brand_dir with --allow-real-brand-demo): classify only,
     # read_only sites only; deciding, drafting, approval and submission are refused (bh/enforce/guard.py).

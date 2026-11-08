@@ -144,8 +144,9 @@ def create_app(settings: MockSettings) -> FastAPI:
     app.mount("/static", StaticFiles(directory=str(HERE / "static")), name="static")
     app.mount("/media", StaticFiles(directory=str(settings.catalog_dir / "images")), name="media")
 
-    from mocksites import routes_bazaarly, routes_mockbay, routes_portal, routes_tradeloft
+    from mocksites import listing_reports, routes_bazaarly, routes_mockbay, routes_portal, routes_tradeloft
 
+    app.include_router(listing_reports.router)
     app.include_router(routes_mockbay.router)
     app.include_router(routes_tradeloft.router)
     app.include_router(routes_portal.router)

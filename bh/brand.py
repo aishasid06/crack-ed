@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 import re
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import TYPE_CHECKING, Any
 
 from PIL import Image, UnidentifiedImageError
@@ -165,9 +165,15 @@ def _field_errors(file: str, idx: int | None, e: ValidationError) -> list[str]:
     return out
 
 
+def _is_rooted(rel: str) -> bool:
+    """Absolute on any OS: '/etc/x' is not ``is_absolute()`` on Windows (no drive) but still escapes the folder."""
+    return (Path(rel).is_absolute() or PurePosixPath(rel).is_absolute() or bool(PureWindowsPath(rel).drive)
+            or rel.startswith(("/", "\\")))
+
+
 def _check_image(root: Path, rel: str, label: str) -> list[str]:
     """Path must stay inside the brand folder; file must be a JPEG/PNG under 10 MB, ≥ 300 px shorter side."""
-    if Path(rel).is_absolute() or _has_dotdot(rel):
+    if _is_rooted(rel) or _has_dotdot(rel):
         return [f"{label}: path must be relative to the brand folder without '..': {rel}"]
     p = root / rel
     try:

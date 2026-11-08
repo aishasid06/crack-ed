@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import AsyncIterator
+from pathlib import Path
 from typing import Any
 
 from playwright.async_api import Page
@@ -39,6 +40,7 @@ _LISTING_JS = """
 }
 """
 
+VISUAL_SEARCH_TIMEOUT_MS = 120_000
 _SELLER_ROW = re.compile(r"Sold by\s+(?P<name>.+?)\s*\((?P<loc>[^)]*)\)\s*$")
 
 
@@ -92,6 +94,22 @@ class TradeLoftAdapter(SiteAdapter):
             if n == max_pages or not new or not await self.has_next(page):
                 return
             await self.load_more(page)
+
+    async def visual_search(self, page: Page, image_path: Path) -> list[Card]:
+        """Upload a photo to the site's own search-by-photo page and parse the ranked results."""
+        await self.goto(page, f"{self.base_url}/visual-search")
+        await self.wait_for_any(page, ["#tl-visual-form"])
+        await page.set_input_files("#tl-photo", str(image_path))
+        # The site ranks the photo server-side; its first request also loads an image model, so the results
+        # page can take far longer than a normal click. Submit without the click's own navigation wait and
+        # give the navigation a generous timeout instead.
+        async with self.step("submit:visual_search"), \
+                page.expect_navigation(wait_until="domcontentloaded", timeout=VISUAL_SEARCH_TIMEOUT_MS):
+            await page.locator("#tl-visual-form").evaluate("f => f.requestSubmit()")
+        if await page.locator(".tl-error").count():
+            msg = clean(await page.locator(".tl-error").first.text_content())
+            raise SelectorError(f"tradeloft: search by photo rejected the upload: {msg}")
+        return await self.parse_results(page)
 
     async def has_next(self, page: Page) -> bool:
         btn = page.locator(self.LOAD_MORE)

@@ -278,7 +278,7 @@ def test_mocksites_code_never_reads_labels() -> None:
             elif isinstance(node, ast.Constant) and isinstance(node.value, str) and id(node) not in docstrings:
                 assert "labels.json" not in node.value, p
     for p in (ROOT / "mocksites" / "templates").rglob("*.html"):
-        assert "labels" not in p.read_text(), p
+        assert "labels" not in p.read_text(encoding="utf-8"), p
 
 
 # ---------------------------------------------------------------- browsable via the mock sites

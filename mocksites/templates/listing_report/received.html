@@ -1,0 +1,21 @@
+{% extends base %}
+{% block title %}Report {{ r.ref }}{% endblock %}
+{% block content %}
+{% include "listing_report/_style.html" %}
+<div class="lr">
+  <div class="lr-ok" role="status">Thanks, we've received your report. Our trust and safety team will review it.</div>
+  <h1>Listing report</h1>
+  <p class="lr-ref" id="lr-ref">Reference {{ r.ref }}</p>
+  <table id="lr-summary">
+    <tr><th>Status</th><td>{{ "Received, awaiting review" if r.status == "received" else r.status }}</td></tr>
+    <tr><th>Submitted</th><td>{{ r.submitted_at.strftime("%d %b %Y, %H:%M UTC") }}</td></tr>
+    <tr><th>Listing</th><td><a href="{{ r.listing_url }}">{{ r.listing_title }}</a><br><small>Item {{ r.listing_id }} · sold by {{ r.seller_name }}</small></td></tr>
+    <tr><th>What's wrong</th><td>{{ reasons.get(r.reason, r.reason) }}</td></tr>
+    <tr><th>Description</th><td class="lr-details">{{ r.details }}</td></tr>
+    <tr><th>How they came across it</th><td>{{ relationships.get(r.relationship, r.relationship) }}</td></tr>
+    <tr><th>Reported by</th><td>{{ r.reporter_name }}<br><small>{{ r.reporter_email }}</small></td></tr>
+    <tr><th>Declaration</th><td>{{ "✓ " if r.declaration }}{{ declaration }}</td></tr>
+    <tr><th>Evidence</th><td class="lr-evidence">{% if r.evidence %}<a href="/{{ site }}/reports/{{ r.ref }}/evidence" target="_blank"><img src="/{{ site }}/reports/{{ r.ref }}/evidence" alt="Evidence attached to report {{ r.ref }}"></a>{% else %}None attached{% endif %}</td></tr>
+  </table>
+</div>
+{% endblock %}
