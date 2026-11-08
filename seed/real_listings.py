@@ -111,7 +111,7 @@ def _location(rng: random.Random) -> str:
 
 def _new_id(site: str, used: set[str], rng: random.Random) -> str:
     while True:
-        lid = str(rng.randint(200000, 899999)) if site == "mockbay" else f"TL-{rng.randint(10000, 99999)}"
+        lid = str(rng.randint(200000, 899999)) if site == "echobazaar" else f"TL-{rng.randint(10000, 99999)}"
         if lid not in used:
             used.add(lid)
             return lid
@@ -150,7 +150,7 @@ def add_real_listings(catalog_dir: Path, base_labels: Path = DEFAULT_LABELS, out
     real_keys: list[str] = []
     types: Counter[str] = Counter()
     for k, it in enumerate(chosen):
-        site = "mockbay" if k % 2 == 0 else "tradeloft"
+        site = "echobazaar" if k % 2 == 0 else "tradeloft"
         lid = _new_id(site, used_ids, rng)
         names = []
         for j, iid in enumerate(i for i in it.image_ids if i in paths):

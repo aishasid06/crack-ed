@@ -1,7 +1,7 @@
 """Populate Bazaarly, the "unseen" marketplace browsed by the agentic navigator (SPEC Phase 11 item 2).
 
 - Real ABO drinkware listings (via seed/real_listings.py's candidate selection), all ``unrelated`` / ``ignore``.
-  Items already used for seed photos or for the real listings on MockBay / TradeLoft are skipped.
+  Items already used for seed photos or for the real listings on EchoBazaar / TradeLoft are skipped.
   Without the ABO cache, only the Vaelo cases are added.
 - A handful of seeded Vaelo cases built with the synthetic generator's builders (counterfeits, copied photos,
   a lookalike, a genuine resale, a grey import).

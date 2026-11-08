@@ -19,16 +19,16 @@ def _tasks(engine: Engine) -> dict[str, Task]:
 
 async def test_task_success_and_nesting(engine: Engine) -> None:
     async with run_span(None, {"k": 1}) as run:
-        async with task_span(run.id, "discovery", "mockbay", "mockbay:q1") as parent:
+        async with task_span(run.id, "discovery", "echobazaar", "echobazaar:q1") as parent:
             assert current_task_id() == parent.id
-            async with task_span(None, "capture", "mockbay", "mockbay:item1") as child:
+            async with task_span(None, "capture", "echobazaar", "echobazaar:item1") as child:
                 assert child.parent_id == parent.id
             assert current_task_id() == parent.id
     assert current_task_id() is None
     t = _tasks(engine)
-    assert t["mockbay:q1"].status == TaskStatus.succeeded
-    assert t["mockbay:item1"].parent_id == t["mockbay:q1"].id
-    assert t["mockbay:q1"].started_at and t["mockbay:q1"].finished_at
+    assert t["echobazaar:q1"].status == TaskStatus.succeeded
+    assert t["echobazaar:item1"].parent_id == t["echobazaar:q1"].id
+    assert t["echobazaar:q1"].started_at and t["echobazaar:q1"].finished_at
 
 
 async def test_failure_is_recorded_and_redacted(engine: Engine) -> None:
@@ -68,9 +68,9 @@ async def test_resume_rejects_non_waiting(engine: Engine) -> None:
 
 async def test_dedup_marks_already_done(engine: Engine) -> None:
     async with run_span(None, {}) as run:
-        async with task_span(run.id, "capture", "mockbay", "url:1") as first:
+        async with task_span(run.id, "capture", "echobazaar", "url:1") as first:
             assert not first.already_done
-        async with task_span(run.id, "capture", "mockbay", "url:1") as second:
+        async with task_span(run.id, "capture", "echobazaar", "url:1") as second:
             assert second.already_done and second.id == first.id
     assert len(_tasks(engine)) == 1
 
@@ -78,7 +78,7 @@ async def test_dedup_marks_already_done(engine: Engine) -> None:
 async def test_concurrent_duplicate_is_deduped(engine: Engine) -> None:
     async with run_span(None, {}) as run:
         async def work() -> bool:
-            async with task_span(run.id, "capture", "mockbay", "url:dup") as h:
+            async with task_span(run.id, "capture", "echobazaar", "url:dup") as h:
                 await asyncio.sleep(0.05)
                 return h.already_done
 
@@ -93,9 +93,9 @@ async def test_run_totals(engine: Engine) -> None:
             async with task_span(run.id, "discovery", site, f"{site}:{i}"):
                 await asyncio.sleep(0.1)
 
-        await asyncio.gather(*(work(i, "mockbay") for i in range(3)), work(0, "tradeloft"))
+        await asyncio.gather(*(work(i, "echobazaar") for i in range(3)), work(0, "tradeloft"))
         with pytest.raises(RuntimeError):
-            async with task_span(run.id, "capture", "mockbay", "bad"):
+            async with task_span(run.id, "capture", "echobazaar", "bad"):
                 raise RuntimeError("x")
 
     with Session(engine) as s:
@@ -105,7 +105,7 @@ async def test_run_totals(engine: Engine) -> None:
     assert totals["tasks"]["total"] == 5
     assert totals["tasks"]["by_type"]["discovery"] == {"succeeded": 4}
     assert totals["tasks"]["by_status"]["failed"] == 1
-    assert totals["sites"] == ["mockbay", "tradeloft"]
+    assert totals["sites"] == ["echobazaar", "tradeloft"]
     assert totals["max_parallelism"] == 4
     assert totals["wall_time_s"] >= 0.1
 

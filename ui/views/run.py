@@ -88,7 +88,7 @@ def _start_panel() -> None:
                                               "decide": "Decide actions", "draft": "Draft reports"}.get)
         mock_up = workers.mock_sites_up()
         if not mock_up:
-            st.warning("The mock marketplaces aren't reachable on "
+            st.warning("The marketplaces aren't reachable on "
                        f"{cfg.mocksites.host}:{cfg.mocksites.port}. Start them under Workers before running.")
         c1, c2 = st.columns(2)
         if pipe.alive:
@@ -111,8 +111,8 @@ def _start_panel() -> None:
         st.markdown(
             _worker_row(pipe, "Pipeline", "Search, capture, classify, rank, draft") +
             _worker_row(sub, "Submit loop", "Signs, verifies and submits approved cases") +
-            (_worker_row(mock, "Mock sites", "MockBay, TradeLoft and the report portal") if not mock_up or mock.alive
-             else '<div class="bh-worker"><div><span class="name">Mock sites</span><br><span class="meta">'
+            (_worker_row(mock, "Marketplaces", "EchoBazaar, TradeLoft and the report portal") if not mock_up or mock.alive
+             else '<div class="bh-worker"><div><span class="name">Marketplaces</span><br><span class="meta">'
                   'Running outside the UI</span></div><div>' + theme.pill("running") + '</div></div>'),
             unsafe_allow_html=True)
         b1, b2 = st.columns(2)
@@ -124,12 +124,12 @@ def _start_panel() -> None:
             workers.start("submit")
             st.rerun()
         if mock.alive:
-            if b2.button("Stop mock sites", width="stretch"):
+            if b2.button("Stop marketplaces", width="stretch"):
                 workers.stop("mock")
                 st.rerun()
-        elif not mock_up and b2.button("Start mock sites", width="stretch"):
+        elif not mock_up and b2.button("Start marketplaces", width="stretch"):
             workers.start("mock")
-            st.toast("Starting mock sites…")
+            st.toast("Starting the marketplaces…")
             st.rerun()
 
 
@@ -175,7 +175,7 @@ def _live() -> None:
 
     st.subheader("Current run" if pipe.alive else "Latest run")
     if not run_rows:
-        theme.empty("No runs yet", "Start the mock sites, then start a run. Task counts and token use "
+        theme.empty("No runs yet", "Start the marketplaces, then start a run. Task counts and token use "
                                    "appear here while it works.")
         return
     end = None if pipe.alive else max((r.finished_at for r in run_rows if r.finished_at), default=None)

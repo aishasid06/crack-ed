@@ -23,7 +23,7 @@ DECLARATIONS = {
     "decl_accurate": "The information in this notice is accurate.",
     "decl_authorised": "I am the rights owner or am authorised to act on the owner's behalf.",
 }
-LISTING_PATH_PREFIXES = ("/mockbay/", "/tradeloft/")
+LISTING_PATH_PREFIXES = ("/echobazaar/", "/tradeloft/")
 
 _EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 _UK_REG = re.compile(r"^UK\d{11}$")
@@ -115,7 +115,7 @@ def parse_step3(form_lists: dict[str, list[str]], right_type: str,
         p = urlparse(it["url"])
         if p.scheme not in ("http", "https") or p.hostname not in allowed_hosts \
                 or not p.path.startswith(LISTING_PATH_PREFIXES):
-            e[f"url_{idx}"] = "Enter the full URL of a listing on MockBay or TradeLoft."
+            e[f"url_{idx}"] = "Enter the full URL of a listing on EchoBazaar or TradeLoft."
         elif it["url"] in seen:
             e[f"url_{idx}"] = "This URL is already listed."
         seen.add(it["url"])

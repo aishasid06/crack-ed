@@ -132,44 +132,44 @@ def test_parse_money(text: str, expected: tuple[float | None, str | None]) -> No
     assert parse_money(text) == expected
 
 
-# ---------------------------------------------------------------- MockBay
+# ---------------------------------------------------------------- EchoBazaar
 
 
-async def test_mockbay_search_dismisses_banner_and_paginates(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
-    expected = catalog_search(live.catalog.for_site("mockbay"), "vaelo")
+async def test_echobazaar_search_dismisses_banner_and_paginates(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
+    expected = catalog_search(live.catalog.for_site("echobazaar"), "vaelo")
     async with _browser(live, tmp_path, secrets) as b:
-        ad = b.adapter("mockbay")
-        async with b.page("mockbay") as page:
+        ad = b.adapter("echobazaar")
+        async with b.page("echobazaar") as page:
             await ad.search(page, "vaelo", 1)
             assert await page.locator("#cookie-consent").count() == 0  # dismissed
             p1 = await ad.parse_results(page)
             assert len(p1) == 12 and await ad.has_next(page)
-        cards = await search_site(b, "mockbay", "vaelo", max_pages=10)
+        cards = await search_site(b, "echobazaar", "vaelo", max_pages=10)
     assert len(cards) == len(expected)
     by_id = {l.id: l for l in expected}
     for c in cards:
         l = by_id[c.external_id]
         assert c.title == l.title and c.price == l.price and c.currency == "GBP"
         assert c.seller_name == l.seller_name and c.seller_location == l.seller_location
-        assert c.url.endswith(f"/mockbay/item/{l.id}") and c.thumbnail_url.endswith(l.images[0])
+        assert c.url.endswith(f"/echobazaar/item/{l.id}") and c.thumbnail_url.endswith(l.images[0])
 
 
-async def test_mockbay_page_cap(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
+async def test_echobazaar_page_cap(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
     async with _browser(live, tmp_path, secrets) as b:
-        cards = await search_site(b, "mockbay", "vaelo", max_pages=2)
+        cards = await search_site(b, "echobazaar", "vaelo", max_pages=2)
     assert len(cards) == 24
 
 
-async def test_mockbay_no_results(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
+async def test_echobazaar_no_results(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
     async with _browser(live, tmp_path, secrets) as b:
-        assert await search_site(b, "mockbay", "zzzqqqxxx") == []
+        assert await search_site(b, "echobazaar", "zzzqqqxxx") == []
 
 
-async def test_mockbay_listing_matches_catalog(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
-    sample = live.catalog.for_site("mockbay")[:8]
+async def test_echobazaar_listing_matches_catalog(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
+    sample = live.catalog.for_site("echobazaar")[:8]
     async with _browser(live, tmp_path, secrets) as b:
         for l in sample:
-            d = await capture_listing(b, "mockbay", f"{live.base}/mockbay/item/{l.id}", llm=None)
+            d = await capture_listing(b, "echobazaar", f"{live.base}/echobazaar/item/{l.id}", llm=None)
             assert d.extraction_method == ExtractionMethod.adapter
             assert (d.external_id, d.title, d.price, d.currency) == (l.id, l.title, l.price, "GBP")
             assert d.description == l.description.strip()
@@ -240,11 +240,11 @@ async def test_adapter_raises_selector_error_on_wrong_page(live: LiveServer, tmp
 
 
 async def test_per_site_concurrency_limit(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
-    urls = [f"{live.base}/mockbay/item/{l.id}" for l in live.catalog.for_site("mockbay")[:6]]
+    urls = [f"{live.base}/echobazaar/item/{l.id}" for l in live.catalog.for_site("echobazaar")[:6]]
     async with _browser(live, tmp_path, secrets) as b:
-        limit = b.cfg.site("mockbay").max_concurrency
-        await asyncio.gather(*(capture_listing(b, "mockbay", u, None) for u in urls))
-        assert b.max_active["mockbay"] == limit
+        limit = b.cfg.site("echobazaar").max_concurrency
+        await asyncio.gather(*(capture_listing(b, "echobazaar", u, None) for u in urls))
+        assert b.max_active["echobazaar"] == limit
 
 
 async def test_pacing_spaces_navigations(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
@@ -258,14 +258,14 @@ async def test_pacing_spaces_navigations(live: LiveServer, tmp_path: Path, secre
 
 async def test_consent_persists_in_site_session(live: LiveServer, tmp_path: Path, secrets: Secrets) -> None:
     async with _browser(live, tmp_path, secrets) as b:
-        async with b.page("mockbay") as page:
-            await b.goto("mockbay", page, f"{live.base}/mockbay/")
-            await b.adapter("mockbay").prepare(page)
+        async with b.page("echobazaar") as page:
+            await b.goto("echobazaar", page, f"{live.base}/echobazaar/")
+            await b.adapter("echobazaar").prepare(page)
     async with _browser(live, tmp_path, secrets) as b:  # new browser, same sessions dir
-        async with b.page("mockbay") as page:
-            await b.goto("mockbay", page, f"{live.base}/mockbay/")
+        async with b.page("echobazaar") as page:
+            await b.goto("echobazaar", page, f"{live.base}/echobazaar/")
             assert await page.locator("#cookie-consent").count() == 0
-    assert (tmp_path / "sessions" / "mockbay").is_dir()
+    assert (tmp_path / "sessions" / "echobazaar").is_dir()
 
 
 # ---------------------------------------------------------------- portal login + challenge
@@ -426,7 +426,7 @@ async def _route_unseen(page: Any, live: LiveServer) -> list[str]:
 
 def _unseen_cfg(live: LiveServer) -> AppConfig:
     cfg = _cfg_for(live.base)
-    unseen = cfg.sites["mockbay"].model_copy(update={"base_url": UNSEEN, "adapter": None,
+    unseen = cfg.sites["echobazaar"].model_copy(update={"base_url": UNSEEN, "adapter": None,
                                                      "search_url": "{base}/search?q={query}&pg={page}"})
     return cfg.model_copy(update={"sites": {**cfg.sites, "unseen": unseen}})
 
@@ -472,20 +472,20 @@ async def test_generic_results_extractor_validates_links(live: LiveServer, tmp_p
 
 async def test_adapter_failure_retries_then_falls_back(live: LiveServer, tmp_path: Path, secrets: Secrets,
                                                        engine: Any) -> None:
-    """MockBay adapter pointed at a page it cannot parse: 1 retry with a fresh page, then generic."""
-    cfg = _cfg_for(live.base, mockbay={"base_url": UNSEEN})
+    """EchoBazaar adapter pointed at a page it cannot parse: 1 retry with a fresh page, then generic."""
+    cfg = _cfg_for(live.base, echobazaar={"base_url": UNSEEN})
     fake = FakeAnthropic()
     llm = LLMClient(cfg=cfg, secrets=secrets, client=fake, engine=engine)
     async with BrowserManager(cfg, secrets, sessions_dir=tmp_path / "s") as b:
-        async with b.page("mockbay") as page:
+        async with b.page("echobazaar") as page:
             hits = await _route_unseen(page, live)
-        d = await capture_listing(b, "mockbay", f"{UNSEEN}/item/7731", llm)
+        d = await capture_listing(b, "echobazaar", f"{UNSEEN}/item/7731", llm)
         assert d.extraction_method == ExtractionMethod.generic_llm
         assert d.fallback_reason.startswith("adapter failed:")
         assert hits == ["/item/7731", "/item/7731"]  # first attempt + 1 retry on a fresh page, then fallback
         assert len(fake.requests) == 1
         with pytest.raises(ExtractionFailed):
-            await capture_listing(b, "mockbay", f"{UNSEEN}/item/7731", llm=None)
+            await capture_listing(b, "echobazaar", f"{UNSEEN}/item/7731", llm=None)
         assert len(hits) == 4 and len(fake.requests) == 1  # no LLM → fails after retry, no extra call
 
 
@@ -504,8 +504,8 @@ async def test_snapshot_is_bounded(live: LiveServer, tmp_path: Path, secrets: Se
     cfg = _cfg_for(live.base)
     cfg = cfg.model_copy(update={"browser": cfg.browser.model_copy(update={"snapshot_max_chars": 600})})
     async with BrowserManager(cfg, secrets, sessions_dir=tmp_path / "s") as b:
-        async with b.page("mockbay") as page:
-            await b.goto("mockbay", page, f"{live.base}/mockbay/search?q=vaelo")
+        async with b.page("echobazaar") as page:
+            await b.goto("echobazaar", page, f"{live.base}/echobazaar/search?q=vaelo")
             snap = await snapshot(page, cfg)
     assert len(snap.aria) <= 600 and snap.truncated and snap.image_candidates
 
@@ -532,8 +532,8 @@ async def test_in_page_actions_are_traced(live: LiveServer, tmp_path: Path, secr
     async with run_span(None, {}) as run, _browser(live, tmp_path, secrets) as b:
         async with task_span(run.id, "discovery", "tradeloft", "disc:tl"):
             await search_site(b, "tradeloft", "vaelo", max_pages=3)
-        async with task_span(run.id, "discovery", "mockbay", "disc:mb"):
-            await search_site(b, "mockbay", "vaelo", max_pages=1)
+        async with task_span(run.id, "discovery", "echobazaar", "disc:mb"):
+            await search_site(b, "echobazaar", "vaelo", max_pages=1)
         async with task_span(run.id, "draft", "portal", "draft:x"):
             async with b.page("portal") as page:
                 await b.login("portal", page)

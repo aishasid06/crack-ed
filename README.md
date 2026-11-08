@@ -32,7 +32,7 @@ make submit                  # separate loop: signs + submits only the cases a l
 
 `make run` is `python -m bh.orchestrator.run --brand vaelo`, a LangGraph pipeline that writes everything to
 one `Run` (tasks, tokens per model, wall time). Useful flags: `--llm` (borderline vision check and generic
-extractor fallback), `--navigator` (with `--llm`: also search Bazaarly, the adapter-less site, with the agentic navigator; opt-in, off by default), `--until discovery|classify|decide`, `--sites mockbay`, `--max-queries N`. If a portal
+extractor fallback), `--navigator` (with `--llm`: also search Bazaarly, the adapter-less site, with the agentic navigator; opt-in, off by default), `--until discovery|classify|decide`, `--sites echobazaar`, `--max-queries N`. If a portal
 challenge pauses drafting, a human clears it in their own browser and then runs
 `python -m bh.orchestrator.run --resume <run_id>`, which continues the same run without searching again.
 

@@ -41,6 +41,13 @@ class PhotoMatch:
     similarity: float
 
 
+def photo_sha256(photo: Path | None) -> str | None:
+    """Content hash of the shopper's photo, so a later search with the same photo can be recognised."""
+    import hashlib
+
+    return hashlib.sha256(photo.read_bytes()).hexdigest() if photo is not None and photo.exists() else None
+
+
 def identify_product(ctx: Any, vec: Any, min_similarity: float) -> PhotoMatch | None:
     """The official product a shopper's photo most resembles, if it is close enough to say so."""
     sim, pid = ctx.nearest_clip(vec)
@@ -182,7 +189,7 @@ async def run_search(search_id: str, text: str | None, photo: Path | None, cfg: 
     encoder = encoder or ClipEncoder(scfg.vision.clip_model)
     sites = search_sites(scfg, llm)
     snapshot = {"stage": "shopper", "search_id": search_id, "query": text, "has_photo": photo is not None,
-                "llm": llm is not None, "sites": sites}
+                "photo_sha256": photo_sha256(photo), "llm": llm is not None, "sites": sites}
     async with run_span(None, snapshot) as run:
         rid = run.id
         async with task_span(rid, "load_brand", None, "load_brand"):

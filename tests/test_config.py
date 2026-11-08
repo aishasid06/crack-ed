@@ -14,8 +14,8 @@ def test_loads_repo_config(cfg: AppConfig) -> None:
     assert cfg.brand == "vaelo"
     assert cfg.llm.small.model == "claude-haiku-5-5"
     assert cfg.llm.strong.model == "claude-opus-5-5"
-    assert cfg.site("mockbay").max_concurrency >= 1
-    assert {"mockbay", "tradeloft", "portal"} <= set(cfg.sites)
+    assert cfg.site("echobazaar").max_concurrency >= 1
+    assert {"echobazaar", "tradeloft", "portal"} <= set(cfg.sites)
 
 
 def test_unknown_site_raises(cfg: AppConfig) -> None:
@@ -25,7 +25,7 @@ def test_unknown_site_raises(cfg: AppConfig) -> None:
 
 def test_p_success_wildcards(cfg: AppConfig) -> None:
     d = cfg.decision
-    assert d.p_success_for("mockbay", "tm_identical") == 0.90
+    assert d.p_success_for("echobazaar", "tm_identical") == 0.90
     assert d.p_success_for("tradeloft", "grey_import") == 0.40  # *|rule
     assert d.p_success_for("other", "unknown_rule") == 0.30  # *|*
 

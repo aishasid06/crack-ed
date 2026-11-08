@@ -26,7 +26,7 @@ APP = str(Path(__file__).resolve().parent.parent / "ui" / "app.py")
 
 
 def test_every_category_has_a_group_and_a_plain_reason() -> None:
-    l = Listing(platform="mockbay", url="u", title="t", price=7.5)
+    l = Listing(platform="echobazaar", url="u", title="t", price=7.5)
     f = Features(listing_id=1, replica_kw=["1:1"], price_ratio=0.23, origin_evidence="seller location: Osaka, Japan",
                  modification_kw=["refurbished"])
     for cat, group in CATEGORY_GROUP.items():
@@ -54,8 +54,8 @@ def test_feed_shows_each_site_the_agent_is_on_and_the_current_step() -> None:
         _task(1, "load_brand", None, TaskStatus.succeeded),
         _task(2, "identify_photo", None, TaskStatus.succeeded, {"product": "Arc Bottle"}),
         _task(3, "plan_search", None, TaskStatus.succeeded, {"queries": ["acme bottle", "acme"]}),
-        _task(4, "discovery", "mockbay", TaskStatus.running, {"query": "acme bottle"}),
-        _task(5, "browser:goto", "mockbay", TaskStatus.running, {"url": "http://x/mockbay/search?q=acme&page=2"}),
+        _task(4, "discovery", "echobazaar", TaskStatus.running, {"query": "acme bottle"}),
+        _task(5, "browser:goto", "echobazaar", TaskStatus.running, {"url": "http://x/echobazaar/search?q=acme&page=2"}),
         _task(6, "discovery", "tradeloft", TaskStatus.succeeded, {"query": "acme", "cards": 8, "passing": 5}),
         _task(7, "browser:goto", "tradeloft", TaskStatus.running, {"url": "http://x/tradeloft/visual-search"}),
         _task(8, "discovery", "otherbay", TaskStatus.waiting_human, {"query": "acme"}),
@@ -63,8 +63,8 @@ def test_feed_shows_each_site_the_agent_is_on_and_the_current_step() -> None:
     f = feed.build(tasks, "Acme", finished=False)
     assert [s for _, s in f.steps] == ["done", "active", "pending", "pending"]
     now = {n.site: n for n in f.now}
-    assert now["mockbay"].doing == "Searching for “acme bottle”"
-    assert feed.short_url(now["mockbay"].url) == "/mockbay/search?q=acme&page=2"
+    assert now["echobazaar"].doing == "Searching for “acme bottle”"
+    assert feed.short_url(now["echobazaar"].url) == "/echobazaar/search?q=acme&page=2"
     assert now["tradeloft"].doing == "Opening a page"
     joined = " ".join(f.events)
     assert "Arc Bottle" in joined and "8 results, 5 worth a closer look" in joined
@@ -73,9 +73,9 @@ def test_feed_shows_each_site_the_agent_is_on_and_the_current_step() -> None:
 
 def test_feed_counts_progress_and_finishes() -> None:
     tasks = [_task(1, "capture_all", None, TaskStatus.succeeded, {"n": 3}),
-             _task(2, "capture", "mockbay", TaskStatus.succeeded), _task(3, "capture", "mockbay", TaskStatus.running),
+             _task(2, "capture", "echobazaar", TaskStatus.succeeded), _task(3, "capture", "echobazaar", TaskStatus.running),
              _task(4, "classify_all", None, TaskStatus.running, {"n": 2}),
-             _task(5, "classify", "mockbay", TaskStatus.succeeded)]
+             _task(5, "classify", "echobazaar", TaskStatus.succeeded)]
     f = feed.build(tasks, "Acme", finished=False)
     assert (f.opened, f.to_open, f.checked, f.to_check) == (1, 3, 1, 2)
     done = feed.build(tasks, "Acme", finished=True)
@@ -197,7 +197,7 @@ def test_results_offer_a_marketplace_report_only_for_listings_to_avoid(shop: dic
     assert not at.exception, [e.value for e in at.exception]
     labels = [b.label for b in at.button]
     avoid = [b for b in shop_data.results(shop["run"]) if shop_data.CATEGORY_GROUP[str(b.case.category)] == "avoid"]
-    expected = sorted(f"Report to {'MockBay' if b.listing.platform == 'mockbay' else 'TradeLoft'}" for b in avoid)
+    expected = sorted(f"Report to {'EchoBazaar' if b.listing.platform == 'echobazaar' else 'TradeLoft'}" for b in avoid)
     assert sorted(l for l in labels if l.startswith("Report to")) == expected and expected
     assert "Your reports" in " ".join(m.value for m in at.sidebar.markdown)
 
@@ -236,13 +236,13 @@ def test_sending_a_report_starts_the_agent_and_the_sidebar_links_to_the_submitte
         r = s.get(ShopperReport, rid)
         assert r.status == "queued" and r.evidence_path and r.listing_url == b.listing.url  # type: ignore[union-attr]
         r.status, r.report_ref = "submitted", "LR-1A2B3C4D"  # type: ignore[union-attr]
-        r.report_url = "http://127.0.0.1:8000/mockbay/reports/LR-1A2B3C4D"  # type: ignore[union-attr]
+        r.report_url = "http://127.0.0.1:8000/echobazaar/reports/LR-1A2B3C4D"  # type: ignore[union-attr]
 
     at = AppTest.from_file(APP, default_timeout=30)
     at.query_params["search"] = "abcdef012345"
     at.run()
     side = " ".join(m.value for m in at.sidebar.markdown)
-    assert "LR-1A2B3C4D" in side and 'href="http://127.0.0.1:8000/mockbay/reports/LR-1A2B3C4D"' in side
+    assert "LR-1A2B3C4D" in side and 'href="http://127.0.0.1:8000/echobazaar/reports/LR-1A2B3C4D"' in side
     assert 'target="_blank"' in side and "Open the submitted form" in side
     main = " ".join(m.value for m in at.main.markdown)
     assert "View the submitted form" in main  # the card shows it too, instead of the Report button
@@ -325,7 +325,7 @@ def test_shopper_search_covers_navigator_sites_by_recipe_or_with_claude(monkeypa
     assert navigable, "config should define an adapter-less site for the navigator"
     monkeypatch.setattr(recipes.RecipeStore, "load", lambda self, site: None)
     without = shopper.search_sites(cfg, llm=None)
-    assert not set(navigable) & set(without) and {"mockbay", "tradeloft"} <= set(without)
+    assert not set(navigable) & set(without) and {"echobazaar", "tradeloft"} <= set(without)
     assert set(navigable) <= set(shopper.search_sites(cfg, llm=object()))
     monkeypatch.setattr(recipes.RecipeStore, "load", lambda self, site: NS(search=object(), version=2))
     assert set(navigable) <= set(shopper.search_sites(cfg, llm=None))  # learned recipe: replay with no tokens

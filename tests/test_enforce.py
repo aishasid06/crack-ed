@@ -50,12 +50,12 @@ def cases(live: LiveServer, seeded_catalog: Path, tmp_path: Path, engine: Any) -
              ("cp", "copied_photos", 0.9, None), ("sim_low", "tm_similar", 0.5, None),
              ("unk", "tm_identical", 0.97, "not_exhausted"), ("grey", "grey_import", 0.3, None)]
     out = {}
-    listings = live.catalog.for_site("mockbay")
+    listings = live.catalog.for_site("echobazaar")
     with session_scope(engine) as s:
         for (name, rule, conf, unknown), l in zip(specs, listings, strict=False):
             shot = tmp_path / f"{name}.png"
             Image.new("RGB", (400, 300), (200, 210, 220)).save(shot)
-            row = Listing(platform="mockbay", url=f"{live.base}/mockbay/item/{l.id}", title=l.title, price=l.price,
+            row = Listing(platform="echobazaar", url=f"{live.base}/echobazaar/item/{l.id}", title=l.title, price=l.price,
                           currency="GBP", seller_name=l.seller_name, seller_location=l.seller_location,
                           quantity=l.quantity, screenshot_path=str(shot))
             s.add(row)
@@ -98,7 +98,7 @@ def test_decide_ev_downgrades_and_queue(live: LiveServer, seeded_catalog: Path, 
     # EV = price × max(qty,1) × clip × p_success × confidence − cost
     with Session(engine) as s:
         l = s.get(Listing, c["tm_a"].listing_id)
-    p = cfg.decision.p_success_for("mockbay", "tm_identical")
+    p = cfg.decision.p_success_for("echobazaar", "tm_identical")
     expected = round(l.price * max(l.quantity, 1) * 0.9 * p * 0.95 - cfg.decision.cost_for("platform_report"), 2)
     assert c["tm_a"].expected_value == expected
     queue = sorted((x for x in c.values() if x.status == CaseStatus.awaiting_approval), key=lambda x: x.review_rank)
@@ -194,7 +194,7 @@ async def test_review_mismatch_blocks_submission(live: LiveServer, seeded_catalo
     with store_session(live.app.state.store) as s:  # someone edits the draft: wrong URL and section
         d = s.get(ReportDraft, c.portal_draft_id)
         steps = dict(d.steps)
-        steps["3"] = {"items": [{**steps["3"]["items"][0], "url": f"{live.base}/mockbay/item/999999",
+        steps["3"] = {"items": [{**steps["3"]["items"][0], "url": f"{live.base}/echobazaar/item/999999",
                                  "section": "s.10(2)"}]}
         d.steps = steps
     approve_case(c.id, LAWYER, engine)

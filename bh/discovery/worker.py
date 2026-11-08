@@ -7,7 +7,7 @@
 Each stage is an async function the LangGraph orchestrator (Phase 8) calls as a node; ``run_discovery``
 chains them for the CLI. Every stage, search, capture, download and browser step is a trace span.
 
-    python -m bh.discovery.worker [--sites mockbay tradeloft] [--max-queries N] [--llm]
+    python -m bh.discovery.worker [--sites echobazaar tradeloft] [--max-queries N] [--llm]
 """
 
 from __future__ import annotations

@@ -42,7 +42,7 @@ def _png(rgb: tuple[int, int, int] = (128, 128, 128)) -> bytes:
 
 
 def _listing(i: int, site: str, **kw: object) -> MockListing:
-    base = dict(id=f"{1000 + i}" if site == "mockbay" else f"TL-{i}", site=site, title=f"Vaelo bottle {i}",
+    base = dict(id=f"{1000 + i}" if site == "echobazaar" else f"TL-{i}", site=site, title=f"Vaelo bottle {i}",
                 description="Steel bottle", price=10.0 + i, seller_name=f"seller{i % 3}", seller_location="Leeds, UK",
                 seller_age_days=100, seller_rating=4.5, images=[f"img_{site}_{i}.jpg"], site_category="Drinkware")
     base.update(kw)
@@ -53,8 +53,8 @@ def _listing(i: int, site: str, **kw: object) -> MockListing:
 def catalog_dir(tmp_path: Path) -> Path:
     d = tmp_path / "catalog"
     (d / "images").mkdir(parents=True)
-    listings = [_listing(i, "mockbay") for i in range(30)]
-    listings.append(_listing(99, "mockbay", title="Garden hose", description="Green hose", price=5.0))
+    listings = [_listing(i, "echobazaar") for i in range(30)]
+    listings.append(_listing(99, "echobazaar", title="Garden hose", description="Green hose", price=5.0))
     colours = [RED, GREEN, BLUE]
     tl = [_listing(i, "tradeloft", site_category="Outdoor" if i % 4 == 0 else "Drinkware") for i in range(20)]
     listings += tl
@@ -94,61 +94,61 @@ def test_index_and_health(client: TestClient) -> None:
 
 
 def test_static_and_media(client: TestClient) -> None:
-    assert client.get("/static/mockbay.css").status_code == 200
+    assert client.get("/static/echobazaar.css").status_code == 200
     assert client.get("/static/tradeloft.js").status_code == 200
-    r = client.get("/media/img_mockbay_0.jpg")
+    r = client.get("/media/img_echobazaar_0.jpg")
     assert r.status_code == 200 and r.headers["content-type"] == "image/jpeg"
 
 
-# ---------------------------------------------------------------- MockBay
+# ---------------------------------------------------------------- EchoBazaar
 
 
-def test_mockbay_consent_banner_until_dismissed(client: TestClient) -> None:
-    r = client.get("/mockbay/")
+def test_echobazaar_consent_banner_until_dismissed(client: TestClient) -> None:
+    r = client.get("/echobazaar/")
     assert r.status_code == 200 and 'id="cookie-consent"' in r.text
-    r = client.post("/mockbay/consent", data={"choice": "all", "next": "/mockbay/search?q=vaelo"},
+    r = client.post("/echobazaar/consent", data={"choice": "all", "next": "/echobazaar/search?q=vaelo"},
                     follow_redirects=False)
-    assert r.status_code == 303 and r.headers["location"] == "/mockbay/search?q=vaelo"
-    client.cookies.set("mb_consent", "all", path="/mockbay")
-    assert 'id="cookie-consent"' not in client.get("/mockbay/").text
+    assert r.status_code == 303 and r.headers["location"] == "/echobazaar/search?q=vaelo"
+    client.cookies.set("mb_consent", "all", path="/echobazaar")
+    assert 'id="cookie-consent"' not in client.get("/echobazaar/").text
 
 
-def test_mockbay_consent_rejects_offsite_redirect(client: TestClient) -> None:
-    r = client.post("/mockbay/consent", data={"choice": "essential", "next": "https://evil.example/"},
+def test_echobazaar_consent_rejects_offsite_redirect(client: TestClient) -> None:
+    r = client.post("/echobazaar/consent", data={"choice": "essential", "next": "https://evil.example/"},
                     follow_redirects=False)
-    assert r.headers["location"] == "/mockbay/"
+    assert r.headers["location"] == "/echobazaar/"
 
 
-def test_mockbay_search_pagination_and_sort(client: TestClient) -> None:
-    r1 = client.get("/mockbay/search", params={"q": "vaelo", "page": 1})
+def test_echobazaar_search_pagination_and_sort(client: TestClient) -> None:
+    r1 = client.get("/echobazaar/search", params={"q": "vaelo", "page": 1})
     assert r1.status_code == 200
     assert r1.text.count('class="s-item"') == 12
     assert '<span class="srp-count__n">30</span>' in r1.text  # hose excluded
     assert 'class="pagination__next"' in r1.text
-    r3 = client.get("/mockbay/search", params={"q": "vaelo", "page": 3})
+    r3 = client.get("/echobazaar/search", params={"q": "vaelo", "page": 3})
     assert r3.text.count('class="s-item"') == 6 and 'pagination__next' not in r3.text
-    cheap = client.get("/mockbay/search", params={"q": "vaelo", "sort": "price_asc"})
+    cheap = client.get("/echobazaar/search", params={"q": "vaelo", "sort": "price_asc"})
     prices = [float(p) for p in re.findall(r'class="s-item__price">£([\d.]+)', cheap.text)]
     assert prices == sorted(prices) and prices[0] == 10.0
 
 
-def test_mockbay_fuzzy_match(client: TestClient) -> None:
-    r = client.get("/mockbay/search", params={"q": "vaello"})
+def test_echobazaar_fuzzy_match(client: TestClient) -> None:
+    r = client.get("/echobazaar/search", params={"q": "vaello"})
     assert '<span class="srp-count__n">30</span>' in r.text
 
 
-def test_mockbay_empty_query_and_bad_sort(client: TestClient) -> None:
-    assert '<span class="srp-count__n">31</span>' in client.get("/mockbay/search").text
-    assert client.get("/mockbay/search", params={"sort": "bogus"}).status_code == 422
+def test_echobazaar_empty_query_and_bad_sort(client: TestClient) -> None:
+    assert '<span class="srp-count__n">31</span>' in client.get("/echobazaar/search").text
+    assert client.get("/echobazaar/search", params={"sort": "bogus"}).status_code == 422
 
 
-def test_mockbay_item(client: TestClient) -> None:
-    r = client.get("/mockbay/item/1003")
+def test_echobazaar_item(client: TestClient) -> None:
+    r = client.get("/echobazaar/item/1003")
     assert r.status_code == 200
     for frag in ('class="x-item-title">Vaelo bottle 3<', 'class="x-seller-name">seller0<', "£13.00",
-                 'class="x-seller-age">100<', "img_mockbay_3.jpg"):
+                 'class="x-seller-age">100<', "img_echobazaar_3.jpg"):
         assert frag in r.text
-    assert client.get("/mockbay/item/nope").status_code == 404
+    assert client.get("/echobazaar/item/nope").status_code == 404
 
 
 # ---------------------------------------------------------------- TradeLoft
@@ -270,7 +270,7 @@ def _urlenc(pairs: list[tuple[str, str]]) -> str:
     return urlencode(pairs)
 
 
-LISTING_URLS = ["http://testserver/mockbay/item/1003", "http://127.0.0.1:8000/tradeloft/listing/TL-4"]
+LISTING_URLS = ["http://testserver/echobazaar/item/1003", "http://127.0.0.1:8000/tradeloft/listing/TL-4"]
 
 
 def test_portal_full_flow_submit_and_list(client: TestClient) -> None:
@@ -414,7 +414,7 @@ def test_challenge_random_and_verify(tmp_path: Path, catalog_dir: Path) -> None:
     assert r.headers["location"] == "/portal/login"
     assert c.get("/portal/login", follow_redirects=False).status_code == 200  # cooldown applies
     # marketplaces are never challenged
-    assert c.get("/mockbay/", follow_redirects=False).status_code == 200
+    assert c.get("/echobazaar/", follow_redirects=False).status_code == 200
 
 
 def test_challenge_never_drops_a_post(tmp_path: Path, catalog_dir: Path) -> None:
@@ -447,7 +447,7 @@ def test_catalog_rejects_label_keys(tmp_path: Path) -> None:
     d = tmp_path / "c"
     (d / "images").mkdir(parents=True)
     (d / "images" / "a.jpg").write_bytes(_jpeg(RED))
-    good = _listing(1, "mockbay", images=["a.jpg"]).model_dump()
+    good = _listing(1, "echobazaar", images=["a.jpg"]).model_dump()
     for bad_key in ("difficulty", "should_act", "split", "label"):
         (d / "catalog.json").write_text(json.dumps({"listings": [{**good, bad_key: "x"}]}))
         with pytest.raises(CatalogError):
@@ -460,11 +460,11 @@ def test_catalog_rejects_label_keys(tmp_path: Path) -> None:
 def test_catalog_rejects_missing_image_and_duplicates(tmp_path: Path) -> None:
     d = tmp_path / "c"
     (d / "images").mkdir(parents=True)
-    (d / "catalog.json").write_text(json.dumps({"listings": [_listing(1, "mockbay").model_dump(mode="json")]}))
+    (d / "catalog.json").write_text(json.dumps({"listings": [_listing(1, "echobazaar").model_dump(mode="json")]}))
     with pytest.raises(CatalogError):
         load_catalog(d)
-    (d / "images" / "img_mockbay_1.jpg").write_bytes(_jpeg(RED))
-    dup = _listing(1, "mockbay").model_dump(mode="json")
+    (d / "images" / "img_echobazaar_1.jpg").write_bytes(_jpeg(RED))
+    dup = _listing(1, "echobazaar").model_dump(mode="json")
     (d / "catalog.json").write_text(json.dumps({"listings": [dup, dup]}))
     with pytest.raises(CatalogError):
         load_catalog(d)
@@ -475,7 +475,7 @@ LABEL_WORDS = ["counterfeit_identical", "counterfeit_similar", "copied_photos", 
 
 
 def test_no_label_vocabulary_in_rendered_pages(client: TestClient) -> None:
-    pages = ["/", "/mockbay/", "/mockbay/search?q=vaelo", "/mockbay/item/1003", "/tradeloft/",
+    pages = ["/", "/echobazaar/", "/echobazaar/search?q=vaelo", "/echobazaar/item/1003", "/tradeloft/",
              "/tradeloft/search?q=vaelo", "/tradeloft/search/more?q=vaelo&offset=8", "/tradeloft/listing/TL-4",
              "/tradeloft/visual-search", "/portal/login"]
     for p in pages:
@@ -490,12 +490,12 @@ def test_catalog_hot_reload(client: TestClient, catalog_dir: Path) -> None:
     import time
 
     cat = load_catalog(catalog_dir)
-    extra = _listing(500, "mockbay", title="Brand new reload item")
+    extra = _listing(500, "echobazaar", title="Brand new reload item")
     (catalog_dir / "images" / extra.images[0]).write_bytes(_jpeg(RED))
     write_catalog(catalog_dir, [*cat.listings, extra])
     later = time.time() + 5
     os.utime(catalog_dir / "catalog.json", (later, later))
-    assert client.get("/mockbay/item/1500").status_code == 200
+    assert client.get("/echobazaar/item/1500").status_code == 200
 
 
 # ---------------------------------------------------------------- marketplace "Report this listing" forms
@@ -505,7 +505,7 @@ _REPORT = {"reason": "counterfeit", "details": "Sold as genuine but priced at a 
            "declaration": "on"}
 
 
-@pytest.mark.parametrize("listing_path", ["/mockbay/item/1001", "/tradeloft/listing/TL-1"])
+@pytest.mark.parametrize("listing_path", ["/echobazaar/item/1001", "/tradeloft/listing/TL-1"])
 def test_listing_page_links_to_its_report_form(client: TestClient, listing_path: str) -> None:
     page = client.get(listing_path)
     assert page.status_code == 200 and f'href="{listing_path}/report"' in page.text
@@ -517,7 +517,7 @@ def test_listing_page_links_to_its_report_form(client: TestClient, listing_path:
     assert "rights owner" not in form.text.lower()  # a buyer's declaration, not a rights owner's
 
 
-@pytest.mark.parametrize("site,listing_path", [("mockbay", "/mockbay/item/1001"), ("tradeloft", "/tradeloft/listing/TL-1")])
+@pytest.mark.parametrize("site,listing_path", [("echobazaar", "/echobazaar/item/1001"), ("tradeloft", "/tradeloft/listing/TL-1")])
 def test_report_submission_shows_every_input(client: TestClient, site: str, listing_path: str) -> None:
     r = client.post(f"{listing_path}/report", data=_REPORT, files={"evidence": ("shot.png", _png(), "image/png")},
                     follow_redirects=False)
@@ -530,16 +530,16 @@ def test_report_submission_shows_every_input(client: TestClient, site: str, list
     ref = r.headers["location"].rsplit("/", 1)[1]
     ev = client.get(f"/{site}/reports/{ref}/evidence")
     assert ev.status_code == 200 and ev.headers["content-type"] == "image/png"
-    assert client.get(f"/{'tradeloft' if site == 'mockbay' else 'mockbay'}/reports/{ref}").status_code == 404
+    assert client.get(f"/{'tradeloft' if site == 'echobazaar' else 'echobazaar'}/reports/{ref}").status_code == 404
 
 
 def test_report_form_rejects_incomplete_reports(client: TestClient) -> None:
     bad = {**_REPORT, "reason": "", "details": "fake", "reporter_email": "nope", "declaration": ""}
-    r = client.post("/mockbay/item/1001/report", data=bad, follow_redirects=False)
+    r = client.post("/echobazaar/item/1001/report", data=bad, follow_redirects=False)
     assert r.status_code == 422
     for msg in ("Choose what", "at least 20 characters", "valid email", "Confirm the information"):
         assert msg in r.text
-    r = client.post("/mockbay/item/1001/report", data=_REPORT,
+    r = client.post("/echobazaar/item/1001/report", data=_REPORT,
                     files={"evidence": ("x.txt", b"not an image", "text/plain")}, follow_redirects=False)
     assert r.status_code == 422 and "PNG or JPEG" in r.text
-    assert client.get("/mockbay/item/nope/report").status_code == 404
+    assert client.get("/echobazaar/item/nope/report").status_code == 404

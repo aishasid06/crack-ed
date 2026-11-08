@@ -1,6 +1,6 @@
 """Bazaarly: the "unseen" marketplace (SPEC §9 Phase 11 item 2). No adapter exists for it.
 
-Deliberately unlike MockBay / TradeLoft:
+Deliberately unlike EchoBazaar / TradeLoft:
 - a cookie modal that blocks the page until a choice is made;
 - search only through a form (POST); the results URL is an opaque search id, never a query string;
 - result tiles paged with a "Next" button (JavaScript navigation, not a link);

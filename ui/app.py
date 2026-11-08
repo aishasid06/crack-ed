@@ -22,7 +22,7 @@ from bh.config import get_config  # noqa: E402
 from bh.db import RunStatus  # noqa: E402
 from ui import theme, workers  # noqa: E402
 from ui.data import CaseBundle  # noqa: E402
-from ui.shop import data, feed, report, reports  # noqa: E402
+from ui.shop import data, feed, replay, report, reports  # noqa: E402
 from ui.shop.verdicts import CATEGORY_GROUP, GROUP_BY_KEY, GROUPS, LABEL, reason  # noqa: E402
 
 CSS = f"""
@@ -129,7 +129,10 @@ def home() -> None:
             st.error("The marketplaces aren't reachable right now. Try again in a minute.")
             return
         req = data.new_search(text, photo.name if photo else None, photo.getvalue() if photo else None)
-        workers.start(f"search-{req.id}", text=req.text, photo=req.photo)
+        # a search saved earlier (same words and photo) is played back instead of re-running the pipeline
+        saved = (replay.find_source(req.text, req.photo, data.get_engine())
+                 if get_config().shopper.replay_saved else None)
+        workers.start(f"search-{req.id}", text=req.text, photo=req.photo, replay_of=saved)
         st.query_params["search"] = req.id
         st.rerun()
 

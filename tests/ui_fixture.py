@@ -38,15 +38,15 @@ def populate(engine: Engine) -> dict[str, int]:
                    finished_at=now - timedelta(minutes=3), config_snapshot={},
                    totals={"wall_time_s": 182.4, "tasks": {"total": 4}, "llm": {"calls": 1, "input_tokens": 1830,
                                                                                  "output_tokens": 240},
-                           "max_parallelism": 3, "sites": ["mockbay", "tradeloft"]})
+                           "max_parallelism": 3, "sites": ["echobazaar", "tradeloft"]})
         s.add(disc)
         s.flush()
         root = Task(run_id=disc.id, type="discovery_stage", dedup_key="fan_out", status=TaskStatus.succeeded,
                     started_at=now - timedelta(minutes=6), finished_at=now - timedelta(minutes=4))
         s.add(root)
         s.flush()
-        for i, (site, st_) in enumerate([("mockbay", TaskStatus.succeeded), ("tradeloft", TaskStatus.succeeded),
-                                         ("mockbay", TaskStatus.failed)]):
+        for i, (site, st_) in enumerate([("echobazaar", TaskStatus.succeeded), ("tradeloft", TaskStatus.succeeded),
+                                         ("echobazaar", TaskStatus.failed)]):
             s.add(Task(run_id=disc.id, type="discovery", site=site, dedup_key=f"discovery:{site}:q{i}",
                        status=st_, parent_id=root.id, attempts=1, started_at=now - timedelta(minutes=6, seconds=-i * 9),
                        finished_at=now - timedelta(minutes=5, seconds=-i * 14),
@@ -61,7 +61,7 @@ def populate(engine: Engine) -> dict[str, int]:
         s.add(LLMCall(task_id=root.id, run_id=disc.id, model="claude-haiku-5-5", purpose="generic_extract",
                       input_tokens=1830, output_tokens=240, latency_ms=1420))
 
-        def listing(n: int, title: str, price: float, seller: str, img: Path, platform: str = "mockbay",
+        def listing(n: int, title: str, price: float, seller: str, img: Path, platform: str = "echobazaar",
                     **kw: object) -> Listing:
             l = Listing(platform=platform, url=f"http://127.0.0.1:8000/{platform}/item/{1000 + n}",
                         external_id=str(1000 + n), title=title, price=price, currency="GBP", seller_name=seller,

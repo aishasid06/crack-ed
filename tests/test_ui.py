@@ -106,8 +106,8 @@ def test_task_tree_puts_children_under_parents(ids: dict[str, int]) -> None:
     tree = data.task_tree(data.tasks_for_runs([ids["run"]]))
     depth = {t.dedup_key: d for d, t in tree}
     keys = [t.dedup_key for _, t in tree]
-    assert depth["fan_out"] == 0 and depth["discovery:mockbay:q0"] == 1
-    assert keys.index("fan_out") < keys.index("discovery:mockbay:q0")
+    assert depth["fan_out"] == 0 and depth["discovery:echobazaar:q0"] == 1
+    assert keys.index("fan_out") < keys.index("discovery:echobazaar:q0")
 
 
 def test_pipeline_command_prefers_orchestrator(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -144,10 +144,10 @@ def test_evaluation_renders_the_eval_report(ids: dict[str, int], tmp_path: Path,
     from eval import metrics as M
     from ui.views import evaluation
 
-    rows = [M.Row("a", "mockbay", "easy", "counterfeit_identical", "platform_report", True, True,
+    rows = [M.Row("a", "echobazaar", "easy", "counterfeit_identical", "platform_report", True, True,
                   "counterfeit_identical", "platform_report", 0.95),
             M.Row("b", "tradeloft", "hard", "lookalike", "escalate", False, True, "lookalike", "escalate", 0.40),
-            M.Row("c", "mockbay", "hard", "unrelated", "ignore", False, False, M.NOT_CAPTURED, M.NOT_CAPTURED, 0.0),
+            M.Row("c", "echobazaar", "hard", "unrelated", "ignore", False, False, M.NOT_CAPTURED, M.NOT_CAPTURED, 0.0),
             M.Row("d", "tradeloft", "easy", "copied_photos", "platform_report", True, True, "copied_photos",
                   "platform_report", 0.81)]
     cats = ["counterfeit_identical", "copied_photos", "lookalike", "unrelated"]
@@ -170,9 +170,9 @@ def test_evaluation_renders_the_eval_report(ids: dict[str, int], tmp_path: Path,
 def test_run_page_passes_the_orchestrator_options(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(workers, "has_module", lambda name: name == "bh.orchestrator.run")
     cmd = workers.command_for("pipeline", brand="vaelo", use_llm=True, navigator=True, until="classify",
-                              sites=["mockbay", "bazaarly"], brand_dir="data/brands/acme")
+                              sites=["echobazaar", "bazaarly"], brand_dir="data/brands/acme")
     assert cmd[1:] == ["-m", "bh.orchestrator.run", "--brand", "vaelo", "--brand-dir", "data/brands/acme",
-                       "--until", "classify", "--sites", "mockbay", "bazaarly", "--navigator", "--llm"]
+                       "--until", "classify", "--sites", "echobazaar", "bazaarly", "--navigator", "--llm"]
 
 
 def test_orchestrator_stage_chips_follow_the_runs_tasks() -> None:

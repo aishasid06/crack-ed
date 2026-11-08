@@ -34,7 +34,7 @@ def build(out: Path, n: int = 30, seed: int = 7) -> int:
     images.mkdir(parents=True, exist_ok=True)
     listings: list[MockListing] = []
     for i in range(n):
-        site = "mockbay" if i % 2 == 0 else "tradeloft"
+        site = "echobazaar" if i % 2 == 0 else "tradeloft"
         name, rrp = rng.choice(PRODUCTS)
         seller, loc = rng.choice(SELLERS)
         colour = (rng.randrange(40, 220), rng.randrange(40, 220), rng.randrange(40, 220))
@@ -44,7 +44,7 @@ def build(out: Path, n: int = 30, seed: int = 7) -> int:
             _image(images / fn, colour, f"demo {i}")
             imgs.append(fn)
         price = round(rrp * rng.uniform(0.2, 1.05), 2)
-        lid = f"{100200 + i}" if site == "mockbay" else f"TL-{5000 + i}"
+        lid = f"{100200 + i}" if site == "echobazaar" else f"TL-{5000 + i}"
         brand = rng.choice(["Vaelo", "Vaelo", "Vaello", "Generic"])
         listings.append(MockListing(
             id=lid, site=site, title=f"{brand} {name}", currency="GBP", price=price,

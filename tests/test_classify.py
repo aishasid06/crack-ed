@@ -39,7 +39,7 @@ def _ctx(authorised: bool = False) -> Any:
 
 
 def _li(**kw: Any) -> ListingInput:
-    base = dict(listing_id=1, platform="mockbay", title="t", description="", price=27.0, currency="GBP",
+    base = dict(listing_id=1, platform="echobazaar", title="t", description="", price=27.0, currency="GBP",
                 seller_name="someone", seller_location="Leeds, UK", seller_age_days=500, rating=4.8, quantity=1,
                 image_paths=[])
     base.update(kw)
@@ -378,7 +378,7 @@ async def test_classify_listings_writes_features_and_cases(cfg: AppConfig, brand
     ids = []
     with session_scope(engine) as s:
         for i, (t, r, seller, loc, img) in enumerate(specs):
-            row = Listing(platform="mockbay", url=f"http://x/mockbay/item/{i}", title=t, description="",
+            row = Listing(platform="echobazaar", url=f"http://x/echobazaar/item/{i}", title=t, description="",
                           price=round(p.rrp * r, 2), currency="GBP", seller_name=seller, seller_location=loc,
                           quantity=1, local_image_paths=[str(img)])
             s.add(row)

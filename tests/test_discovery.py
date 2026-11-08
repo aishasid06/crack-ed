@@ -141,7 +141,7 @@ def test_load_brand_caches_embeddings_and_stores_hashes(live: LiveServer, seeded
     with Session(engine) as s:
         prods = list(s.exec(select(Product)))
     assert all(p.phashes and Path(p.clip_embeddings).exists() for p in prods)
-    assert ctx.marks == ["VAELO"] and ctx.is_authorised("mockbay", "VAELO_OFFICIAL")
+    assert ctx.marks == ["VAELO"] and ctx.is_authorised("echobazaar", "VAELO_OFFICIAL")
     # gold photo matches itself
     im = Image.open(ctx.gold[0].path)
     assert ctx.nearest_hash(im) == (0, ctx.gold[0].product_id)
@@ -154,8 +154,8 @@ def test_load_brand_caches_embeddings_and_stores_hashes(live: LiveServer, seeded
 
 
 def test_dedup_merges_queries() -> None:
-    c1 = Card(site="mockbay", url="u1", title="a")
-    c2 = Card(site="mockbay", url="u2", title="b")
+    c1 = Card(site="echobazaar", url="u1", title="a")
+    c2 = Card(site="echobazaar", url="u2", title="b")
     out = dedup([(c1, "q1"), (c2, "q1"), (c1, "q2"), (c1, "q1")])
     assert [(f.card.url, f.queries) for f in out] == [("u1", ["q1", "q2"]), ("u2", ["q1"])]
 
@@ -181,7 +181,7 @@ async def test_prefilter_keep_rules(live: LiveServer, seeded_catalog: Path, tmp_
     ctx = SimpleNamespace(marks=["VAELO"], name="Vaelo",
                           nearest_clip=lambda v: (table[int(v[0])][0], 11),
                           nearest_hash=lambda im: (0, 0))  # replaced per card below
-    cards = [Card(site="mockbay", url=f"u{i}", title=t, thumbnail_url=img) for i, t in
+    cards = [Card(site="echobazaar", url=f"u{i}", title=t, thumbnail_url=img) for i, t in
              enumerate(["generic bottle", "generic bottle", "Vaello flask 1:1", "garden hose", "x"])]
     order = iter(range(5))
     ctx.nearest_hash = lambda im: (table[next(order)][1], 12)
@@ -233,7 +233,7 @@ async def test_run_discovery_end_to_end(live: LiveServer, seeded_catalog: Path, 
     captures = {t.id for t in tasks if t.type == "capture"}
     assert any(t.parent_id in captures for t in tasks if t.type == "browser:goto")
     assert run.totals["tasks"]["total"] == len(tasks) and run.totals["max_parallelism"] > 1
-    assert max_active["mockbay"] <= cfg.site("mockbay").max_concurrency
+    assert max_active["echobazaar"] <= cfg.site("echobazaar").max_concurrency
     assert max_active["tradeloft"] <= cfg.site("tradeloft").max_concurrency
 
     # recall against ground truth (offline check only — labels never reach the pipeline)
@@ -267,9 +267,9 @@ async def test_run_discovery_end_to_end(live: LiveServer, seeded_catalog: Path, 
 async def test_capture_failure_is_isolated_and_cap_respected(live: LiveServer, seeded_catalog: Path, tmp_path: Path,
                                                              secrets: Any, engine: Any) -> None:
     cfg = _cfg(live.base, seeded_catalog, tmp_path)
-    good = [Scored(Card(site="mockbay", url=f"{live.base}/mockbay/item/{l.id}", title=l.title), ["q"])
-            for l in live.catalog.for_site("mockbay")[:3]]
-    bad = Scored(Card(site="mockbay", url=f"{live.base}/mockbay/item/does-not-exist", title="gone"), ["q"])
+    good = [Scored(Card(site="echobazaar", url=f"{live.base}/echobazaar/item/{l.id}", title=l.title), ["q"])
+            for l in live.catalog.for_site("echobazaar")[:3]]
+    bad = Scored(Card(site="echobazaar", url=f"{live.base}/echobazaar/item/does-not-exist", title="gone"), ["q"])
     async with run_span(None, {}) as run, BrowserManager(cfg, secrets, sessions_dir=tmp_path / "s") as b:
         ids, failed, waiting = await capture_all(run.id, [*good, bad], b, None, cfg, engine)
     assert len(ids) == 3 and failed == 1 and waiting == 0
@@ -290,8 +290,8 @@ def test_parallelism_counts_work_units_only(engine: Any) -> None:
     async def go() -> int:
         async with run_span(None, {}) as run:
             async def capture(i: int) -> None:
-                async with task_span(run.id, "capture", "mockbay", f"c{i}"):
-                    async with task_span(run.id, "browser:goto", "mockbay", f"g{i}"):
+                async with task_span(run.id, "capture", "echobazaar", f"c{i}"):
+                    async with task_span(run.id, "browser:goto", "echobazaar", f"g{i}"):
                         await asyncio.sleep(0.05)
 
             async with task_span(run.id, "capture_all", None, "all"):
@@ -328,14 +328,14 @@ async def test_adaptive_paging_stops_after_empty_pages(live: LiveServer, seeded_
 
     async with run_span(None, {}) as run, BrowserManager(cfg, secrets, sessions_dir=tmp_path / "s") as b, \
             httpx.AsyncClient() as client:
-        # "vaelo" has more than 2 pages on MockBay; with nothing passing, paging stops after 2 pages
-        stats = await search_adaptive(b, "mockbay", "vaelo", RejectAll(run.id, ctx, cfg, TinyImageEncoder(), client),
+        # "vaelo" has more than 2 pages on EchoBazaar; with nothing passing, paging stops after 2 pages
+        stats = await search_adaptive(b, "echobazaar", "vaelo", RejectAll(run.id, ctx, cfg, TinyImageEncoder(), client),
                                       None)
-        assert stats["stop"] == "no_relevant_results" and stats["pages"] == 2 < cfg.site("mockbay").max_pages
+        assert stats["stop"] == "no_relevant_results" and stats["pages"] == 2 < cfg.site("echobazaar").max_pages
         pf = Prefilter(run.id, ctx, cfg, TinyImageEncoder(), client)
         # brand query: every page passes on brand text → reads until results run out or the cap
-        capped = cfg.model_copy(update={"sites": {**cfg.sites, "mockbay": cfg.sites["mockbay"].model_copy(
+        capped = cfg.model_copy(update={"sites": {**cfg.sites, "echobazaar": cfg.sites["echobazaar"].model_copy(
             update={"max_pages": 2})}})
         b.cfg = capped
-        stats2 = await search_adaptive(b, "mockbay", "vaelo", pf, None)
+        stats2 = await search_adaptive(b, "echobazaar", "vaelo", pf, None)
         assert stats2["stop"] == "max_pages" and stats2["pages"] == 2 and stats2["passing"] == stats2["cards"]

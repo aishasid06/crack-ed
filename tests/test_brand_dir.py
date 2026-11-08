@@ -109,7 +109,7 @@ def test_trade_mark_is_optional(acme: Path) -> None:
     assert assets.trademarks == []
     case = Case(id=1, listing_id=1, category=Category.counterfeit_identical, confidence=0.9, rule_id="tm_identical",
                 action=Action.platform_report, legal_basis=[{"statute": "Trade Marks Act 1994", "section": "s.10(1)"}])
-    listing = Listing(platform="mockbay", url="http://127.0.0.1:8000/mockbay/item/1", title="x", screenshot_path="s")
+    listing = Listing(platform="echobazaar", url="http://127.0.0.1:8000/echobazaar/item/1", title="x", screenshot_path="s")
     with pytest.raises(NotAReportableCase, match="no trade mark registration"):
         build_plan(case, listing, assets)
 
@@ -187,7 +187,7 @@ def test_per_run_brand_for_drafting_and_submission(acme: Path, cfg: AppConfig, e
         s.flush()
         ids = []
         for r in (r_acme, r_default, r_none):
-            l = Listing(platform="mockbay", url=f"http://127.0.0.1:8000/mockbay/item/{r.id}", title="t")
+            l = Listing(platform="echobazaar", url=f"http://127.0.0.1:8000/echobazaar/item/{r.id}", title="t")
             s.add(l)
             s.flush()
             c = Case(listing_id=l.id, run_id=r.id, category=Category.counterfeit_identical, confidence=0.9,

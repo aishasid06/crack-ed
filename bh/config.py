@@ -232,6 +232,10 @@ class ShopperConfig(_Strict):
     use_llm: Literal["auto", "always", "never"] = "auto"
     # include adapter-less sites: replay their learned recipe (no LLM), or let the navigator browse (LLM only)
     navigator_sites: bool = True
+    # replay a saved search (same words and photo as an earlier finished real search) instead of running the
+    # pipeline again; the run is re-created step by step on the original timeline, compressed to replay_seconds
+    replay_saved: bool = False
+    replay_seconds: float = Field(default=30, gt=0)
 
 
 class AppConfig(_Strict):

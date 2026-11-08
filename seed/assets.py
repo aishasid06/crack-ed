@@ -52,8 +52,8 @@ COPYRIGHT = {"work_description": "Vaelo product photographs (catalogue and lifes
              "first_published": "2024-03-01"}
 
 AUTHORISED_SELLERS = [
-    {"platform": "mockbay", "seller_name": "vaelo_official"},
-    {"platform": "mockbay", "seller_name": "kitchenhaus_uk"},
+    {"platform": "echobazaar", "seller_name": "vaelo_official"},
+    {"platform": "echobazaar", "seller_name": "kitchenhaus_uk"},
     {"platform": "tradeloft", "seller_name": "Vaelo Store"},
     {"platform": "tradeloft", "seller_name": "KitchenHaus"},
 ]

@@ -1,6 +1,6 @@
 """Phase 4 check: search each marketplace and parse cards and a few listings.
 
-    python -m bh.browser.demo [--query Q] [--sites mockbay tradeloft] [--pages 2] [--listings 3]
+    python -m bh.browser.demo [--query Q] [--sites echobazaar tradeloft] [--pages 2] [--listings 3]
 
 The default query is the configured brand slug. Runs inside a traced run so every navigation
 is recorded. Requires the mock sites to be running (``make mock``).

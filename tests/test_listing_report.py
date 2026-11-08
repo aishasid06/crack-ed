@@ -28,11 +28,11 @@ def _report(engine: Any, url: str, evidence: Path | None) -> int:
         return r.id  # type: ignore[return-value]
 
 
-@pytest.mark.parametrize("site", ["mockbay", "tradeloft"])
+@pytest.mark.parametrize("site", ["echobazaar", "tradeloft"])
 async def test_agent_files_the_report_on_the_marketplace(live: LiveServer, tmp_path: Path, engine: Any,
                                                          secrets: Any, site: str) -> None:
     listing = live.catalog.for_site(site)[0]
-    path = f"/mockbay/item/{listing.id}" if site == "mockbay" else f"/tradeloft/listing/{listing.id}"
+    path = f"/echobazaar/item/{listing.id}" if site == "echobazaar" else f"/tradeloft/listing/{listing.id}"
     shot = tmp_path / "shot.png"
     Image.new("RGB", (40, 30), (200, 80, 60)).save(shot)
     rid = _report(engine, live.base + path, shot)
@@ -56,8 +56,8 @@ async def test_agent_files_the_report_on_the_marketplace(live: LiveServer, tmp_p
 
 async def test_report_that_the_form_rejects_is_marked_failed(live: LiveServer, tmp_path: Path, engine: Any,
                                                              secrets: Any) -> None:
-    listing = live.catalog.for_site("mockbay")[0]
-    rid = _report(engine, f"{live.base}/mockbay/item/{listing.id}", None)
+    listing = live.catalog.for_site("echobazaar")[0]
+    rid = _report(engine, f"{live.base}/echobazaar/item/{listing.id}", None)
     with session_scope(engine) as s:
         s.get(ShopperReport, rid).reporter_email = "not-an-email"  # type: ignore[union-attr]
     cfg = _cfg_for(live.base)
@@ -73,9 +73,9 @@ async def test_report_on_a_read_only_site_is_refused_before_any_page_opens(live:
                                                                           engine: Any, secrets: Any) -> None:
     from bh.errors import EnforcementBlocked
 
-    listing = live.catalog.for_site("mockbay")[0]
-    rid = _report(engine, f"{live.base}/mockbay/item/{listing.id}", None)
-    cfg = _cfg_for(live.base, mockbay={"mode": "read_only"})
+    listing = live.catalog.for_site("echobazaar")[0]
+    rid = _report(engine, f"{live.base}/echobazaar/item/{listing.id}", None)
+    cfg = _cfg_for(live.base, echobazaar={"mode": "read_only"})
     before = len(live.requests)
     async with BrowserManager(cfg, secrets, sessions_dir=tmp_path / "s", headless=True) as b:
         with pytest.raises(EnforcementBlocked):

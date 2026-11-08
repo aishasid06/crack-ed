@@ -65,6 +65,9 @@ def command_for(name: str, **kw: Any) -> list[str]:
     cfg = get_config()
     if name.startswith("report-"):  # a shopper's listing report (bh.enforce.listing_report)
         return [sys.executable, "-m", "bh.enforce.listing_report", "--report-id", name.removeprefix("report-")]
+    if name.startswith("search-") and kw.get("replay_of") is not None:  # play back a saved search
+        return [sys.executable, "-m", "ui.shop.replay", "--search-id", name.removeprefix("search-"),
+                "--source", str(kw["replay_of"])]
     if name.startswith("search-"):  # a shopper search (bh.shopper), one process per search
         cmd = [sys.executable, "-m", "bh.shopper", "--search-id", name.removeprefix("search-")]
         if kw.get("text"):

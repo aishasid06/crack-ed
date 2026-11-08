@@ -63,7 +63,7 @@ async def test_small_call_recorded_against_task(cfg, secrets, engine) -> None:
     msgs = FakeMessages(_resp("hello"))
     llm = _client(cfg, secrets, engine, msgs)
     async with run_span(None, {}) as run:
-        async with task_span(run.id, "extract", "mockbay", "k") as task:
+        async with task_span(run.id, "extract", "echobazaar", "k") as task:
             r = await llm.complete(role="small", purpose="extract", messages=[{"role": "user", "content": "hi"}])
     assert r.text == "hello" and r.input_tokens == 100 and r.output_tokens == 20
     kind, kw = msgs.calls[0]

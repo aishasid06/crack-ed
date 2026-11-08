@@ -78,7 +78,7 @@ def test_adds_real_listings_as_ignore_without_touching_synthetic(seeded_catalog:
     assert all(synthetic[(l.site, l.id)] == l for l in cat.listings if (l.site, l.id) in synthetic)
     real = [l for l in cat.listings if (l.site, l.id) not in synthetic]
     assert {l.title for l in real} == {"Steel Water Bottle 750ml", "Highball Glasses, Set of 6"}
-    assert {l.site for l in real} == {"mockbay", "tradeloft"}
+    assert {l.site for l in real} == {"echobazaar", "tradeloft"}
 
     labels = json.loads(out.read_text())
     assert base_labels.read_text() == base_before  # synthetic-only baseline left as it is

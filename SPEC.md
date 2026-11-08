@@ -49,7 +49,7 @@ bounty-hunter/
       session.py           # persistent contexts, login(), challenge detection
       adapters/            # one adapter per site: search(), parse_results(), parse_listing()
         base.py
-        mockbay.py
+        echobazaar.py
         tradeloft.py
       generic_extract.py   # LLM-based fallback extractor for unknown layouts
     discovery/
@@ -103,9 +103,9 @@ bounty-hunter/
 
 Serve on `localhost:8000` with path prefixes. Deliberately make the two marketplaces structurally different so adapters genuinely differ.
 
-**MockBay** (`/mockbay`)
-- Search: `/mockbay/search?q=&sort=price_asc|relevance&page=N`, 12 cards/page, grid layout
-- Listing page: `/mockbay/item/{id}` with image gallery, seller box, description
+**EchoBazaar** (`/echobazaar`)
+- Search: `/echobazaar/search?q=&sort=price_asc|relevance&page=N`, 12 cards/page, grid layout
+- Listing page: `/echobazaar/item/{id}` with image gallery, seller box, description
 - A cookie-consent banner that must be dismissed
 
 **TradeLoft** (`/tradeloft`)
@@ -268,7 +268,7 @@ Pages:
 ## 9. Phases (implement in this order)
 
 1. **Scaffold**: repo layout, config loading, DB models, trace + llm wrappers, `.env.example`, pytest setup. *Done when* `pytest` passes and DB creates tables.
-2. **Mock sites**: MockBay, TradeLoft, portal (login, multi-page form, upload, review, submissions list, challenge page). *Done when* each page works manually and a test hits every route.
+2. **Mock sites**: EchoBazaar, TradeLoft, portal (login, multi-page form, upload, review, submissions list, challenge page). *Done when* each page works manually and a test hits every route.
 3. **Seed generator**: brand assets loader, listing generation, image variants, `labels.json`, seeding into mock sites. *Done when* 100 listings browsable, labels split 60/40.
 4. **Browser layer + adapters**: sessions, login, challenge detection, both adapters, generic fallback extractor. *Done when* a script searches both sites and returns parsed cards and listings.
 5. **Discovery pipeline**: queries, fan-out with per-site limits, dedup, prefilter, capture. *Done when* a run stores listings, screenshots and images in DB.
@@ -314,7 +314,7 @@ Pages:
 - In-page browser actions (clicks, form submits, Load more, cookie dismiss, login submit) are trace spans, like navigations.
 - Labels use `expected_action` / `should_report` instead of `should_act`.
 - Prefilter CLIP gate derived from the **dev split only** (`python -m eval.derive_prefilter`): gate = floor₀.₀₁(min thumbnail CLIP similarity, over dev listings with `expected_action ≠ ignore` that the pHash and brand-text routes miss, − 0.02 margin) = **0.73** (4 dev listings needed the CLIP route; lowest a lookalike at 0.755). It replaced 0.65, which had been chosen from all data (leakage). On re-run, discovery recall stayed 45/45 report and 35/35 escalate (test split 18/18 and 14/14).
-- Discovery paging is adaptive: stop after 2 consecutive pages with no prefilter-passing card; `max_pages` (MockBay 10, TradeLoft 15) is a hard cap only. On the 120-listing mock catalog the early stop never triggers (every page has a relevant card), so recall and cost are unchanged; it matters on larger, noisier result sets.
+- Discovery paging is adaptive: stop after 2 consecutive pages with no prefilter-passing card; `max_pages` (EchoBazaar 10, TradeLoft 15) is a hard cap only. On the 120-listing mock catalog the early stop never triggers (every page has a relevant card), so recall and cost are unchanged; it matters on larger, noisier result sets.
 - Phase 6 thresholds, all derived from the **dev split only** and recorded here:
   - own-photo routes (`python -m eval.tune_own_photo`, image level; positives = dev images derived from gold photos, hard negatives = dev lookalike images, objective = max recall with zero lookalike matches): pHash ≤ 10 AND dHash ≤ 8 on the same gold variant; CLIP ≥ 0.854 (dev lookalike max 0.844 + 0.01); ORB ≥ 16 RANSAC inliers. Dev: 91/91 gold-derived images matched, 0/15 lookalikes.
   - `lookalike_clip` = 0.758: midpoint between the highest dev unrelated listing (0.726) and the lowest dev lookalike listing (0.79), listing level.

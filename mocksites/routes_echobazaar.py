@@ -1,4 +1,4 @@
-"""MockBay: grid search with page numbers, item pages, blocking cookie-consent banner."""
+"""EchoBazaar: grid search with page numbers, item pages, blocking cookie-consent banner."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from mocksites.catalog import Catalog
 from mocksites.search import search
 
-router = APIRouter(prefix="/mockbay")
+router = APIRouter(prefix="/echobazaar")
 PAGE_SIZE = 12
 CONSENT_COOKIE = "mb_consent"
 
@@ -29,32 +29,32 @@ def _catalog(request: Request) -> Catalog:
 @router.get("/", response_class=HTMLResponse)
 def home(request: Request) -> Response:
     cat = _catalog(request)
-    featured = sorted(cat.for_site("mockbay"), key=lambda l: (l.listed_days_ago, l.id))[:8]
-    return request.app.state.templates.TemplateResponse(request, "mockbay/home.html",
+    featured = sorted(cat.for_site("echobazaar"), key=lambda l: (l.listed_days_ago, l.id))[:8]
+    return request.app.state.templates.TemplateResponse(request, "echobazaar/home.html",
                                                         _ctx(request, featured=featured))
 
 
 @router.get("/search", response_class=HTMLResponse)
 def search_page(request: Request, q: str = "", sort: Literal["relevance", "price_asc"] = "relevance",
                 page: int = Query(1, ge=1)) -> Response:
-    results = search(_catalog(request).for_site("mockbay"), q, sort)
+    results = search(_catalog(request).for_site("echobazaar"), q, sort)
     pages = max(1, math.ceil(len(results) / PAGE_SIZE))
     items = results[(page - 1) * PAGE_SIZE: page * PAGE_SIZE]
-    return request.app.state.templates.TemplateResponse(request, "mockbay/search.html", _ctx(
+    return request.app.state.templates.TemplateResponse(request, "echobazaar/search.html", _ctx(
         request, q=q, sort=sort, page=page, pages=pages, total=len(results), items=items))
 
 
 @router.get("/item/{item_id}", response_class=HTMLResponse)
 def item(request: Request, item_id: str) -> Response:
-    listing = _catalog(request).get("mockbay", item_id)
+    listing = _catalog(request).get("echobazaar", item_id)
     if listing is None:
         raise HTTPException(404, "This listing has ended or does not exist.")
-    return request.app.state.templates.TemplateResponse(request, "mockbay/item.html", _ctx(request, l=listing))
+    return request.app.state.templates.TemplateResponse(request, "echobazaar/item.html", _ctx(request, l=listing))
 
 
 @router.post("/consent")
-def consent(choice: Literal["all", "essential"] = Form(...), next: str = Form("/mockbay/")) -> Response:
-    target = next if next.startswith("/mockbay") else "/mockbay/"
+def consent(choice: Literal["all", "essential"] = Form(...), next: str = Form("/echobazaar/")) -> Response:
+    target = next if next.startswith("/echobazaar") else "/echobazaar/"
     resp = RedirectResponse(target, status_code=303)
-    resp.set_cookie(CONSENT_COOKIE, choice, max_age=60 * 60 * 24 * 180, samesite="lax", path="/mockbay")
+    resp.set_cookie(CONSENT_COOKIE, choice, max_age=60 * 60 * 24 * 180, samesite="lax", path="/echobazaar")
     return resp

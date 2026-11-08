@@ -13,7 +13,7 @@ from eval import metrics as M
 from eval.evaluate import evaluate, report_markdown, write
 
 
-def _lab(i: int, cat: str, action: str, site: str = "mockbay", difficulty: str = "easy", split: str = "test") -> tuple[str, dict[str, Any]]:
+def _lab(i: int, cat: str, action: str, site: str = "echobazaar", difficulty: str = "easy", split: str = "test") -> tuple[str, dict[str, Any]]:
     return f"{site}:{i}", {"category": cat, "expected_action": action, "should_report": action == "platform_report",
                            "difficulty": difficulty, "split": split, "site": site, "url_path": f"/{site}/item/{i}"}
 
@@ -30,13 +30,13 @@ LABELS = dict([
     _lab(9, "authorised", "ignore", split="dev"),  # excluded by split
 ])
 PREDS = {
-    "/mockbay/item/1": M.Prediction("counterfeit_identical", "platform_report", 0.95),
-    "/mockbay/item/2": M.Prediction("counterfeit_identical", "escalate", 0.55),        # downgraded: report miss
+    "/echobazaar/item/1": M.Prediction("counterfeit_identical", "platform_report", 0.95),
+    "/echobazaar/item/2": M.Prediction("counterfeit_identical", "escalate", 0.55),        # downgraded: report miss
     # 3 uncaptured: report discovery miss
-    "/mockbay/item/4": M.Prediction("grey_import", "platform_report", 0.75),          # escalate reached via report
+    "/echobazaar/item/4": M.Prediction("grey_import", "platform_report", 0.75),          # escalate reached via report
     "/tradeloft/item/5": M.Prediction("lookalike", "escalate", 0.2),
     # 6 uncaptured: escalate discovery miss
-    "/mockbay/item/8": M.Prediction("genuine_resale", "monitor", 0.1),
+    "/echobazaar/item/8": M.Prediction("genuine_resale", "monitor", 0.1),
 }
 
 
@@ -49,7 +49,7 @@ def test_right_join_keeps_uncaptured(rows: list[M.Row]) -> None:
     assert len(rows) == 8  # dev row excluded
     by = {r.key: r for r in rows}
     assert not by["tradeloft:3"].captured and by["tradeloft:3"].pred_action == M.NOT_CAPTURED
-    assert by["mockbay:7"].e2e_action == "ignore" == by["mockbay:7"].expected_action  # correct ignore
+    assert by["echobazaar:7"].e2e_action == "ignore" == by["echobazaar:7"].expected_action  # correct ignore
 
 
 def test_headline_counts_and_values(rows: list[M.Row]) -> None:
@@ -69,10 +69,10 @@ def test_headline_counts_and_values(rows: list[M.Row]) -> None:
 def test_false_alarm_rate_counts_ignores_sent_to_a_lawyer() -> None:
     labels = dict([_lab(1, "unrelated", "ignore"), _lab(2, "unrelated", "ignore"), _lab(3, "unrelated", "ignore"),
                    _lab(4, "authorised", "ignore"), _lab(5, "counterfeit_identical", "platform_report")])
-    preds = {"/mockbay/item/1": M.Prediction("lookalike", "escalate", 0.3),          # false alarm
-             "/mockbay/item/2": M.Prediction("copied_photos", "platform_report", 0.8),  # false alarm
-             "/mockbay/item/4": M.Prediction("authorised", "ignore", 0.1),
-             "/mockbay/item/5": M.Prediction("counterfeit_identical", "platform_report", 0.9)}
+    preds = {"/echobazaar/item/1": M.Prediction("lookalike", "escalate", 0.3),          # false alarm
+             "/echobazaar/item/2": M.Prediction("copied_photos", "platform_report", 0.8),  # false alarm
+             "/echobazaar/item/4": M.Prediction("authorised", "ignore", 0.1),
+             "/echobazaar/item/5": M.Prediction("counterfeit_identical", "platform_report", 0.9)}
     rows = M.join(labels, preds, "test")  # 3 uncaptured → not sent anywhere
     assert M.false_alarm_rate(rows) == pytest.approx(2 / 4)
     c = M.counts(rows)
@@ -96,7 +96,7 @@ def test_bootstrap_is_deterministic_and_brackets_point(rows: list[M.Row]) -> Non
 
 def test_breakdowns(rows: list[M.Row]) -> None:
     site = M.breakdown(rows, "site", n=200)
-    assert set(site) == {"mockbay", "tradeloft"}
+    assert set(site) == {"echobazaar", "tradeloft"}
     assert site["tradeloft"]["counts"]["listings"] == 3 and site["tradeloft"]["counts"]["captured"] == 1
     assert site["tradeloft"]["metrics"]["discovery_recall"]["value"] == pytest.approx(1 / 3)
     diff = M.breakdown(rows, "difficulty", n=200)
@@ -139,8 +139,8 @@ def test_evaluate_end_to_end_from_db(engine: Any, tmp_path: Path) -> None:
     res = evaluate(None, "test", labels_path, engine, n_boot=200)
     assert res["run"]["run_id"] == rid and res["split"] == "test"
     assert res["headline"]["report_precision"]["value"] == 0.5 and res["counts"]["predictions_without_label"] == 0
-    assert {"mockbay", "tradeloft"} == set(res["by_site"]) and {"easy", "hard"} == set(res["by_difficulty"])
-    assert {m["key"] for m in res["misses"]} == {"mockbay:2", "tradeloft:3", "mockbay:4", "tradeloft:6"}
+    assert {"echobazaar", "tradeloft"} == set(res["by_site"]) and {"easy", "hard"} == set(res["by_difficulty"])
+    assert {m["key"] for m in res["misses"]} == {"echobazaar:2", "tradeloft:3", "echobazaar:4", "tradeloft:6"}
     j, md = write(res, tmp_path / "out")
     assert json.loads(j.read_text())["schema_version"] == 1
     text = md.read_text()

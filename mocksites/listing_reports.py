@@ -1,8 +1,8 @@
-"""Each marketplace's own "Report this listing" form: how a buyer tells MockBay or TradeLoft that a listing is
+"""Each marketplace's own "Report this listing" form: how a buyer tells EchoBazaar or TradeLoft that a listing is
 counterfeit or misleading. Served for both sites with the same field ids, inside each site's own layout.
 
-    GET/POST /mockbay/item/{id}/report          GET/POST /tradeloft/listing/{id}/report
-    GET      /mockbay/reports/{ref}             GET      /tradeloft/reports/{ref}       (the submitted report)
+    GET/POST /echobazaar/item/{id}/report          GET/POST /tradeloft/listing/{id}/report
+    GET      /echobazaar/reports/{ref}             GET      /tradeloft/reports/{ref}       (the submitted report)
 
 The declaration is a buyer's ("accurate to the best of my knowledge"), not a rights owner's: rights owners use
 the IP report portal (/portal).
@@ -26,7 +26,7 @@ from mocksites.store import ListingReport, new_listing_report_ref, store_session
 router = APIRouter()
 
 SITES = {
-    "mockbay": {"name": "MockBay", "base": "mockbay/base.html", "listing": "/mockbay/item/{id}"},
+    "echobazaar": {"name": "EchoBazaar", "base": "echobazaar/base.html", "listing": "/echobazaar/item/{id}"},
     "tradeloft": {"name": "TradeLoft", "base": "tradeloft/base.html", "listing": "/tradeloft/listing/{id}"},
 }
 _EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
@@ -41,12 +41,12 @@ def _listing(request: Request, site: str, listing_id: str) -> Any:
 
 
 def _ctx(request: Request, site: str, **kw: Any) -> dict[str, Any]:
-    from mocksites.routes_mockbay import CONSENT_COOKIE
+    from mocksites.routes_echobazaar import CONSENT_COOKIE
 
     meta = SITES[site]
     return {"site": site, "site_name": meta["name"], "base": meta["base"], "reasons": REASONS,
             "relationships": RELATIONSHIPS, "declaration": DECLARATION,
-            "consent_needed": site == "mockbay" and CONSENT_COOKIE not in request.cookies,
+            "consent_needed": site == "echobazaar" and CONSENT_COOKIE not in request.cookies,
             "path": str(request.url.path), **kw}
 
 
@@ -144,14 +144,14 @@ def _evidence(request: Request, site: str, ref: str) -> Response:
     return FileResponse(path)
 
 
-@router.get("/mockbay/item/{listing_id}/report", response_class=HTMLResponse)
-def mockbay_form(request: Request, listing_id: str) -> Response:
-    return _form(request, "mockbay", listing_id)
+@router.get("/echobazaar/item/{listing_id}/report", response_class=HTMLResponse)
+def echobazaar_form(request: Request, listing_id: str) -> Response:
+    return _form(request, "echobazaar", listing_id)
 
 
-@router.post("/mockbay/item/{listing_id}/report", response_class=HTMLResponse)
-async def mockbay_submit(request: Request, listing_id: str) -> Response:
-    return await _submit(request, "mockbay", listing_id)
+@router.post("/echobazaar/item/{listing_id}/report", response_class=HTMLResponse)
+async def echobazaar_submit(request: Request, listing_id: str) -> Response:
+    return await _submit(request, "echobazaar", listing_id)
 
 
 @router.get("/tradeloft/listing/{listing_id}/report", response_class=HTMLResponse)

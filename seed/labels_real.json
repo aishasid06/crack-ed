@@ -1,5 +1,5 @@
 {
-  "mockbay:203782": {
+  "echobazaar:203782": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -8,8 +8,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/203782",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/203782",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -19,7 +19,7 @@
     "source": "abo",
     "abo_item_id": "B07WX4XZH8"
   },
-  "mockbay:210979": {
+  "echobazaar:210979": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -28,8 +28,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/210979",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/210979",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -39,7 +39,7 @@
     "source": "abo",
     "abo_item_id": "B07J58Z8H4"
   },
-  "mockbay:216078": {
+  "echobazaar:216078": {
     "category": "grey_import",
     "rule_id": "grey_import",
     "legal_basis": [
@@ -50,8 +50,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/216078",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/216078",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -59,7 +59,7 @@
       "gold:photos/clear-glass_4.jpg"
     ]
   },
-  "mockbay:217007": {
+  "echobazaar:217007": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -68,15 +68,15 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/217007",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/217007",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:unrelated/unrelated_14.jpg"
     ]
   },
-  "mockbay:223309": {
+  "echobazaar:223309": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -85,8 +85,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/223309",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/223309",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -96,7 +96,7 @@
     "source": "abo",
     "abo_item_id": "B072QCNR2Q"
   },
-  "mockbay:223434": {
+  "echobazaar:223434": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -105,8 +105,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/223434",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/223434",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -116,7 +116,7 @@
     "source": "abo",
     "abo_item_id": "B086K6HFX7"
   },
-  "mockbay:228210": {
+  "echobazaar:228210": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -125,8 +125,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/228210",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/228210",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -136,7 +136,7 @@
     "source": "abo",
     "abo_item_id": "B07WXBM2XR"
   },
-  "mockbay:229103": {
+  "echobazaar:229103": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -145,8 +145,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/229103",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/229103",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -156,7 +156,7 @@
     "source": "abo",
     "abo_item_id": "B0896KFQ2H"
   },
-  "mockbay:247936": {
+  "echobazaar:247936": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -165,15 +165,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/247936",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/247936",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:unrelated/unrelated_04.jpg"
     ]
   },
-  "mockbay:249190": {
+  "echobazaar:249190": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -182,8 +182,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/249190",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/249190",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -193,7 +193,7 @@
     "source": "abo",
     "abo_item_id": "B000FVW57K"
   },
-  "mockbay:254040": {
+  "echobazaar:254040": {
     "category": "copied_photos",
     "rule_id": "copied_photos",
     "legal_basis": [
@@ -204,8 +204,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/254040",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/254040",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -213,7 +213,7 @@
       "gold:photos/clear-glass_1.jpg+watermark+crop+jpeg_q25"
     ]
   },
-  "mockbay:257253": {
+  "echobazaar:257253": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -222,8 +222,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/257253",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/257253",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -233,7 +233,7 @@
     "source": "abo",
     "abo_item_id": "B073761KD4"
   },
-  "mockbay:275758": {
+  "echobazaar:275758": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -242,8 +242,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/275758",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/275758",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -253,7 +253,7 @@
     "source": "abo",
     "abo_item_id": "B0896KZBS3"
   },
-  "mockbay:276318": {
+  "echobazaar:276318": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -262,8 +262,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/276318",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/276318",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -273,7 +273,7 @@
     "source": "abo",
     "abo_item_id": "B07J5524RN"
   },
-  "mockbay:276319": {
+  "echobazaar:276319": {
     "category": "copied_photos",
     "rule_id": "copied_photos",
     "legal_basis": [
@@ -284,15 +284,15 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/276319",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/276319",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/clear-glass_2.jpg+crop+watermark+jpeg_q25"
     ]
   },
-  "mockbay:279774": {
+  "echobazaar:279774": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -301,8 +301,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/279774",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/279774",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -312,7 +312,7 @@
     "source": "abo",
     "abo_item_id": "B0898BXZXZ"
   },
-  "mockbay:282911": {
+  "echobazaar:282911": {
     "category": "counterfeit_similar",
     "rule_id": "tm_similar",
     "legal_basis": [
@@ -323,15 +323,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/282911",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/282911",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
       "blank:blank/blank_05.jpg+mark:V-AELO"
     ]
   },
-  "mockbay:294144": {
+  "echobazaar:294144": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -340,8 +340,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/294144",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/294144",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -351,7 +351,7 @@
     "source": "abo",
     "abo_item_id": "B07GL8GHLH"
   },
-  "mockbay:301566": {
+  "echobazaar:301566": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -360,8 +360,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/301566",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/301566",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -371,7 +371,7 @@
     "source": "abo",
     "abo_item_id": "B07XYCRFXW"
   },
-  "mockbay:307026": {
+  "echobazaar:307026": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -380,8 +380,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/307026",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/307026",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -391,7 +391,7 @@
     "source": "abo",
     "abo_item_id": "B07HGGWDVV"
   },
-  "mockbay:323014": {
+  "echobazaar:323014": {
     "category": "grey_import",
     "rule_id": "grey_import",
     "legal_basis": [
@@ -402,8 +402,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/323014",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/323014",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
@@ -411,7 +411,7 @@
       "gold:photos/trail-teal_1.jpg"
     ]
   },
-  "mockbay:324021": {
+  "echobazaar:324021": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -420,8 +420,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/324021",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/324021",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -430,7 +430,7 @@
     "source": "abo",
     "abo_item_id": "B000FVZK40"
   },
-  "mockbay:328638": {
+  "echobazaar:328638": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -439,8 +439,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/328638",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/328638",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -450,7 +450,7 @@
     "source": "abo",
     "abo_item_id": "B0896LJNLH"
   },
-  "mockbay:334652": {
+  "echobazaar:334652": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -459,8 +459,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/334652",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/334652",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -470,7 +470,7 @@
     "source": "abo",
     "abo_item_id": "B07H2WMTW8"
   },
-  "mockbay:342791": {
+  "echobazaar:342791": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -479,8 +479,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/342791",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/342791",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -490,7 +490,7 @@
     "source": "abo",
     "abo_item_id": "B07BG7FJNH"
   },
-  "mockbay:343241": {
+  "echobazaar:343241": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -499,8 +499,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/343241",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/343241",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -510,7 +510,7 @@
     "source": "abo",
     "abo_item_id": "B07ZL4XKR6"
   },
-  "mockbay:345285": {
+  "echobazaar:345285": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -519,8 +519,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/345285",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/345285",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -530,7 +530,7 @@
     "source": "abo",
     "abo_item_id": "B07BKKYCDS"
   },
-  "mockbay:346520": {
+  "echobazaar:346520": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -539,8 +539,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/346520",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/346520",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -550,7 +550,7 @@
     "source": "abo",
     "abo_item_id": "B07JVNQ71V"
   },
-  "mockbay:350951": {
+  "echobazaar:350951": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -559,8 +559,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/350951",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/350951",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -570,7 +570,7 @@
     "source": "abo",
     "abo_item_id": "B07WXC2RVR"
   },
-  "mockbay:356466": {
+  "echobazaar:356466": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -584,8 +584,8 @@
     ],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/356466",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/356466",
     "product": "arc-copper",
     "bulk_cluster": true,
     "image_sources": [
@@ -593,7 +593,7 @@
       "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
     ]
   },
-  "mockbay:363069": {
+  "echobazaar:363069": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -602,8 +602,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/363069",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/363069",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -613,7 +613,7 @@
     "source": "abo",
     "abo_item_id": "B000I5NEDW"
   },
-  "mockbay:364761": {
+  "echobazaar:364761": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -622,8 +622,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/364761",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/364761",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -633,7 +633,7 @@
     "source": "abo",
     "abo_item_id": "B07WP4KDQZ"
   },
-  "mockbay:383640": {
+  "echobazaar:383640": {
     "category": "genuine_resale",
     "rule_id": "exhausted_resale",
     "legal_basis": [
@@ -644,8 +644,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/383640",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/383640",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
@@ -653,7 +653,7 @@
       "gold:photos/trail-teal_3.jpg"
     ]
   },
-  "mockbay:399254": {
+  "echobazaar:399254": {
     "category": "grey_import",
     "rule_id": "grey_import",
     "legal_basis": [
@@ -664,15 +664,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/399254",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/399254",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/mule-mug_1.jpg"
     ]
   },
-  "mockbay:400810": {
+  "echobazaar:400810": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -681,8 +681,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/400810",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/400810",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -692,7 +692,7 @@
     "source": "abo",
     "abo_item_id": "B086K79Z3V"
   },
-  "mockbay:408942": {
+  "echobazaar:408942": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -701,8 +701,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/408942",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/408942",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -712,7 +712,7 @@
     "source": "abo",
     "abo_item_id": "B08C1D89F8"
   },
-  "mockbay:411726": {
+  "echobazaar:411726": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -721,8 +721,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/411726",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/411726",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -732,7 +732,7 @@
     "source": "abo",
     "abo_item_id": "B07J58ZF71"
   },
-  "mockbay:419036": {
+  "echobazaar:419036": {
     "category": "grey_import",
     "rule_id": "grey_import",
     "legal_basis": [
@@ -743,8 +743,8 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/419036",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/419036",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -752,7 +752,7 @@
       "gold:photos/clear-glass_1.jpg"
     ]
   },
-  "mockbay:421787": {
+  "echobazaar:421787": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -761,8 +761,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/421787",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/421787",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -772,7 +772,7 @@
     "source": "abo",
     "abo_item_id": "B000NVXUEO"
   },
-  "mockbay:425087": {
+  "echobazaar:425087": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -781,8 +781,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/425087",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/425087",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -792,7 +792,7 @@
     "source": "abo",
     "abo_item_id": "B0814HYBRC"
   },
-  "mockbay:427558": {
+  "echobazaar:427558": {
     "category": "copied_photos",
     "rule_id": "copied_photos",
     "legal_basis": [
@@ -803,15 +803,15 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/427558",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/427558",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/trail-teal_2.jpg+brightness+resize+mirror+jpeg_q25"
     ]
   },
-  "mockbay:431780": {
+  "echobazaar:431780": {
     "category": "authorised",
     "rule_id": "authorised",
     "legal_basis": [],
@@ -820,8 +820,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/431780",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/431780",
     "product": "arc-copper",
     "bulk_cluster": false,
     "image_sources": [
@@ -829,7 +829,7 @@
       "gold:photos/arc-copper_3.jpg"
     ]
   },
-  "mockbay:441040": {
+  "echobazaar:441040": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -838,8 +838,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/441040",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/441040",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -849,7 +849,7 @@
     "source": "abo",
     "abo_item_id": "B083KSD19G"
   },
-  "mockbay:442264": {
+  "echobazaar:442264": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -858,8 +858,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/442264",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/442264",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -869,7 +869,7 @@
     "source": "abo",
     "abo_item_id": "B07J551VQT"
   },
-  "mockbay:444676": {
+  "echobazaar:444676": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -878,8 +878,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/444676",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/444676",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -889,7 +889,7 @@
     "source": "abo",
     "abo_item_id": "B07WP4KJHW"
   },
-  "mockbay:445536": {
+  "echobazaar:445536": {
     "category": "authorised",
     "rule_id": "authorised",
     "legal_basis": [],
@@ -898,8 +898,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/445536",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/445536",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
@@ -908,7 +908,7 @@
       "gold:photos/trail-teal_1.jpg"
     ]
   },
-  "mockbay:448545": {
+  "echobazaar:448545": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -917,8 +917,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/448545",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/448545",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -928,7 +928,7 @@
     "source": "abo",
     "abo_item_id": "B000G6O9FU"
   },
-  "mockbay:449535": {
+  "echobazaar:449535": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -937,8 +937,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/449535",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/449535",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -948,7 +948,7 @@
     "source": "abo",
     "abo_item_id": "B0896K5YX5"
   },
-  "mockbay:452561": {
+  "echobazaar:452561": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -957,8 +957,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/452561",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/452561",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -968,7 +968,7 @@
     "source": "abo",
     "abo_item_id": "B07JVNJL2J"
   },
-  "mockbay:454119": {
+  "echobazaar:454119": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -977,8 +977,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/454119",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/454119",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -988,7 +988,7 @@
     "source": "abo",
     "abo_item_id": "B089899X8Q"
   },
-  "mockbay:467382": {
+  "echobazaar:467382": {
     "category": "counterfeit_similar",
     "rule_id": "tm_similar",
     "legal_basis": [
@@ -999,8 +999,8 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/467382",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/467382",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
@@ -1008,7 +1008,7 @@
       "blank:blank/blank_03.jpg+mark:VAEL0"
     ]
   },
-  "mockbay:473441": {
+  "echobazaar:473441": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1017,15 +1017,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/473441",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/473441",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:unrelated/unrelated_12.jpg"
     ]
   },
-  "mockbay:474267": {
+  "echobazaar:474267": {
     "category": "lookalike",
     "rule_id": "lookalike",
     "legal_basis": [
@@ -1036,8 +1036,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/474267",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/474267",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1045,7 +1045,7 @@
       "other:lookalike/lookalike_05.jpg"
     ]
   },
-  "mockbay:475003": {
+  "echobazaar:475003": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1054,8 +1054,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/475003",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/475003",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1065,7 +1065,7 @@
     "source": "abo",
     "abo_item_id": "B08BR8WRN2"
   },
-  "mockbay:481502": {
+  "echobazaar:481502": {
     "category": "copied_photos",
     "rule_id": "copied_photos",
     "legal_basis": [
@@ -1076,15 +1076,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/481502",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/481502",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/mule-mug_2.jpg+brightness"
     ]
   },
-  "mockbay:488519": {
+  "echobazaar:488519": {
     "category": "genuine_resale",
     "rule_id": "exhausted_resale",
     "legal_basis": [
@@ -1095,8 +1095,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/488519",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/488519",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -1104,7 +1104,7 @@
       "gold:photos/clear-glass_4.jpg"
     ]
   },
-  "mockbay:494723": {
+  "echobazaar:494723": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1113,8 +1113,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/494723",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/494723",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1124,7 +1124,7 @@
     "source": "abo",
     "abo_item_id": "B07H2XRLS1"
   },
-  "mockbay:496809": {
+  "echobazaar:496809": {
     "category": "modified_goods",
     "rule_id": "modified_goods",
     "legal_basis": [
@@ -1135,8 +1135,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/496809",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/496809",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
@@ -1144,7 +1144,7 @@
       "gold:photos/mule-mug_3.jpg+engraved"
     ]
   },
-  "mockbay:507733": {
+  "echobazaar:507733": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1153,8 +1153,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/507733",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/507733",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1164,7 +1164,7 @@
     "source": "abo",
     "abo_item_id": "B07BG68YRM"
   },
-  "mockbay:514455": {
+  "echobazaar:514455": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -1178,8 +1178,8 @@
     ],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/514455",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/514455",
     "product": "arc-copper",
     "bulk_cluster": true,
     "image_sources": [
@@ -1187,7 +1187,7 @@
       "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
     ]
   },
-  "mockbay:514563": {
+  "echobazaar:514563": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1196,8 +1196,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/514563",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/514563",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1207,7 +1207,7 @@
     "source": "abo",
     "abo_item_id": "B08C1FGDZ1"
   },
-  "mockbay:515344": {
+  "echobazaar:515344": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -1218,8 +1218,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/515344",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/515344",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
@@ -1227,7 +1227,7 @@
       "blank:blank/blank_03.jpg+mark:VAELO"
     ]
   },
-  "mockbay:517915": {
+  "echobazaar:517915": {
     "category": "grey_import",
     "rule_id": "grey_import",
     "legal_basis": [
@@ -1238,8 +1238,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/517915",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/517915",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
@@ -1247,7 +1247,7 @@
       "gold:photos/mule-mug_3.jpg"
     ]
   },
-  "mockbay:523404": {
+  "echobazaar:523404": {
     "category": "lookalike",
     "rule_id": "lookalike",
     "legal_basis": [
@@ -1258,8 +1258,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/523404",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/523404",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1267,7 +1267,7 @@
       "other:lookalike/lookalike_08.jpg"
     ]
   },
-  "mockbay:525340": {
+  "echobazaar:525340": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1276,8 +1276,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/525340",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/525340",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1287,7 +1287,7 @@
     "source": "abo",
     "abo_item_id": "B07H2RF4SF"
   },
-  "mockbay:529107": {
+  "echobazaar:529107": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1296,8 +1296,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/529107",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/529107",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1307,7 +1307,7 @@
     "source": "abo",
     "abo_item_id": "B0896KZDFX"
   },
-  "mockbay:531453": {
+  "echobazaar:531453": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1316,8 +1316,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/531453",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/531453",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1327,7 +1327,7 @@
     "source": "abo",
     "abo_item_id": "B08C1C8YXT"
   },
-  "mockbay:534394": {
+  "echobazaar:534394": {
     "category": "authorised",
     "rule_id": "authorised",
     "legal_basis": [],
@@ -1336,8 +1336,8 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/534394",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/534394",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -1345,7 +1345,7 @@
       "gold:photos/clear-glass_4.jpg"
     ]
   },
-  "mockbay:535788": {
+  "echobazaar:535788": {
     "category": "lookalike",
     "rule_id": "lookalike",
     "legal_basis": [
@@ -1356,15 +1356,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/535788",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/535788",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:lookalike/lookalike_03.jpg"
     ]
   },
-  "mockbay:536241": {
+  "echobazaar:536241": {
     "category": "authorised",
     "rule_id": "authorised",
     "legal_basis": [],
@@ -1373,8 +1373,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/536241",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/536241",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
@@ -1383,7 +1383,7 @@
       "gold:photos/mule-mug_1.jpg"
     ]
   },
-  "mockbay:536883": {
+  "echobazaar:536883": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1392,8 +1392,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/536883",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/536883",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1403,7 +1403,7 @@
     "source": "abo",
     "abo_item_id": "B07ZVL837M"
   },
-  "mockbay:542703": {
+  "echobazaar:542703": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1412,8 +1412,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/542703",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/542703",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1423,7 +1423,7 @@
     "source": "abo",
     "abo_item_id": "B07J5524S2"
   },
-  "mockbay:546305": {
+  "echobazaar:546305": {
     "category": "counterfeit_similar",
     "rule_id": "tm_similar",
     "legal_basis": [
@@ -1434,15 +1434,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/546305",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/546305",
     "product": "arc-copper",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/arc-copper_3.jpg+crop"
     ]
   },
-  "mockbay:547769": {
+  "echobazaar:547769": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1451,8 +1451,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/547769",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/547769",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1462,7 +1462,7 @@
     "source": "abo",
     "abo_item_id": "B07J4V3KCS"
   },
-  "mockbay:550086": {
+  "echobazaar:550086": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1471,8 +1471,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/550086",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/550086",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1482,7 +1482,7 @@
     "source": "abo",
     "abo_item_id": "B07J4TZ71B"
   },
-  "mockbay:559059": {
+  "echobazaar:559059": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1491,8 +1491,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/559059",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/559059",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1502,7 +1502,7 @@
     "source": "abo",
     "abo_item_id": "B01BHNJYXW"
   },
-  "mockbay:560182": {
+  "echobazaar:560182": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1511,8 +1511,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/560182",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/560182",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1522,7 +1522,7 @@
     "source": "abo",
     "abo_item_id": "B07BG6RJQW"
   },
-  "mockbay:570792": {
+  "echobazaar:570792": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1531,8 +1531,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/570792",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/570792",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1542,7 +1542,7 @@
     "source": "abo",
     "abo_item_id": "B07XWSJVKT"
   },
-  "mockbay:576710": {
+  "echobazaar:576710": {
     "category": "lookalike",
     "rule_id": "lookalike",
     "legal_basis": [
@@ -1553,8 +1553,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/576710",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/576710",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1562,7 +1562,7 @@
       "other:lookalike/lookalike_08.jpg"
     ]
   },
-  "mockbay:577114": {
+  "echobazaar:577114": {
     "category": "lookalike",
     "rule_id": "lookalike",
     "legal_basis": [
@@ -1573,8 +1573,8 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/577114",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/577114",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1582,7 +1582,7 @@
       "other:lookalike/lookalike_05.jpg"
     ]
   },
-  "mockbay:582122": {
+  "echobazaar:582122": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1591,8 +1591,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/582122",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/582122",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1602,7 +1602,7 @@
     "source": "abo",
     "abo_item_id": "B07JVND32N"
   },
-  "mockbay:583622": {
+  "echobazaar:583622": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1611,8 +1611,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/583622",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/583622",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1622,7 +1622,7 @@
     "source": "abo",
     "abo_item_id": "B07HGL55Y4"
   },
-  "mockbay:594747": {
+  "echobazaar:594747": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -1636,8 +1636,8 @@
     ],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/594747",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/594747",
     "product": "arc-copper",
     "bulk_cluster": true,
     "image_sources": [
@@ -1645,7 +1645,7 @@
       "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
     ]
   },
-  "mockbay:595106": {
+  "echobazaar:595106": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1654,8 +1654,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/595106",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/595106",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1665,7 +1665,7 @@
     "source": "abo",
     "abo_item_id": "B07JVN8J7F"
   },
-  "mockbay:596589": {
+  "echobazaar:596589": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1674,8 +1674,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/596589",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/596589",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1684,7 +1684,7 @@
     "source": "abo",
     "abo_item_id": "B07FS68L6N"
   },
-  "mockbay:599669": {
+  "echobazaar:599669": {
     "category": "genuine_resale",
     "rule_id": "exhausted_resale",
     "legal_basis": [
@@ -1695,15 +1695,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/599669",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/599669",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/clear-glass_2.jpg"
     ]
   },
-  "mockbay:604648": {
+  "echobazaar:604648": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1712,8 +1712,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/604648",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/604648",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1723,7 +1723,7 @@
     "source": "abo",
     "abo_item_id": "B07H9KDG2M"
   },
-  "mockbay:607286": {
+  "echobazaar:607286": {
     "category": "counterfeit_similar",
     "rule_id": "tm_similar",
     "legal_basis": [
@@ -1734,8 +1734,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/607286",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/607286",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
@@ -1743,7 +1743,7 @@
       "gold:photos/mule-mug_3.jpg+watermark+brightness+mirror"
     ]
   },
-  "mockbay:609076": {
+  "echobazaar:609076": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1752,8 +1752,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/609076",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/609076",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1763,7 +1763,7 @@
     "source": "abo",
     "abo_item_id": "B086XG2FGW"
   },
-  "mockbay:612018": {
+  "echobazaar:612018": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1772,8 +1772,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/612018",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/612018",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1783,7 +1783,7 @@
     "source": "abo",
     "abo_item_id": "B08C1FD2K1"
   },
-  "mockbay:613039": {
+  "echobazaar:613039": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1792,8 +1792,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/613039",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/613039",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1803,7 +1803,7 @@
     "source": "abo",
     "abo_item_id": "B07DGQTR3Q"
   },
-  "mockbay:624227": {
+  "echobazaar:624227": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1812,8 +1812,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/624227",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/624227",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1823,7 +1823,7 @@
     "source": "abo",
     "abo_item_id": "B086K7HMZ7"
   },
-  "mockbay:628090": {
+  "echobazaar:628090": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -1837,8 +1837,8 @@
     ],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/628090",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/628090",
     "product": "arc-copper",
     "bulk_cluster": true,
     "image_sources": [
@@ -1846,7 +1846,7 @@
       "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
     ]
   },
-  "mockbay:628382": {
+  "echobazaar:628382": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1855,8 +1855,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/628382",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/628382",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1866,7 +1866,7 @@
     "source": "abo",
     "abo_item_id": "B07DGRG12C"
   },
-  "mockbay:628889": {
+  "echobazaar:628889": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1875,8 +1875,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/628889",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/628889",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1886,7 +1886,7 @@
     "source": "abo",
     "abo_item_id": "B0896L6J5Y"
   },
-  "mockbay:630918": {
+  "echobazaar:630918": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1895,8 +1895,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/630918",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/630918",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1906,7 +1906,7 @@
     "source": "abo",
     "abo_item_id": "B086XG2WVQ"
   },
-  "mockbay:634037": {
+  "echobazaar:634037": {
     "category": "lookalike",
     "rule_id": "lookalike",
     "legal_basis": [
@@ -1917,15 +1917,15 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/634037",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/634037",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:lookalike/lookalike_08.jpg"
     ]
   },
-  "mockbay:634948": {
+  "echobazaar:634948": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1934,8 +1934,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/634948",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/634948",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1945,7 +1945,7 @@
     "source": "abo",
     "abo_item_id": "B0896KZBRK"
   },
-  "mockbay:636548": {
+  "echobazaar:636548": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -1956,8 +1956,8 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/636548",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/636548",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -1965,7 +1965,7 @@
       "gold:photos/clear-glass_3.jpg+watermark+jpeg_q25"
     ]
   },
-  "mockbay:637776": {
+  "echobazaar:637776": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1974,8 +1974,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/637776",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/637776",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -1985,7 +1985,7 @@
     "source": "abo",
     "abo_item_id": "B0753QDYPK"
   },
-  "mockbay:639461": {
+  "echobazaar:639461": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -1994,8 +1994,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/639461",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/639461",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2005,7 +2005,7 @@
     "source": "abo",
     "abo_item_id": "B07WXC12QB"
   },
-  "mockbay:639918": {
+  "echobazaar:639918": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2014,8 +2014,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/639918",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/639918",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2025,7 +2025,7 @@
     "source": "abo",
     "abo_item_id": "B07HKMSZQC"
   },
-  "mockbay:642553": {
+  "echobazaar:642553": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2034,8 +2034,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/642553",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/642553",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2045,7 +2045,7 @@
     "source": "abo",
     "abo_item_id": "B0896KVCJY"
   },
-  "mockbay:647952": {
+  "echobazaar:647952": {
     "category": "genuine_resale",
     "rule_id": "exhausted_resale",
     "legal_basis": [
@@ -2056,15 +2056,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/647952",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/647952",
     "product": "arc-copper",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/arc-copper_4.jpg"
     ]
   },
-  "mockbay:660767": {
+  "echobazaar:660767": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2073,8 +2073,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/660767",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/660767",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2084,7 +2084,7 @@
     "source": "abo",
     "abo_item_id": "B0896L3PCR"
   },
-  "mockbay:671790": {
+  "echobazaar:671790": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2093,8 +2093,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/671790",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/671790",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2104,7 +2104,7 @@
     "source": "abo",
     "abo_item_id": "B07GYK1N36"
   },
-  "mockbay:676970": {
+  "echobazaar:676970": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2113,8 +2113,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/676970",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/676970",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2124,7 +2124,7 @@
     "source": "abo",
     "abo_item_id": "B000E4HY42"
   },
-  "mockbay:680537": {
+  "echobazaar:680537": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2133,8 +2133,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/680537",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/680537",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2144,7 +2144,7 @@
     "source": "abo",
     "abo_item_id": "B07WV3ZBCD"
   },
-  "mockbay:682084": {
+  "echobazaar:682084": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2153,8 +2153,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/682084",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/682084",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2164,7 +2164,7 @@
     "source": "abo",
     "abo_item_id": "B08C3SW7V9"
   },
-  "mockbay:685517": {
+  "echobazaar:685517": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -2175,8 +2175,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/685517",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/685517",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
@@ -2184,7 +2184,7 @@
       "gold:photos/mule-mug_2.jpg+brightness+resize"
     ]
   },
-  "mockbay:687230": {
+  "echobazaar:687230": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2193,8 +2193,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/687230",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/687230",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2204,7 +2204,7 @@
     "source": "abo",
     "abo_item_id": "B07MRDS4TG"
   },
-  "mockbay:688899": {
+  "echobazaar:688899": {
     "category": "modified_goods",
     "rule_id": "modified_goods",
     "legal_basis": [
@@ -2215,8 +2215,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/688899",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/688899",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -2224,7 +2224,7 @@
       "gold:photos/clear-glass_3.jpg+engraved"
     ]
   },
-  "mockbay:691614": {
+  "echobazaar:691614": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2233,8 +2233,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/691614",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/691614",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2244,7 +2244,7 @@
     "source": "abo",
     "abo_item_id": "B07WV3XKCQ"
   },
-  "mockbay:695605": {
+  "echobazaar:695605": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2253,8 +2253,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/695605",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/695605",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2264,7 +2264,7 @@
     "source": "abo",
     "abo_item_id": "B07WP4KDJX"
   },
-  "mockbay:696520": {
+  "echobazaar:696520": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -2275,8 +2275,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/696520",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/696520",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
@@ -2284,7 +2284,7 @@
       "gold:photos/trail-teal_2.jpg+brightness+crop"
     ]
   },
-  "mockbay:698222": {
+  "echobazaar:698222": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2293,8 +2293,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/698222",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/698222",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2304,7 +2304,7 @@
     "source": "abo",
     "abo_item_id": "B07WY7JSQH"
   },
-  "mockbay:700671": {
+  "echobazaar:700671": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2313,8 +2313,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/700671",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/700671",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2324,7 +2324,7 @@
     "source": "abo",
     "abo_item_id": "B07Y7LHH65"
   },
-  "mockbay:704473": {
+  "echobazaar:704473": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2333,8 +2333,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/704473",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/704473",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2344,7 +2344,7 @@
     "source": "abo",
     "abo_item_id": "B0896LF9XT"
   },
-  "mockbay:705383": {
+  "echobazaar:705383": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2353,8 +2353,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/705383",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/705383",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2364,7 +2364,7 @@
     "source": "abo",
     "abo_item_id": "B07J4TTFZP"
   },
-  "mockbay:709919": {
+  "echobazaar:709919": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2373,8 +2373,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/709919",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/709919",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2384,7 +2384,7 @@
     "source": "abo",
     "abo_item_id": "B07H2RF5F2"
   },
-  "mockbay:710604": {
+  "echobazaar:710604": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2393,8 +2393,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/710604",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/710604",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2404,7 +2404,7 @@
     "source": "abo",
     "abo_item_id": "B0753SNM1H"
   },
-  "mockbay:711985": {
+  "echobazaar:711985": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2413,8 +2413,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/711985",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/711985",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2424,7 +2424,7 @@
     "source": "abo",
     "abo_item_id": "B07RX8DBH4"
   },
-  "mockbay:718447": {
+  "echobazaar:718447": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2433,8 +2433,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/718447",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/718447",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2444,7 +2444,7 @@
     "source": "abo",
     "abo_item_id": "B000FHF4QI"
   },
-  "mockbay:721433": {
+  "echobazaar:721433": {
     "category": "lookalike",
     "rule_id": "lookalike",
     "legal_basis": [
@@ -2455,8 +2455,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/721433",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/721433",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2464,7 +2464,7 @@
       "other:lookalike/lookalike_11.jpg"
     ]
   },
-  "mockbay:725785": {
+  "echobazaar:725785": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2473,8 +2473,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/725785",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/725785",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2484,7 +2484,7 @@
     "source": "abo",
     "abo_item_id": "B083KSLCPW"
   },
-  "mockbay:728373": {
+  "echobazaar:728373": {
     "category": "authorised",
     "rule_id": "authorised",
     "legal_basis": [],
@@ -2493,8 +2493,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/728373",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/728373",
     "product": "arc-copper",
     "bulk_cluster": false,
     "image_sources": [
@@ -2502,7 +2502,7 @@
       "gold:photos/arc-copper_4.jpg"
     ]
   },
-  "mockbay:731961": {
+  "echobazaar:731961": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2511,8 +2511,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/731961",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/731961",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2522,7 +2522,7 @@
     "source": "abo",
     "abo_item_id": "B086K6N453"
   },
-  "mockbay:736415": {
+  "echobazaar:736415": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2531,8 +2531,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/736415",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/736415",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2542,7 +2542,7 @@
     "source": "abo",
     "abo_item_id": "B07M63PLLC"
   },
-  "mockbay:746571": {
+  "echobazaar:746571": {
     "category": "authorised",
     "rule_id": "authorised",
     "legal_basis": [],
@@ -2551,8 +2551,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/746571",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/746571",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -2560,7 +2560,7 @@
       "gold:photos/clear-glass_4.jpg"
     ]
   },
-  "mockbay:749939": {
+  "echobazaar:749939": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -2574,8 +2574,8 @@
     ],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/749939",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/749939",
     "product": "arc-copper",
     "bulk_cluster": true,
     "image_sources": [
@@ -2583,7 +2583,7 @@
       "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
     ]
   },
-  "mockbay:755736": {
+  "echobazaar:755736": {
     "category": "counterfeit_similar",
     "rule_id": "tm_similar",
     "legal_basis": [
@@ -2594,8 +2594,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/755736",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/755736",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -2603,7 +2603,7 @@
       "gold:photos/clear-glass_4.jpg+brightness+mirror+watermark"
     ]
   },
-  "mockbay:756797": {
+  "echobazaar:756797": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2612,8 +2612,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/756797",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/756797",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2623,7 +2623,7 @@
     "source": "abo",
     "abo_item_id": "B07BG5TFHS"
   },
-  "mockbay:756809": {
+  "echobazaar:756809": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2632,8 +2632,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/756809",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/756809",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2643,7 +2643,7 @@
     "source": "abo",
     "abo_item_id": "B08989SS8Y"
   },
-  "mockbay:759572": {
+  "echobazaar:759572": {
     "category": "modified_goods",
     "rule_id": "modified_goods",
     "legal_basis": [
@@ -2654,8 +2654,8 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/759572",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/759572",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
@@ -2663,7 +2663,7 @@
       "gold:photos/mule-mug_2.jpg"
     ]
   },
-  "mockbay:764058": {
+  "echobazaar:764058": {
     "category": "counterfeit_identical",
     "rule_id": "tm_identical",
     "legal_basis": [
@@ -2677,8 +2677,8 @@
     ],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/764058",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/764058",
     "product": "arc-copper",
     "bulk_cluster": true,
     "image_sources": [
@@ -2686,7 +2686,7 @@
       "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
     ]
   },
-  "mockbay:765191": {
+  "echobazaar:765191": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2695,8 +2695,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/765191",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/765191",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2706,7 +2706,7 @@
     "source": "abo",
     "abo_item_id": "B000UCZFSU"
   },
-  "mockbay:777033": {
+  "echobazaar:777033": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2715,8 +2715,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/777033",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/777033",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2726,7 +2726,7 @@
     "source": "abo",
     "abo_item_id": "B072QF6PSL"
   },
-  "mockbay:780189": {
+  "echobazaar:780189": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2735,15 +2735,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/780189",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/780189",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:unrelated/unrelated_10.jpg"
     ]
   },
-  "mockbay:783761": {
+  "echobazaar:783761": {
     "category": "genuine_resale",
     "rule_id": "exhausted_resale",
     "legal_basis": [
@@ -2754,15 +2754,15 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/783761",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/783761",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/trail-teal_3.jpg"
     ]
   },
-  "mockbay:784357": {
+  "echobazaar:784357": {
     "category": "counterfeit_similar",
     "rule_id": "tm_similar",
     "legal_basis": [
@@ -2773,8 +2773,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/784357",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/784357",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -2782,7 +2782,7 @@
       "blank:blank/blank_06.jpg+mark:VAELLO"
     ]
   },
-  "mockbay:785997": {
+  "echobazaar:785997": {
     "category": "copied_photos",
     "rule_id": "copied_photos",
     "legal_basis": [
@@ -2793,8 +2793,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/785997",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/785997",
     "product": "arc-copper",
     "bulk_cluster": false,
     "image_sources": [
@@ -2802,7 +2802,7 @@
       "gold:photos/arc-copper_3.jpg+crop+watermark"
     ]
   },
-  "mockbay:788034": {
+  "echobazaar:788034": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2811,8 +2811,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/788034",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/788034",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2822,7 +2822,7 @@
     "source": "abo",
     "abo_item_id": "B083KRH5W4"
   },
-  "mockbay:789849": {
+  "echobazaar:789849": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2831,15 +2831,15 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/789849",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/789849",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:unrelated/unrelated_14.jpg"
     ]
   },
-  "mockbay:805526": {
+  "echobazaar:805526": {
     "category": "authorised",
     "rule_id": "authorised",
     "legal_basis": [],
@@ -2848,8 +2848,8 @@
     "expected_secondary_actions": [],
     "difficulty": "hard",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/805526",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/805526",
     "product": "arc-copper",
     "bulk_cluster": false,
     "image_sources": [
@@ -2858,7 +2858,7 @@
       "gold:photos/arc-copper_3.jpg"
     ]
   },
-  "mockbay:806907": {
+  "echobazaar:806907": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2867,8 +2867,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/806907",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/806907",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2878,7 +2878,7 @@
     "source": "abo",
     "abo_item_id": "B07M5GPFCQ"
   },
-  "mockbay:807275": {
+  "echobazaar:807275": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2887,15 +2887,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/807275",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/807275",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
       "other:unrelated/unrelated_07.jpg"
     ]
   },
-  "mockbay:808269": {
+  "echobazaar:808269": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2904,8 +2904,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/808269",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/808269",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2915,7 +2915,7 @@
     "source": "abo",
     "abo_item_id": "B07J4TXJC5"
   },
-  "mockbay:812182": {
+  "echobazaar:812182": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2924,8 +2924,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/812182",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/812182",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2934,7 +2934,7 @@
     "source": "abo",
     "abo_item_id": "B075NYHXMF"
   },
-  "mockbay:814264": {
+  "echobazaar:814264": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2943,8 +2943,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/814264",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/814264",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2954,7 +2954,7 @@
     "source": "abo",
     "abo_item_id": "B07J596C1M"
   },
-  "mockbay:815054": {
+  "echobazaar:815054": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -2963,8 +2963,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/815054",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/815054",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -2974,7 +2974,7 @@
     "source": "abo",
     "abo_item_id": "B0896K5YXR"
   },
-  "mockbay:816126": {
+  "echobazaar:816126": {
     "category": "copied_photos",
     "rule_id": "copied_photos",
     "legal_basis": [
@@ -2985,15 +2985,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/816126",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/816126",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/mule-mug_2.jpg+brightness"
     ]
   },
-  "mockbay:820407": {
+  "echobazaar:820407": {
     "category": "genuine_resale",
     "rule_id": "exhausted_resale",
     "legal_basis": [
@@ -3004,8 +3004,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/820407",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/820407",
     "product": "mule-mug",
     "bulk_cluster": false,
     "image_sources": [
@@ -3013,7 +3013,7 @@
       "gold:photos/mule-mug_1.jpg"
     ]
   },
-  "mockbay:822184": {
+  "echobazaar:822184": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3022,8 +3022,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/822184",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/822184",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3033,7 +3033,7 @@
     "source": "abo",
     "abo_item_id": "B000G6QBGA"
   },
-  "mockbay:832944": {
+  "echobazaar:832944": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3042,8 +3042,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/832944",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/832944",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3053,7 +3053,7 @@
     "source": "abo",
     "abo_item_id": "B07QRY31S9"
   },
-  "mockbay:833760": {
+  "echobazaar:833760": {
     "category": "modified_goods",
     "rule_id": "modified_goods",
     "legal_basis": [
@@ -3064,8 +3064,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/833760",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/833760",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
@@ -3073,7 +3073,7 @@
       "gold:photos/trail-teal_1.jpg+engraved"
     ]
   },
-  "mockbay:834356": {
+  "echobazaar:834356": {
     "category": "copied_photos",
     "rule_id": "copied_photos",
     "legal_basis": [
@@ -3084,15 +3084,15 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/834356",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/834356",
     "product": "trail-teal",
     "bulk_cluster": false,
     "image_sources": [
       "gold:photos/trail-teal_2.jpg+brightness+watermark+crop"
     ]
   },
-  "mockbay:841933": {
+  "echobazaar:841933": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3101,8 +3101,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/841933",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/841933",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3112,7 +3112,7 @@
     "source": "abo",
     "abo_item_id": "B08989KGJJ"
   },
-  "mockbay:857201": {
+  "echobazaar:857201": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3121,8 +3121,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/857201",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/857201",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3132,7 +3132,7 @@
     "source": "abo",
     "abo_item_id": "B07XKLB751"
   },
-  "mockbay:859158": {
+  "echobazaar:859158": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3141,8 +3141,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/859158",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/859158",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3152,7 +3152,7 @@
     "source": "abo",
     "abo_item_id": "B07ZVK94XL"
   },
-  "mockbay:859959": {
+  "echobazaar:859959": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3161,8 +3161,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/859959",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/859959",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3172,7 +3172,7 @@
     "source": "abo",
     "abo_item_id": "B07H2KFB99"
   },
-  "mockbay:863755": {
+  "echobazaar:863755": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3181,8 +3181,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/863755",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/863755",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3192,7 +3192,7 @@
     "source": "abo",
     "abo_item_id": "B086XGG17S"
   },
-  "mockbay:874565": {
+  "echobazaar:874565": {
     "category": "genuine_resale",
     "rule_id": "exhausted_resale",
     "legal_basis": [
@@ -3203,8 +3203,8 @@
     "expected_secondary_actions": [],
     "difficulty": "easy",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/874565",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/874565",
     "product": "clear-glass",
     "bulk_cluster": false,
     "image_sources": [
@@ -3212,7 +3212,7 @@
       "gold:photos/clear-glass_3.jpg"
     ]
   },
-  "mockbay:876296": {
+  "echobazaar:876296": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3221,8 +3221,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "test",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/876296",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/876296",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3231,7 +3231,7 @@
     "source": "abo",
     "abo_item_id": "B000UCZFVW"
   },
-  "mockbay:883485": {
+  "echobazaar:883485": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3240,8 +3240,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/883485",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/883485",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3251,7 +3251,7 @@
     "source": "abo",
     "abo_item_id": "B086K6HFY6"
   },
-  "mockbay:883588": {
+  "echobazaar:883588": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3260,8 +3260,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/883588",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/883588",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3271,7 +3271,7 @@
     "source": "abo",
     "abo_item_id": "B072WTDLHB"
   },
-  "mockbay:892500": {
+  "echobazaar:892500": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3280,8 +3280,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/892500",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/892500",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [
@@ -3291,7 +3291,7 @@
     "source": "abo",
     "abo_item_id": "B07WW7MGQ5"
   },
-  "mockbay:898610": {
+  "echobazaar:898610": {
     "category": "unrelated",
     "rule_id": "unrelated",
     "legal_basis": [],
@@ -3300,8 +3300,8 @@
     "expected_secondary_actions": [],
     "difficulty": "real",
     "split": "dev",
-    "site": "mockbay",
-    "url_path": "/mockbay/item/898610",
+    "site": "echobazaar",
+    "url_path": "/echobazaar/item/898610",
     "product": null,
     "bulk_cluster": false,
     "image_sources": [

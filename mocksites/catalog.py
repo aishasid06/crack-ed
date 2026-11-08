@@ -13,7 +13,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-Site = Literal["mockbay", "tradeloft", "bazaarly"]
+Site = Literal["echobazaar", "tradeloft", "bazaarly"]
 
 # Keys that would carry ground truth. Never allowed in the catalog, at any level.
 FORBIDDEN_KEYS = frozenset({

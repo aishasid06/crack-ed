@@ -40,7 +40,7 @@ def test_seeding_keeps_other_sites_and_separate_labels(bz_catalog: Path) -> None
     base = bz_catalog.parent
     cat = load_catalog(bz_catalog)
     bz = cat.for_site("bazaarly")
-    assert len(bz) == len(CASES) and len(cat.for_site("mockbay")) + len(cat.for_site("tradeloft")) == 120
+    assert len(bz) == len(CASES) and len(cat.for_site("echobazaar")) + len(cat.for_site("tradeloft")) == 120
     labels = json.loads((base / "labels_bazaarly.json").read_text())
     assert len(labels) == len(CASES) and all(v["group"] == "bazaarly" for v in labels.values())
     assert all(v["url_path"].startswith("/bazaarly/p/BZ-") for v in labels.values())

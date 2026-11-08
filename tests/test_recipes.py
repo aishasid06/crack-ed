@@ -216,7 +216,7 @@ async def test_store_versions_and_bad_files(rcfg: AppConfig) -> None:
     assert await store.save_part("bazaarly", "search", part.model_copy(update={"next_learned": "heuristic"}), "b") == 2
     store.path("bazaarly").write_text("{not json")
     assert store.load("bazaarly") is None  # unreadable recipe is ignored (agent loop runs instead)
-    store.path("bazaarly").write_text(Recipe(site="mockbay").model_dump_json())
+    store.path("bazaarly").write_text(Recipe(site="echobazaar").model_dump_json())
     assert store.load("bazaarly") is None  # a recipe for another site is ignored
     with pytest.raises(ValueError):
         store.path("../evil")

@@ -1,4 +1,4 @@
-"""MockBay adapter: URL-driven search with numbered pages, blocking cookie banner."""
+"""EchoBazaar adapter: URL-driven search with numbered pages, blocking cookie banner."""
 
 from __future__ import annotations
 
@@ -37,8 +37,8 @@ _LISTING_JS = """
 """
 
 
-class MockBayAdapter(SiteAdapter):
-    site = "mockbay"
+class EchoBazaarAdapter(SiteAdapter):
+    site = "echobazaar"
     CONSENT = "#cookie-consent"
 
     async def prepare(self, page: Page) -> None:
@@ -61,7 +61,7 @@ class MockBayAdapter(SiteAdapter):
         for r in await page.evaluate(_RESULTS_JS):
             url, title = self.absolute(page, r["href"]), clean(r["title"])
             if not url or not title:
-                raise SelectorError(f"mockbay: result card without link/title on {page.url}")
+                raise SelectorError(f"echobazaar: result card without link/title on {page.url}")
             price, cur = parse_money(r["price"])
             loc = clean(r["location"])
             cards.append(Card(site=self.site, url=url, external_id=self._item_id(url), title=title, price=price,
@@ -80,7 +80,7 @@ class MockBayAdapter(SiteAdapter):
         title = clean(d["title"])
         price, cur = parse_money(d["price"])
         if not title or price is None:
-            raise SelectorError(f"mockbay: listing title/price missing on {page.url}")
+            raise SelectorError(f"echobazaar: listing title/price missing on {page.url}")
         rating = None
         if d["feedback"] and (m := re.search(r"(\d+(?:\.\d+)?)\s*%", d["feedback"])):
             rating = round(float(m.group(1)) / 20.0, 2)  # % positive → 0-5 scale

@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 from bh.db import Task, TaskStatus
 
-SITE_NAMES = {"mockbay": "MockBay", "tradeloft": "TradeLoft", "bazaarly": "Bazaarly", "portal": "the report portal"}
+SITE_NAMES = {"echobazaar": "EchoBazaar", "tradeloft": "TradeLoft", "bazaarly": "Bazaarly", "portal": "the report portal"}
 NAV_TASKS = {"agent:task", "recipe:task"}  # navigator / recipe replay on an adapter-less site: payload task = search|listing
 
 STEPS = [

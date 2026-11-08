@@ -48,7 +48,7 @@ def test_counts_and_mix(gen: dict[str, Any]) -> None:
     assert len(labels) == 120 == len(gen["catalog"].listings)
     assert Counter(v["category"] for v in labels.values()) == Counter(G.CATEGORY_COUNTS)
     sites = Counter(v["site"] for v in labels.values())
-    assert sites["mockbay"] >= 40 and sites["tradeloft"] >= 40
+    assert sites["echobazaar"] >= 40 and sites["tradeloft"] >= 40
 
 
 def test_labels_match_catalog_one_to_one(gen: dict[str, Any]) -> None:
@@ -121,7 +121,7 @@ def test_bulk_counterfeit_cluster(gen: dict[str, Any]) -> None:
     seller, n = per_seller.most_common(1)[0]
     assert n >= threshold and seller == "megadealfactory"
     cluster = [k for k, v in gen["labels"].items() if v["bulk_cluster"]]
-    assert len(cluster) == 8 and {gen["labels"][k]["site"] for k in cluster} == {"mockbay", "tradeloft"}
+    assert len(cluster) == 8 and {gen["labels"][k]["site"] for k in cluster} == {"echobazaar", "tradeloft"}
     assert all("Trade Marks Act 1994 s.92" in gen["labels"][k]["legal_basis"] for k in cluster)
     assert all(gen["labels"][k]["expected_secondary_actions"] == ["refer_trading_standards"] for k in cluster)
     # cluster listings share images
@@ -298,7 +298,7 @@ def test_all_listings_browsable(gen: dict[str, Any], tmp_path: Path) -> None:
         l = _by_key(gen)[key]
         assert l.title.replace("&", "&amp;") in r.text or l.title in r.text
         assert c.get(f"/media/{l.images[0]}").status_code == 200
-    r = c.get("/mockbay/search", params={"q": "vaelo"})
+    r = c.get("/echobazaar/search", params={"q": "vaelo"})
     assert int(re.search(r'srp-count__n">(\d+)<', r.text).group(1)) >= 24 and "pagination__next" in r.text
     r = c.get("/tradeloft/search", params={"q": "vaelo"})
     assert 'id="tl-load-more"' in r.text and "hidden" not in r.text.split('id="tl-load-more"')[1].split(">")[0]
@@ -311,7 +311,7 @@ def test_brand_loader_and_upsert(gen: dict[str, Any], engine: Any) -> None:
     assets = gen["assets"]
     assert len(assets.products) == 4 and all(len(p.images) == 4 for p in assets.products)
     assert {t.mark_type for t in assets.trademarks} == {"word", "figurative"}
-    assert assets.is_authorised("mockbay", "VAELO_OFFICIAL ") and not assets.is_authorised("tradeloft", "vaelo_official")
+    assert assets.is_authorised("echobazaar", "VAELO_OFFICIAL ") and not assets.is_authorised("tradeloft", "vaelo_official")
     bid = upsert_brand(assets, engine)
     assert upsert_brand(assets, engine) == bid  # idempotent
     with Session(engine) as s:

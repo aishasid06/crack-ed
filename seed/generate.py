@@ -1,4 +1,4 @@
-"""Generate the synthetic marketplace: 120 listings across MockBay and TradeLoft, their
+"""Generate the synthetic marketplace: 120 listings across EchoBazaar and TradeLoft, their
 images, and the ground-truth ``seed/labels.json`` (SPEC §6). Writes the mock sites'
 catalog (``<catalog_dir>/catalog.json`` + ``images/``), which they hot-reload.
 
@@ -41,7 +41,7 @@ HARD_FRACTION = 0.2
 DEV_FRACTION = 0.6
 # Bulk counterfeit seller cluster (Trading Standards overlay): one trader using the same name,
 # images and text on both sites; 8 listings ≥ config thresholds.bulk_listing_threshold (5).
-CLUSTER_QUOTA: dict[str, tuple[str, int]] = {"counterfeit_identical": ("mockbay", 6),
+CLUSTER_QUOTA: dict[str, tuple[str, int]] = {"counterfeit_identical": ("echobazaar", 6),
                                              "counterfeit_similar": ("tradeloft", 2)}
 
 CRIMINAL_BASIS_RULE = "trading_standards"  # overlay in rules.yaml applied to the bulk cluster
@@ -74,7 +74,7 @@ DESIGN_HANDLES = ["nordic_living_store", "simple_sip", "urban_outdoor_gear", "hy
 GENERAL_HANDLES = ["home_and_more", "bits_and_bobs_uk", "gadget_garage", "the_corner_shop", "pagebound_books",
                    "greenfingers_supplies", "stepright_shoes", "daily_deals_depot"]
 
-BULK_SELLER = {"mockbay": "megadeal_factory", "tradeloft": "MegaDeal Factory"}
+BULK_SELLER = {"echobazaar": "megadeal_factory", "tradeloft": "MegaDeal Factory"}
 
 
 
@@ -486,7 +486,7 @@ def plan(ctx: Ctx) -> list[Spec]:
         n_hard = round(n * HARD_FRACTION)
         hard_flags = [True] * n_hard + [False] * (n - n_hard)
         r.shuffle(hard_flags)
-        sites = ["mockbay", "tradeloft"] * (n // 2 + 1)
+        sites = ["echobazaar", "tradeloft"] * (n // 2 + 1)
         r.shuffle(sites)
         quota_site, quota = CLUSTER_QUOTA.get(cat, ("", 0))
         for i, hard in enumerate(hard_flags):
@@ -504,7 +504,7 @@ def _assign_ids(specs: list[Spec], rng: random.Random) -> list[str]:
     ids = []
     for s in specs:
         while True:
-            lid = str(rng.randint(200000, 899999)) if s.site == "mockbay" else f"TL-{rng.randint(10000, 99999)}"
+            lid = str(rng.randint(200000, 899999)) if s.site == "echobazaar" else f"TL-{rng.randint(10000, 99999)}"
             if lid not in used:
                 used.add(lid)
                 ids.append(lid)
@@ -526,7 +526,7 @@ def _split(keys_by_stratum: dict[tuple[str, str], list[str]], rng: random.Random
 def listing_path(site: str, lid: str) -> str:
     if site == "bazaarly":
         return f"/bazaarly/p/{lid}"
-    return f"/mockbay/item/{lid}" if site == "mockbay" else f"/tradeloft/listing/{lid}"
+    return f"/echobazaar/item/{lid}" if site == "echobazaar" else f"/tradeloft/listing/{lid}"
 
 
 # ---------------------------------------------------------------- optional LLM text

@@ -1,4 +1,4 @@
-"""FastAPI app serving MockBay, TradeLoft and the rights-holder report portal.
+"""FastAPI app serving EchoBazaar, TradeLoft and the rights-holder report portal.
 
 Run:  uvicorn --factory mocksites.app:create_default_app --port 8000
 
@@ -144,10 +144,10 @@ def create_app(settings: MockSettings) -> FastAPI:
     app.mount("/static", StaticFiles(directory=str(HERE / "static")), name="static")
     app.mount("/media", StaticFiles(directory=str(settings.catalog_dir / "images")), name="media")
 
-    from mocksites import listing_reports, routes_bazaarly, routes_mockbay, routes_portal, routes_tradeloft
+    from mocksites import listing_reports, routes_bazaarly, routes_echobazaar, routes_portal, routes_tradeloft
 
     app.include_router(listing_reports.router)
-    app.include_router(routes_mockbay.router)
+    app.include_router(routes_echobazaar.router)
     app.include_router(routes_tradeloft.router)
     app.include_router(routes_portal.router)
     app.include_router(routes_bazaarly.router)
@@ -157,7 +157,7 @@ def create_app(settings: MockSettings) -> FastAPI:
     def index(request: Request) -> Response:
         cat = request.app.state.catalog.get()
         return templates.TemplateResponse(request, "index.html", {
-            "n_mockbay": len(cat.for_site("mockbay")), "n_tradeloft": len(cat.for_site("tradeloft")),
+            "n_echobazaar": len(cat.for_site("echobazaar")), "n_tradeloft": len(cat.for_site("tradeloft")),
             "n_bazaarly": len(cat.for_site("bazaarly"))})
 
     @app.get("/healthz")

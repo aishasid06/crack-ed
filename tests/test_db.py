@@ -31,7 +31,7 @@ def test_json_and_enum_roundtrip(engine: Engine) -> None:
         s.flush()
         s.add(TradeMark(brand_id=b.id, mark_text="VAELO", mark_type=MarkType.word,
                         registration_number="UK00004123456", classes=[21]))
-        lst = Listing(platform="mockbay", url="http://127.0.0.1:8000/mockbay/item/1",
+        lst = Listing(platform="echobazaar", url="http://127.0.0.1:8000/echobazaar/item/1",
                       image_urls=["a.jpg", "b.jpg"], price=6.99)
         s.add(lst)
         s.flush()
@@ -52,8 +52,8 @@ def test_json_and_enum_roundtrip(engine: Engine) -> None:
 def test_listing_url_unique(engine: Engine) -> None:
     with pytest.raises(IntegrityError):
         with session_scope(engine) as s:
-            s.add(Listing(platform="mockbay", url="u"))
-            s.add(Listing(platform="mockbay", url="u"))
+            s.add(Listing(platform="echobazaar", url="u"))
+            s.add(Listing(platform="echobazaar", url="u"))
 
 
 def test_task_dedup_key_unique_per_run(engine: Engine) -> None:
@@ -61,12 +61,12 @@ def test_task_dedup_key_unique_per_run(engine: Engine) -> None:
         r1, r2 = Run(), Run()
         s.add_all([r1, r2])
         s.flush()
-        s.add(Task(run_id=r1.id, type="discovery", dedup_key="mockbay:vaelo"))
-        s.add(Task(run_id=r2.id, type="discovery", dedup_key="mockbay:vaelo"))  # other run: fine
+        s.add(Task(run_id=r1.id, type="discovery", dedup_key="echobazaar:vaelo"))
+        s.add(Task(run_id=r2.id, type="discovery", dedup_key="echobazaar:vaelo"))  # other run: fine
     with pytest.raises(IntegrityError):
         with session_scope(engine) as s:
             run = s.exec(select(Run)).first()
-            s.add(Task(run_id=run.id, type="discovery", dedup_key="mockbay:vaelo"))
+            s.add(Task(run_id=run.id, type="discovery", dedup_key="echobazaar:vaelo"))
 
 
 def test_session_scope_rolls_back(engine: Engine) -> None:

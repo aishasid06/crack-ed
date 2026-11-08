@@ -63,7 +63,7 @@ def _pipeline_cfg(live: LiveServer, seeded: Path, tmp: Path, *, borderline: tupl
 
 def _marketplace_requests(live: LiveServer) -> int:
     """Searches, listing pages and images (not preflight's GET of each site's home page)."""
-    return sum(p.startswith(("/mockbay/", "/tradeloft/")) for _, p in live.requests)
+    return sum(p.startswith(("/echobazaar/", "/tradeloft/")) for _, p in live.requests)
 
 
 # ---------------------------------------------------------------- graph shape + preflight
@@ -126,7 +126,7 @@ async def test_full_pipeline_one_run(live: LiveServer, seeded_catalog: Path, tmp
     assert all(d["status"] == "succeeded" for d in state["discovery"])
 
     # per-site concurrency limits held across the Send fan-out, and work really ran in parallel
-    assert max_active["mockbay"] <= cfg.site("mockbay").max_concurrency
+    assert max_active["echobazaar"] <= cfg.site("echobazaar").max_concurrency
     assert max_active["tradeloft"] <= cfg.site("tradeloft").max_concurrency
     totals = state["totals"]
     assert totals["max_parallelism"] > 1 and totals["wall_time_s"] > 0
