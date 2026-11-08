@@ -73,17 +73,39 @@ class MockSitesConfig(_Strict):
     seed: int | None = None
 
 
+# Hosts that enforcement (portal login, drafting, verification, submission) may ever touch (SPEC §1:
+# submissions only go to our own mock sites). Widening this set requires a code change; config may only
+# narrow it (enforce.allowed_hosts).
+ENFORCEMENT_HOSTS: frozenset[str] = frozenset({"127.0.0.1", "localhost"})
+
+
 class SiteConfig(_Strict):
     base_url: str
+    mode: Literal["full", "read_only"] = "full"  # read_only: search/extract only; bh/enforce refuses it
     max_concurrency: int = Field(gt=0)
     max_pages: int = Field(gt=0)
     min_delay_ms: int = Field(ge=0)
     adapter: str | None = None  # None → generic LLM extractor
+    navigator: bool = False  # adapter-less site browsed by the agentic navigator (needs an LLM)
     search_url: str | None = None  # for sites without an adapter: "{base}/search?q={query}&page={page}"
     display_name: str | None = None  # how the site is named to shoppers (defaults to the capitalised key)
 
     def label(self, key: str) -> str:
         return self.display_name or key.capitalize()
+
+
+class NavigatorConfig(_Strict):
+    """Agentic navigator (bh/browser/agent_nav.py). Opt-in: navigator sites are searched only when
+    ``enabled`` (or ``--navigator``) and an LLM is available (``--llm``)."""
+
+    enabled: bool = False
+    max_steps: int = Field(default=30, gt=0)  # agent steps per task (search or listing)
+    max_tokens_per_task: int = Field(default=60000, gt=0)
+    max_elements: int = Field(default=80, gt=0)  # indexed interactive elements shown to the model
+    settle_ms: int = Field(default=400, ge=0)  # wait after an action before re-observing
+    action_timeout_ms: int = Field(default=3000, gt=0)
+    max_result_pages: int = Field(default=3, gt=0)
+    recipes_dir: str = "data/recipes"  # learned recipes, one JSON per site (replayed without an LLM)
 
 
 class ChallengeConfig(_Strict):
@@ -100,6 +122,8 @@ class BrowserConfig(_Strict):
     snapshot_max_chars: int = Field(default=12000, gt=500)
     max_image_candidates: int = Field(default=24, gt=0)
     challenge: ChallengeConfig = Field(default_factory=ChallengeConfig)
+    demo_mode: bool = False  # headed browser + highlight each element before the agent acts on it
+    demo_highlight_ms: int = Field(default=700, ge=0)
 
 
 class ThresholdsConfig(_Strict):
@@ -108,6 +132,9 @@ class ThresholdsConfig(_Strict):
     prefilter_brand_fuzzy: int
     hash_match: int
     lookalike_clip: float
+    # a lookalike without copying wording ("inspired by", "dupe", ...) needs CLIP >= this; None = resemblance
+    # plus "no mark" suffices (the original rule)
+    lookalike_silent_clip: float | None = None
     counterfeit_price_ratio: float
     resale_min_ratio: float
     act_threshold: float
@@ -163,6 +190,8 @@ class OwnPhotoConfig(_Strict):
     dhash_max: int = Field(default=10, ge=0)
     clip_min: float = Field(default=0.93, gt=0, le=1)
     orb_min_inliers: int = Field(default=25, gt=0)
+    # ORB counts only when the same image is also CLIP-similar to a gold photo (0 = ORB alone suffices)
+    orb_clip_min: float = Field(default=0.0, ge=0, le=1)
     crops: list[float] = Field(default_factory=lambda: [0.9, 0.8])
 
 
@@ -179,6 +208,15 @@ class EnforceConfig(_Strict):
     require_final_confirm: bool = False
     max_evidence_mb: float = Field(default=4, gt=0)
     draft_only_in_budget: bool = True
+    allowed_hosts: list[str] = Field(default_factory=lambda: sorted(ENFORCEMENT_HOSTS))
+
+    @model_validator(mode="after")
+    def _narrow_only(self) -> "EnforceConfig":
+        extra = sorted({h.lower() for h in self.allowed_hosts} - ENFORCEMENT_HOSTS)
+        if extra:
+            raise ValueError(f"enforce.allowed_hosts may only narrow the code allowlist {sorted(ENFORCEMENT_HOSTS)}; "
+                             f"not allowed: {extra} (widening requires a code change)")
+        return self
 
 
 class ShopperConfig(_Strict):
@@ -210,6 +248,7 @@ class AppConfig(_Strict):
     text: TextConfig = Field(default_factory=TextConfig)
     models: ModelsConfig = Field(default_factory=ModelsConfig)
     shopper: ShopperConfig = Field(default_factory=ShopperConfig)
+    navigator: NavigatorConfig = Field(default_factory=NavigatorConfig)
 
     def site(self, name: str) -> SiteConfig:
         try:

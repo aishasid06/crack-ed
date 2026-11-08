@@ -67,3 +67,19 @@ async def test_report_that_the_form_rejects_is_marked_failed(live: LiveServer, t
     with Session(engine) as s:
         r = s.get(ShopperReport, rid)
     assert r is not None and r.status == "failed" and "valid email" in (r.error or "") and r.report_ref is None
+
+
+async def test_report_on_a_read_only_site_is_refused_before_any_page_opens(live: LiveServer, tmp_path: Path,
+                                                                          engine: Any, secrets: Any) -> None:
+    from bh.errors import EnforcementBlocked
+
+    listing = live.catalog.for_site("mockbay")[0]
+    rid = _report(engine, f"{live.base}/mockbay/item/{listing.id}", None)
+    cfg = _cfg_for(live.base, mockbay={"mode": "read_only"})
+    before = len(live.requests)
+    async with BrowserManager(cfg, secrets, sessions_dir=tmp_path / "s", headless=True) as b:
+        with pytest.raises(EnforcementBlocked):
+            await run_report(rid, cfg, browser=b)
+    with Session(engine) as s:
+        assert s.get(ShopperReport, rid).status == "failed"  # type: ignore[union-attr]
+    assert live.requests[before:] == []  # refused before the browser opened anything

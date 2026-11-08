@@ -23,7 +23,7 @@ from typing import Any
 from sqlalchemy.engine import Engine
 from sqlmodel import Session, select
 
-from bh.brand import load_brand_assets
+from bh.brand import config_for_run, load_brand_assets
 from bh.config import AppConfig, get_config
 from bh.db import Action, Case, CaseStatus, Features, Listing, get_engine, session_scope
 from bh.notice import NotAReportableCase, build_plan, notice_text
@@ -129,6 +129,10 @@ def cases_of_run(run_id: int | None, engine: Engine | None = None) -> list[int]:
 async def run_decide(run_id: int | None, cfg: AppConfig | None = None, engine: Engine | None = None) -> dict[str, Any]:
     cfg = cfg or get_config()
     ids = cases_of_run(run_id, engine)
+    if ids:  # decide with the brand the cases' run was started with
+        with Session(engine or get_engine()) as s:
+            first = s.get(Case, ids[0])
+        cfg = config_for_run(cfg, first.run_id if first else None, engine)
     async with run_span(None, {"stage": "decide", "cases_from_run": run_id}, engine=engine) as run:
         async with task_span(run.id, "decide", None, "decide", payload={"cases": len(ids)}) as t:
             summary = await asyncio.to_thread(decide_cases, ids, cfg, engine)

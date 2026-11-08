@@ -122,3 +122,25 @@ async def test_task_span_requires_run(engine: Engine) -> None:
     with pytest.raises(RuntimeError):
         async with task_span(None, "x", None, "k"):
             pass
+
+
+async def test_handoff_steps_are_superseded_not_failed(engine: Engine) -> None:
+    from bh.trace import describe_task_statuses
+
+    async with run_span(None, {}) as run:
+        with pytest.raises(HumanRequired):
+            async with task_span(run.id, "draft", "portal", "draft:case:1") as parent:
+                async with task_span(None, "browser:login", "portal", "login:1:portal"):
+                    raise HumanRequired("challenge", url="http://x/portal/verify")
+        resume_task(parent.id)
+        async with task_span(run.id, "draft", "portal", "draft:case:1"):  # retry after the human verified
+            async with task_span(None, "browser:login", "portal", "login:2:portal"):
+                pass
+    t = _tasks(engine)
+    assert t["login:1:portal"].status == TaskStatus.superseded and t["login:1:portal"].finished_at
+    assert "superseded" in t["login:1:portal"].error and t["draft:case:1"].status == TaskStatus.succeeded
+    with Session(engine) as s:
+        by_status = s.get(Run, run.id).totals["tasks"]["by_status"]
+    assert by_status == {"succeeded": 2, "superseded": 1}
+    assert describe_task_statuses(by_status) == "2 succeeded · 1 superseded by human hand-off"
+    assert describe_task_statuses({"failed": 1, "succeeded": 3}) == "3 succeeded · 1 failed"

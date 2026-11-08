@@ -51,7 +51,9 @@ def _update(report_id: int, **fields: Any) -> None:
 async def file_report(browser: Any, site: str, r: ShopperReport, progress: Any = None) -> tuple[str, str]:
     """Fill and submit the marketplace's report form for ``r``. Returns (reference, report page URL)."""
     from bh.browser.session import detect_challenge
+    from bh.enforce.guard import check_site, check_url
 
+    check_site(browser.cfg, site)  # submitting a form is enforcement: allowlisted, non-read_only sites only
     say = progress or (lambda text: None)
     name = browser.cfg.site(site).label(site)
     adapter = browser.adapter(site)
@@ -75,6 +77,7 @@ async def file_report(browser: Any, site: str, r: ShopperReport, progress: Any =
             await page.set_input_files("#lr-evidence", r.evidence_path)
         await page.check("#lr-declaration")
         say("Submitting the report")
+        check_url(browser.cfg, page.url)  # never submit a form on a page that is off the allowlist
         async with browser.action(site, "submit:listing_report"), \
                 page.expect_navigation(wait_until="domcontentloaded"):
             await page.click("#lr-submit")

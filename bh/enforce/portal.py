@@ -25,10 +25,11 @@ from PIL import Image
 from sqlalchemy.engine import Engine
 from sqlmodel import Session, select
 
-from bh.brand import BrandAssets, load_brand_assets
+from bh.brand import BrandAssets, assets_for_run
 from bh.browser.session import BrowserManager, detect_challenge
 from bh.config import AppConfig, get_config
 from bh.db import Case, CaseStatus, Features, Listing, get_engine, session_scope
+from bh.enforce.guard import check_site, check_url
 from bh.errors import BountyHunterError, HumanRequired
 from bh.notice import ReportPlan, build_plan
 from bh.trace import run_span, task_span
@@ -61,6 +62,7 @@ class PortalError(BountyHunterError):
 
 class PortalClient:
     def __init__(self, browser: BrowserManager, cfg: AppConfig) -> None:
+        check_site(cfg, SITE)
         self.b, self.cfg = browser, cfg
 
     def url(self, path: str) -> str:
@@ -68,6 +70,7 @@ class PortalClient:
 
     async def _next(self, page: Page, step: str) -> None:
         """Submit the current step form, then check for challenges and validation errors."""
+        check_url(self.cfg, page.url)  # never submit a form on a page that is off the allowlist
         async with self.b.action(SITE, f"submit:{step}"), page.expect_navigation(wait_until="domcontentloaded"):
             await page.click("#step-next")
         await detect_challenge(page, self.cfg.browser.challenge)
@@ -93,6 +96,7 @@ class PortalClient:
 
     async def create_draft(self, page: Page, plan: ReportPlan) -> str:
         """Fill steps 1-4 and stop at step 5 (declarations untouched). Returns the portal draft id."""
+        check_site(self.cfg, SITE)
         await self.b.login(SITE, page)
         if not page.url.rstrip("/").endswith("/portal"):
             await self.b.goto(SITE, page, self.url("/"))
@@ -142,6 +146,7 @@ class PortalClient:
     async def sign_and_review(self, page: Page, draft_id: str, signatory: str) -> str | None:
         """Sign the declarations as ``signatory`` and open the review page.
         Returns a submission reference instead if the draft was already submitted."""
+        check_site(self.cfg, SITE)
         await self.b.login(SITE, page)
         await self.b.goto(SITE, page, self.url(f"/report/{draft_id}/step/5"))
         if "/submissions/" in page.url:
@@ -160,6 +165,8 @@ class PortalClient:
         return await page.evaluate(_REVIEW_JS)
 
     async def submit(self, page: Page) -> str:
+        check_site(self.cfg, SITE)
+        check_url(self.cfg, page.url)
         async with self.b.action(SITE, "click:final_submit"), page.expect_navigation(wait_until="domcontentloaded"):
             await page.click("#final-submit")
         await detect_challenge(page, self.cfg.browser.challenge)
@@ -193,6 +200,23 @@ def set_case(engine: Engine, case_id: int, **fields: Any) -> None:
             setattr(case, k, v)
 
 
+class BrandsByRun:
+    """Brand assets for each case, taken from the run that created the case (its config snapshot), so a
+    loop serving several brands always drafts and signs with the right owner and registration."""
+
+    def __init__(self, cfg: AppConfig, engine: Engine) -> None:
+        self.cfg, self.engine = cfg, engine
+        self._cache: dict[int | None, BrandAssets] = {}
+
+    def for_case(self, case_id: int) -> BrandAssets:
+        with Session(self.engine) as s:
+            case = s.get(Case, case_id)
+        rid = case.run_id if case else None
+        if rid not in self._cache:
+            self._cache[rid] = assets_for_run(self.cfg, rid, self.engine)
+        return self._cache[rid]
+
+
 def draftable(engine: Engine, cfg: AppConfig, case_ids: list[int] | None = None) -> list[int]:
     with Session(engine) as s:
         q = select(Case).where(Case.status == CaseStatus.awaiting_approval, Case.portal_draft_id.is_(None))  # type: ignore[union-attr]
@@ -224,13 +248,14 @@ async def draft_cases(run_id: int, cfg: AppConfig, browser: BrowserManager, engi
                       case_ids: list[int] | None = None) -> dict[str, Any]:
     """Draft portal reports (steps 1-4) for awaiting_approval cases. Stops at the first challenge page:
     the portal challenge is per-IP, so further attempts would be challenged too until a human verifies."""
+    check_site(cfg, SITE)  # before any case is loaded or any page opened
     eng = engine or get_engine()
-    assets = load_brand_assets(cfg.paths.resolve(cfg.paths.brand_dir))
     client = PortalClient(browser, cfg)
     out: dict[str, Any] = {"drafted": [], "failed": [], "waiting_human": None}
+    brands = BrandsByRun(cfg, eng)
     for cid in draftable(eng, cfg, case_ids):
         try:
-            out["drafted"].append((cid, await draft_one(run_id, cid, client, assets, eng)))
+            out["drafted"].append((cid, await draft_one(run_id, cid, client, brands.for_case(cid), eng)))
         except HumanRequired as e:
             out["waiting_human"] = {"case_id": cid, "url": e.url}
             break
@@ -242,6 +267,7 @@ async def draft_cases(run_id: int, cfg: AppConfig, browser: BrowserManager, engi
 
 async def run_drafting(cfg: AppConfig | None = None, engine: Engine | None = None) -> dict[str, Any]:
     cfg = cfg or get_config()
+    check_site(cfg, SITE)  # refuse before launching a browser
     async with run_span(None, {"stage": "draft"}, engine=engine) as run, BrowserManager(cfg) as b:
         return await draft_cases(run.id, cfg, b, engine)
 

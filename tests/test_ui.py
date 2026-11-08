@@ -135,21 +135,33 @@ def test_worker_lifecycle(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
     assert "[bh] exit 0" in workers.tail("pipeline")
 
 
-def test_evaluation_renders_a_report(ids: dict[str, int], tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_evaluation_renders_the_eval_report(ids: dict[str, int], tmp_path: Path,
+                                            monkeypatch: pytest.MonkeyPatch) -> None:
+    """The page reads what eval/evaluate.py writes: built here with eval.metrics itself, so a format change on
+    either side fails this test."""
     import json
 
+    from eval import metrics as M
     from ui.views import evaluation
 
-    p = tmp_path / "report.json"
-    p.write_text(json.dumps({
-        "split": "test", "discovery": {"recall": 1.0, "ci": [0.9, 1.0], "captured": 32, "actionable": 32},
-        "should_report": {"precision": 0.95, "ci": [0.85, 1.0], "n": 19}, "escalate": {"recall": 0.8, "n": 14},
-        "confusion": {"labels": ["counterfeit_identical", "lookalike"], "matrix": [[6, 0], [1, 5]]},
-        "pr_curve": {"precision": [1, 0.95, 0.8], "recall": [0.2, 0.8, 1.0], "thresholds": [0.9, 0.7, 0.4],
-                     "chosen_threshold": 0.7},
-        "by_site": [{"site": "mockbay", "n": 20, "should_report_precision": 0.9}],
-        "by_difficulty": [{"difficulty": "hard", "n": 8, "escalate_recall": 0.7}],
-    }), encoding="utf-8")
-    monkeypatch.setattr(evaluation, "report_path", lambda: p)
+    rows = [M.Row("a", "mockbay", "easy", "counterfeit_identical", "platform_report", True, True,
+                  "counterfeit_identical", "platform_report", 0.95),
+            M.Row("b", "tradeloft", "hard", "lookalike", "escalate", False, True, "lookalike", "escalate", 0.40),
+            M.Row("c", "mockbay", "hard", "unrelated", "ignore", False, False, M.NOT_CAPTURED, M.NOT_CAPTURED, 0.0),
+            M.Row("d", "tradeloft", "easy", "copied_photos", "platform_report", True, True, "copied_photos",
+                  "platform_report", 0.81)]
+    cats = ["counterfeit_identical", "copied_photos", "lookalike", "unrelated"]
+    report = {"run": {"run_id": 7}, "split": "test", "generated_at": "2026-11-08T10:00:00",
+              "headline": M.headline(rows, 50), "by_site": M.breakdown(rows, "site", 50),
+              "by_difficulty": M.breakdown(rows, "difficulty", 50), "classification": M.classification(rows, cats),
+              "pr_curve": M.pr_curve(rows, 0.7)}
+    folder = tmp_path / "eval" / "run_7_test"
+    folder.mkdir(parents=True)
+    (folder / "metrics.json").write_text(json.dumps(report), encoding="utf-8")
+    (folder / "report.md").write_text("# Evaluation of run 7", encoding="utf-8")
+    monkeypatch.setattr(evaluation, "eval_dir", lambda: tmp_path / "eval")
     at = _app("evaluation")
-    assert [m.value for m in at.metric][:3] == ["100%", "95%", "80%"]
+    values = dict(zip([m.label for m in at.metric], [m.value for m in at.metric]))
+    assert values["Discovery recall"] == "100%" and values["Precision on “should report”"] == "100%"
+    assert values["False-alarm rate"] == "0%"
+    assert any("Run 7" in c.value for c in at.caption)

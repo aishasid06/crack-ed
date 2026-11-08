@@ -1,0 +1,6625 @@
+{
+  "mockbay:203782": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/203782",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51cc0XiO8CL",
+      "abo:71ufdbbw6iL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WX4XZH8"
+  },
+  "mockbay:210979": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/210979",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71tqLU8QGHL",
+      "abo:811A3YnOkiL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J58Z8H4"
+  },
+  "mockbay:216078": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/216078",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_1.jpg",
+      "gold:photos/clear-glass_4.jpg"
+    ]
+  },
+  "mockbay:217007": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/217007",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_14.jpg"
+    ]
+  },
+  "mockbay:223309": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/223309",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61cVmPGDnxL",
+      "abo:81Gu1GaLSqL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072QCNR2Q"
+  },
+  "mockbay:223434": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/223434",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51Xgk4J1fvL",
+      "abo:41C9eZtdAzL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K6HFX7"
+  },
+  "mockbay:228210": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/228210",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51PMqNII+iL",
+      "abo:21kRFSAbvrL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WXBM2XR"
+  },
+  "mockbay:229103": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/229103",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51mgYSEQ1eL",
+      "abo:21s6DDJFxML"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896KFQ2H"
+  },
+  "mockbay:247936": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/247936",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_04.jpg"
+    ]
+  },
+  "mockbay:249190": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/249190",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81bT5Ec+V4S",
+      "abo:710gh6+F3qS"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000FVW57K"
+  },
+  "mockbay:254040": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/254040",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_3.jpg+crop+resize",
+      "gold:photos/clear-glass_1.jpg+watermark+crop+jpeg_q25"
+    ]
+  },
+  "mockbay:257253": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/257253",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81c4YNTu7kL",
+      "abo:61uw7kTjGVL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B073761KD4"
+  },
+  "mockbay:275758": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/275758",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61-QRiSsZNL",
+      "abo:71K0RZu7wXL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896KZBS3"
+  },
+  "mockbay:276318": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/276318",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71CAgSUooxL",
+      "abo:81tncbE8XtL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J5524RN"
+  },
+  "mockbay:276319": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/276319",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg+crop+watermark+jpeg_q25"
+    ]
+  },
+  "mockbay:279774": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/279774",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:814SrcAilnL",
+      "abo:31YdhSaYcxL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0898BXZXZ"
+  },
+  "mockbay:282911": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/282911",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_05.jpg+mark:V-AELO"
+    ]
+  },
+  "mockbay:294144": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/294144",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71WYYRPn7gL",
+      "abo:71R2gp5k+BL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07GL8GHLH"
+  },
+  "mockbay:301566": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/301566",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61Ekre1+VUL",
+      "abo:81vFIfy3-kL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07XYCRFXW"
+  },
+  "mockbay:307026": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/307026",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61xXOS6zwrL",
+      "abo:71FawRFGQqL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HGGWDVV"
+  },
+  "mockbay:323014": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/323014",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_4.jpg",
+      "gold:photos/trail-teal_1.jpg"
+    ]
+  },
+  "mockbay:324021": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/324021",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81jsnisGXnS"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000FVZK40"
+  },
+  "mockbay:328638": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/328638",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61izEZdhlaL",
+      "abo:717gxIR99XL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896LJNLH"
+  },
+  "mockbay:334652": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/334652",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71l4jUXwCQL",
+      "abo:81cGWHByP2L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H2WMTW8"
+  },
+  "mockbay:342791": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/342791",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81nIRvvMvJL",
+      "abo:81vSUK7QNpL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07BG7FJNH"
+  },
+  "mockbay:343241": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/343241",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51q-8lsWjXL",
+      "abo:212zB0sR3rL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZL4XKR6"
+  },
+  "mockbay:345285": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/345285",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61GvmYZ-hEL",
+      "abo:71CMDOumVcL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07BKKYCDS"
+  },
+  "mockbay:346520": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/346520",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71ecm+ybtTL",
+      "abo:81ti3Lip+iL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07JVNQ71V"
+  },
+  "mockbay:350951": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/350951",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:612i8PhGQXL",
+      "abo:61MWYYg6lIL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WXC2RVR"
+  },
+  "mockbay:356466": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/356466",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "mockbay:363069": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/363069",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81rtchbtdwS",
+      "abo:71v+4zP9eGS"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000I5NEDW"
+  },
+  "mockbay:364761": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/364761",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:612i8PhGQXL",
+      "abo:61MWYYg6lIL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WP4KDQZ"
+  },
+  "mockbay:383640": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/383640",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_2.jpg",
+      "gold:photos/trail-teal_3.jpg"
+    ]
+  },
+  "mockbay:399254": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/399254",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg"
+    ]
+  },
+  "mockbay:400810": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/400810",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61RFtF2ksSL",
+      "abo:31C8y0dxndL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K79Z3V"
+  },
+  "mockbay:408942": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/408942",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61t7i1K4g+L",
+      "abo:61VOZlfvl3L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1D89F8"
+  },
+  "mockbay:411726": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/411726",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71aFrIFgQiL",
+      "abo:71J1xqTKPDL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J58ZF71"
+  },
+  "mockbay:419036": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/419036",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_3.jpg",
+      "gold:photos/clear-glass_1.jpg"
+    ]
+  },
+  "mockbay:421787": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/421787",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:91GT6vVaw9S",
+      "abo:81Ol4TFJd3S"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000NVXUEO"
+  },
+  "mockbay:425087": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/425087",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61N8LNP6IJL",
+      "abo:61QtoVTVCSL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0814HYBRC"
+  },
+  "mockbay:427558": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/427558",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_2.jpg+brightness+resize+mirror+jpeg_q25"
+    ]
+  },
+  "mockbay:431780": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/431780",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg",
+      "gold:photos/arc-copper_3.jpg"
+    ]
+  },
+  "mockbay:441040": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/441040",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71PF+bc3xrL",
+      "abo:81GMryKJe7L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KSD19G"
+  },
+  "mockbay:442264": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/442264",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:712a5HP53KL",
+      "abo:813D2etxaXL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J551VQT"
+  },
+  "mockbay:444676": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/444676",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61e3UpGPCcL",
+      "abo:61QNFxytozL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WP4KJHW"
+  },
+  "mockbay:445536": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/445536",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_3.jpg",
+      "gold:photos/trail-teal_4.jpg",
+      "gold:photos/trail-teal_1.jpg"
+    ]
+  },
+  "mockbay:448545": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/448545",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:415X3XMT3KL",
+      "abo:31MKVWF5DJL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000G6O9FU"
+  },
+  "mockbay:449535": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/449535",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61aAb0OaubL",
+      "abo:51sMtEbIcwL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896K5YX5"
+  },
+  "mockbay:452561": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/452561",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:817A3Do0cvL",
+      "abo:21wZVQJTQ-L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07JVNJL2J"
+  },
+  "mockbay:454119": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/454119",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81g-Kw7rbYL",
+      "abo:710WnD9RY+L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B089899X8Q"
+  },
+  "mockbay:467382": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/467382",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_04.jpg+mark:VAEL0",
+      "blank:blank/blank_03.jpg+mark:VAEL0"
+    ]
+  },
+  "mockbay:473441": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/473441",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_12.jpg"
+    ]
+  },
+  "mockbay:474267": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/474267",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_01.jpg",
+      "other:lookalike/lookalike_05.jpg"
+    ]
+  },
+  "mockbay:475003": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/475003",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51ITFJjFAxL",
+      "abo:71pA6iEq-vL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08BR8WRN2"
+  },
+  "mockbay:481502": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/481502",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg+brightness"
+    ]
+  },
+  "mockbay:488519": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/488519",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_1.jpg",
+      "gold:photos/clear-glass_4.jpg"
+    ]
+  },
+  "mockbay:494723": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/494723",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71UCvyjE60L",
+      "abo:71vFBvD-W6L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H2XRLS1"
+  },
+  "mockbay:496809": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/496809",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg+engraved",
+      "gold:photos/mule-mug_3.jpg+engraved"
+    ]
+  },
+  "mockbay:507733": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/507733",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71VF1mChMuL",
+      "abo:81vSUK7QNpL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07BG68YRM"
+  },
+  "mockbay:514455": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/514455",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "mockbay:514563": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/514563",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71BoGXC09DL",
+      "abo:71i88HTqT6L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1FGDZ1"
+  },
+  "mockbay:515344": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/515344",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_04.jpg+mark:VAELO",
+      "blank:blank/blank_03.jpg+mark:VAELO"
+    ]
+  },
+  "mockbay:517915": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/517915",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg",
+      "gold:photos/mule-mug_3.jpg"
+    ]
+  },
+  "mockbay:523404": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/523404",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_06.jpg",
+      "other:lookalike/lookalike_08.jpg"
+    ]
+  },
+  "mockbay:525340": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/525340",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71k7KigbXfL",
+      "abo:71FhXvXi6iL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H2RF4SF"
+  },
+  "mockbay:529107": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/529107",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61J8bxZhkvL",
+      "abo:419E0IuTPkL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896KZDFX"
+  },
+  "mockbay:531453": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/531453",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61ju5Vxr02L",
+      "abo:21FbfVTziYL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1C8YXT"
+  },
+  "mockbay:534394": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/534394",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_1.jpg",
+      "gold:photos/clear-glass_4.jpg"
+    ]
+  },
+  "mockbay:535788": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/535788",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_03.jpg"
+    ]
+  },
+  "mockbay:536241": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/536241",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg",
+      "gold:photos/mule-mug_3.jpg",
+      "gold:photos/mule-mug_1.jpg"
+    ]
+  },
+  "mockbay:536883": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/536883",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:713VytRkxmL",
+      "abo:61qfrxvrBmL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZVL837M"
+  },
+  "mockbay:542703": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/542703",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:816gAkovRdL",
+      "abo:81Fu7CYjZtL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J5524S2"
+  },
+  "mockbay:546305": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/546305",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_3.jpg+crop"
+    ]
+  },
+  "mockbay:547769": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/547769",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71wLMZmh9mL",
+      "abo:81T7uNhtuVL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J4V3KCS"
+  },
+  "mockbay:550086": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/550086",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71MIvOJ9sqL",
+      "abo:61fIq3UhgpL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J4TZ71B"
+  },
+  "mockbay:559059": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/559059",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81ZJHuLbYxL",
+      "abo:810tI7NyA7L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B01BHNJYXW"
+  },
+  "mockbay:560182": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/560182",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81gzPda0DeL",
+      "abo:81Ir+XXYfbL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07BG6RJQW"
+  },
+  "mockbay:570792": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/570792",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61YEthpA0CL",
+      "abo:916SByl+X5L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07XWSJVKT"
+  },
+  "mockbay:576710": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/576710",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_10.jpg",
+      "other:lookalike/lookalike_08.jpg"
+    ]
+  },
+  "mockbay:577114": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/577114",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_09.jpg",
+      "other:lookalike/lookalike_05.jpg"
+    ]
+  },
+  "mockbay:582122": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/582122",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71nPTSV70iL",
+      "abo:81LQSKQWVrL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07JVND32N"
+  },
+  "mockbay:583622": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/583622",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61D0dSfaU2L",
+      "abo:817Hpxw2Y7L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HGL55Y4"
+  },
+  "mockbay:594747": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/594747",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "mockbay:595106": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/595106",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71HsWP2lomL",
+      "abo:212Yc73N50L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07JVN8J7F"
+  },
+  "mockbay:596589": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/596589",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51Zosnww+BL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FS68L6N"
+  },
+  "mockbay:599669": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/599669",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg"
+    ]
+  },
+  "mockbay:604648": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/604648",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51pQ++1vw9L",
+      "abo:51M39MBAwDL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H9KDG2M"
+  },
+  "mockbay:607286": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/607286",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg+brightness",
+      "gold:photos/mule-mug_3.jpg+watermark+brightness+mirror"
+    ]
+  },
+  "mockbay:609076": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/609076",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:5155WXF9XPL",
+      "abo:61-rLq2gieL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XG2FGW"
+  },
+  "mockbay:612018": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/612018",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:610vKqZiU6L",
+      "abo:61N+tt4-hjL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1FD2K1"
+  },
+  "mockbay:613039": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/613039",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71WqFmTvsPL",
+      "abo:51M39MBAwDL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07DGQTR3Q"
+  },
+  "mockbay:624227": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/624227",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61Np60yJbBL",
+      "abo:711qrjerUFL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K7HMZ7"
+  },
+  "mockbay:628090": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/628090",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "mockbay:628382": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/628382",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71z3tmvhXFL",
+      "abo:814h0+olBuL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07DGRG12C"
+  },
+  "mockbay:628889": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/628889",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71PTrlUb66L",
+      "abo:41XiwZhkSgL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896L6J5Y"
+  },
+  "mockbay:630918": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/630918",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:413v37ySIfL",
+      "abo:61piqMF1rWL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XG2WVQ"
+  },
+  "mockbay:634037": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/634037",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_08.jpg"
+    ]
+  },
+  "mockbay:634948": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/634948",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61sKquR9RlL",
+      "abo:71iNzLnzG-L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896KZBRK"
+  },
+  "mockbay:636548": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/636548",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_4.jpg+brightness",
+      "gold:photos/clear-glass_3.jpg+watermark+jpeg_q25"
+    ]
+  },
+  "mockbay:637776": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/637776",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:416CFhHPU6L",
+      "abo:41vdPMhONhL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753QDYPK"
+  },
+  "mockbay:639461": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/639461",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51PMqNII+iL",
+      "abo:21kRFSAbvrL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WXC12QB"
+  },
+  "mockbay:639918": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/639918",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51FkT1ymeFL",
+      "abo:61EYPdpD9LL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HKMSZQC"
+  },
+  "mockbay:642553": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/642553",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:610jXVKNJpL",
+      "abo:417gBsKfXML"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896KVCJY"
+  },
+  "mockbay:647952": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/647952",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_4.jpg"
+    ]
+  },
+  "mockbay:660767": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/660767",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51zP-ON+LhL",
+      "abo:71ExCmhrhsL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896L3PCR"
+  },
+  "mockbay:671790": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/671790",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71sfLt47D5L",
+      "abo:61GDDn192dL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07GYK1N36"
+  },
+  "mockbay:676970": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/676970",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51F70HA0C5L",
+      "abo:413VJ9DQJ3L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000E4HY42"
+  },
+  "mockbay:680537": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/680537",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51WBcpIww6L",
+      "abo:21BKNavz8EL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WV3ZBCD"
+  },
+  "mockbay:682084": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/682084",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81cIa2difSL",
+      "abo:51Mrz+T0gkL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C3SW7V9"
+  },
+  "mockbay:685517": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/685517",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_3.jpg+mirror+jpeg_q25",
+      "gold:photos/mule-mug_2.jpg+brightness+resize"
+    ]
+  },
+  "mockbay:687230": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/687230",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61YIn-R7R4L",
+      "abo:81IIIj+5FEL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07MRDS4TG"
+  },
+  "mockbay:688899": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/688899",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg+engraved",
+      "gold:photos/clear-glass_3.jpg+engraved"
+    ]
+  },
+  "mockbay:691614": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/691614",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61fvDVz+44L",
+      "abo:51eWWyfHyYL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WV3XKCQ"
+  },
+  "mockbay:695605": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/695605",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71oAwZAjeTL",
+      "abo:91oo6ek0zcL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WP4KDJX"
+  },
+  "mockbay:696520": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/696520",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_4.jpg+watermark+jpeg_q25",
+      "gold:photos/trail-teal_2.jpg+brightness+crop"
+    ]
+  },
+  "mockbay:698222": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/698222",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61XHeKJW1HL",
+      "abo:518hYYFbQCL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WY7JSQH"
+  },
+  "mockbay:700671": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/700671",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51r2msibPwL",
+      "abo:414BHk7fOgL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07Y7LHH65"
+  },
+  "mockbay:704473": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/704473",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51y-VF-DBML",
+      "abo:51FjSBYcRnL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896LF9XT"
+  },
+  "mockbay:705383": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/705383",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71hQOPG7H1L",
+      "abo:81yG6bTw7VL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J4TTFZP"
+  },
+  "mockbay:709919": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/709919",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:6178zxvriRL",
+      "abo:611veenxvrL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H2RF5F2"
+  },
+  "mockbay:710604": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/710604",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61XHeKJW1HL",
+      "abo:518hYYFbQCL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753SNM1H"
+  },
+  "mockbay:711985": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/711985",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61pEwNLG56L",
+      "abo:81hMkixog0L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07RX8DBH4"
+  },
+  "mockbay:718447": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/718447",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:514MRFGAFNL",
+      "abo:210RK9X6GBL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000FHF4QI"
+  },
+  "mockbay:721433": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/721433",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_08.jpg",
+      "other:lookalike/lookalike_11.jpg"
+    ]
+  },
+  "mockbay:725785": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/725785",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71rLfSjC+ZL",
+      "abo:812bCTt-+ZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KSLCPW"
+  },
+  "mockbay:728373": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/728373",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_3.jpg",
+      "gold:photos/arc-copper_4.jpg"
+    ]
+  },
+  "mockbay:731961": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/731961",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51WNblLGZjL",
+      "abo:31V4OkC7iWL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K6N453"
+  },
+  "mockbay:736415": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/736415",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71dUxr5gsxL",
+      "abo:6178zxvriRL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07M63PLLC"
+  },
+  "mockbay:746571": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/746571",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg",
+      "gold:photos/clear-glass_4.jpg"
+    ]
+  },
+  "mockbay:749939": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/749939",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "mockbay:755736": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/755736",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg+crop+watermark+brightness",
+      "gold:photos/clear-glass_4.jpg+brightness+mirror+watermark"
+    ]
+  },
+  "mockbay:756797": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/756797",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:813fKG04Q6L",
+      "abo:81aDitmHKYL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07BG5TFHS"
+  },
+  "mockbay:756809": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/756809",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81mp9xu2mzL",
+      "abo:71a6FBkjJTL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08989SS8Y"
+  },
+  "mockbay:759572": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/759572",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg",
+      "gold:photos/mule-mug_2.jpg"
+    ]
+  },
+  "mockbay:764058": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/764058",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "mockbay:765191": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/765191",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:819LQ3GfDrS",
+      "abo:81dsv4fbYkS"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000UCZFSU"
+  },
+  "mockbay:777033": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/777033",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:A1fA0RVEB4L",
+      "abo:81eg6AfOx6L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072QF6PSL"
+  },
+  "mockbay:780189": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/780189",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_10.jpg"
+    ]
+  },
+  "mockbay:783761": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/783761",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_3.jpg"
+    ]
+  },
+  "mockbay:784357": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/784357",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_07.jpg+mark:VAELLO",
+      "blank:blank/blank_06.jpg+mark:VAELLO"
+    ]
+  },
+  "mockbay:785997": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/785997",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_4.jpg+watermark",
+      "gold:photos/arc-copper_3.jpg+crop+watermark"
+    ]
+  },
+  "mockbay:788034": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/788034",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61AVMC1amSL",
+      "abo:71GDIhHDkyL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KRH5W4"
+  },
+  "mockbay:789849": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/789849",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_14.jpg"
+    ]
+  },
+  "mockbay:805526": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/805526",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg",
+      "gold:photos/arc-copper_2.jpg",
+      "gold:photos/arc-copper_3.jpg"
+    ]
+  },
+  "mockbay:806907": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/806907",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71QT2dwTR9L",
+      "abo:71w-3d8CuHL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07M5GPFCQ"
+  },
+  "mockbay:807275": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/807275",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_07.jpg"
+    ]
+  },
+  "mockbay:808269": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/808269",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81NC+0vG7TL",
+      "abo:71uRe+JBdTL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J4TXJC5"
+  },
+  "mockbay:812182": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/812182",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51hkunjoCML"
+    ],
+    "source": "abo",
+    "abo_item_id": "B075NYHXMF"
+  },
+  "mockbay:814264": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/814264",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71ITHN9pAaL",
+      "abo:71gWJD4TmnL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J596C1M"
+  },
+  "mockbay:815054": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/815054",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51Fj--JMTTL",
+      "abo:71GNIQvehaL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896K5YXR"
+  },
+  "mockbay:816126": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/816126",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg+brightness"
+    ]
+  },
+  "mockbay:820407": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/820407",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_3.jpg",
+      "gold:photos/mule-mug_1.jpg"
+    ]
+  },
+  "mockbay:822184": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/822184",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51EN8CNP47L",
+      "abo:319MBFSHHKL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000G6QBGA"
+  },
+  "mockbay:832944": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/832944",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:91bjXXP6RML",
+      "abo:71o2lP+eeiL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07QRY31S9"
+  },
+  "mockbay:833760": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/833760",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_3.jpg+engraved",
+      "gold:photos/trail-teal_1.jpg+engraved"
+    ]
+  },
+  "mockbay:834356": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/834356",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_2.jpg+brightness+watermark+crop"
+    ]
+  },
+  "mockbay:841933": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/841933",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71X8hzx7jWL",
+      "abo:71SkX76G78L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08989KGJJ"
+  },
+  "mockbay:857201": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/857201",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51l-Sb-MCwL",
+      "abo:71m+OsizopL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07XKLB751"
+  },
+  "mockbay:859158": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/859158",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81yNcqkI4IL",
+      "abo:71bWpl5tNJL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZVK94XL"
+  },
+  "mockbay:859959": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/859959",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61sTERu2HrL",
+      "abo:61B3+yvcx6L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H2KFB99"
+  },
+  "mockbay:863755": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/863755",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41sMudzaM0L",
+      "abo:51NAaLvTOmL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XGG17S"
+  },
+  "mockbay:874565": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/874565",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg",
+      "gold:photos/clear-glass_3.jpg"
+    ]
+  },
+  "mockbay:876296": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/876296",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81qP031g5lS"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000UCZFVW"
+  },
+  "mockbay:883485": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/883485",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61jDz9ONUnL",
+      "abo:41RQ9YKbvjL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K6HFY6"
+  },
+  "mockbay:883588": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/883588",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71wH4SuSc5L",
+      "abo:51KPczeB-JL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WTDLHB"
+  },
+  "mockbay:892500": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/892500",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51PMqNII+iL",
+      "abo:21kRFSAbvrL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WW7MGQ5"
+  },
+  "mockbay:898610": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "mockbay",
+    "url_path": "/mockbay/item/898610",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81e2eWBgYuL",
+      "abo:810tI7NyA7L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B01BHNJYUK"
+  },
+  "tradeloft:TL-10438": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-10438",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51RlbeJmW9L",
+      "abo:61jrHsUBY4L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07SB6XTCM"
+  },
+  "tradeloft:TL-11445": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-11445",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71T80aBBewL",
+      "abo:51M39MBAwDL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07DGQYHYY"
+  },
+  "tradeloft:TL-11931": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-11931",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71pNuoH7MBL",
+      "abo:716q0bzEzWL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KT49S2"
+  },
+  "tradeloft:TL-12494": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-12494",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71ycJQJFldL",
+      "abo:21DZGKq5bQL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08989KYPF"
+  },
+  "tradeloft:TL-13135": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-13135",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81k-65fOHAL",
+      "abo:71fiYPn1SnL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WXFNKJ"
+  },
+  "tradeloft:TL-13967": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-13967",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51OhXXVLxlL",
+      "abo:61p2I15zj2L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WRZBD1M"
+  },
+  "tradeloft:TL-14598": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-14598",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81f4Z1HH7UL",
+      "abo:71RlK9E1KuL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B074MF89T4"
+  },
+  "tradeloft:TL-15183": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-15183",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg+crop"
+    ]
+  },
+  "tradeloft:TL-15420": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-15420",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81g8LQfo6sL",
+      "abo:81AfXBFCSiL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J4TXJBT"
+  },
+  "tradeloft:TL-16145": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-16145",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg",
+      "gold:photos/mule-mug_2.jpg"
+    ]
+  },
+  "tradeloft:TL-16819": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-16819",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71-YjPVEsbL",
+      "abo:31mAC7RHkQL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0898BYCZW"
+  },
+  "tradeloft:TL-17552": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-17552",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "tradeloft:TL-17989": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-17989",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg"
+    ]
+  },
+  "tradeloft:TL-18288": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-18288",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81PfRR95AvL",
+      "abo:71RQPxxtUVL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J54XPDR"
+  },
+  "tradeloft:TL-18970": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-18970",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61fvDVz+44L",
+      "abo:51eWWyfHyYL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WW7GXMT"
+  },
+  "tradeloft:TL-19877": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-19877",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41InsjbwLgL",
+      "abo:51TJFPgMzkL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XGZ6PL"
+  },
+  "tradeloft:TL-20180": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-20180",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51k-CSm7zbL",
+      "abo:41aoixXouTL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896LJNL7"
+  },
+  "tradeloft:TL-20981": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-20981",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81-h3p9-DiL",
+      "abo:316eE-JryeL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0737722H8"
+  },
+  "tradeloft:TL-21513": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-21513",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71SgwPYPXqL",
+      "abo:71n5BAMV-zL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KSD173"
+  },
+  "tradeloft:TL-21782": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-21782",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61hCDDv9xES"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000PIBPT2"
+  },
+  "tradeloft:TL-22119": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-22119",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg+mirror",
+      "gold:photos/clear-glass_3.jpg+resize+mirror"
+    ]
+  },
+  "tradeloft:TL-22716": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-22716",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81suPxnwjOL",
+      "abo:713WgXicYjL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07BG7L5XB"
+  },
+  "tradeloft:TL-22735": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-22735",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61e3UpGPCcL",
+      "abo:61QNFxytozL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WP4JQVM"
+  },
+  "tradeloft:TL-22924": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-22924",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_01.jpg"
+    ]
+  },
+  "tradeloft:TL-27157": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-27157",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:91Zawb8fquS",
+      "abo:81DhsQO2eAS"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000NVZA4C"
+  },
+  "tradeloft:TL-27185": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-27185",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:713vPh3LC8L",
+      "abo:31nOYzgUbgL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KSBTRT"
+  },
+  "tradeloft:TL-27575": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-27575",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_01.jpg+mark:VAELO",
+      "blank:blank/blank_02.jpg+mark:VAELO"
+    ]
+  },
+  "tradeloft:TL-28120": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-28120",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61e3UpGPCcL",
+      "abo:61QNFxytozL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WY7CFDY"
+  },
+  "tradeloft:TL-28415": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-28415",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81w13EQ2A2L",
+      "abo:91sOelL+KdL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HJ5LH4Y"
+  },
+  "tradeloft:TL-28464": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-28464",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:819pZhzq1cL",
+      "abo:71TFPYYoEsL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07JVNDQCN"
+  },
+  "tradeloft:TL-28777": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-28777",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_4.jpg",
+      "gold:photos/trail-teal_1.jpg"
+    ]
+  },
+  "tradeloft:TL-28920": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-28920",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_03.jpg+mark:VAELO",
+      "blank:blank/blank_04.jpg+mark:VAELO"
+    ]
+  },
+  "tradeloft:TL-29126": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-29126",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_03.jpg"
+    ]
+  },
+  "tradeloft:TL-34044": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34044",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41Lg9ujDNtL",
+      "abo:71iZQwEK5CL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HGW1KMW"
+  },
+  "tradeloft:TL-34101": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34101",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg+jpeg_q25",
+      "gold:photos/mule-mug_1.jpg+resize"
+    ]
+  },
+  "tradeloft:TL-34379": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34379",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71VhmqPJ-6L",
+      "abo:71SIS0EFoVL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896JW1GQ"
+  },
+  "tradeloft:TL-34426": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34426",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51jBXYGMqgL",
+      "abo:41m2o2DRHQL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K7FZTL"
+  },
+  "tradeloft:TL-34605": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34605",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51efXnzm54L",
+      "abo:61uWN6i3CXL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZTD4KXP"
+  },
+  "tradeloft:TL-34662": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34662",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_4.jpg+brightness+crop+jpeg_q25",
+      "gold:photos/clear-glass_3.jpg+resize+mirror+jpeg_q25"
+    ]
+  },
+  "tradeloft:TL-34847": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34847",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51KalXzJnHL",
+      "abo:71X8-ZzZtnL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07V5P57VM"
+  },
+  "tradeloft:TL-34966": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-34966",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+brightness",
+      "gold:photos/arc-copper_2.jpg+brightness+watermark+mirror"
+    ]
+  },
+  "tradeloft:TL-35553": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-35553",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61WdcMtj+LL",
+      "abo:611wlFlD8GL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07M97KV63"
+  },
+  "tradeloft:TL-35625": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-35625",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41Blvpmn8vL",
+      "abo:71CeytE4xZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753SSPK9"
+  },
+  "tradeloft:TL-36299": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-36299",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51UeT-WSAZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FSGHKW7"
+  },
+  "tradeloft:TL-36624": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-36624",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_03.jpg"
+    ]
+  },
+  "tradeloft:TL-36651": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-36651",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_3.jpg+crop"
+    ]
+  },
+  "tradeloft:TL-36805": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-36805",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg"
+    ]
+  },
+  "tradeloft:TL-37762": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-37762",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg",
+      "gold:photos/mule-mug_1.jpg"
+    ]
+  },
+  "tradeloft:TL-38490": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-38490",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61KxAqB14hL",
+      "abo:5109w6RnoAL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896LKL83"
+  },
+  "tradeloft:TL-38616": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-38616",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61WIz2zgEhL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FRW4XTV"
+  },
+  "tradeloft:TL-38967": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-38967",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41L1UilTfjL",
+      "abo:51FtmBRdkBL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XGMSWQ"
+  },
+  "tradeloft:TL-39002": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-39002",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_13.jpg"
+    ]
+  },
+  "tradeloft:TL-39321": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-39321",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61J71jBxSDL",
+      "abo:71cLmE+QLbL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B074MFDR4W"
+  },
+  "tradeloft:TL-39536": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-39536",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_3.jpg+resize+crop",
+      "gold:photos/trail-teal_4.jpg+resize"
+    ]
+  },
+  "tradeloft:TL-39615": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-39615",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51q-8lsWjXL",
+      "abo:212zB0sR3rL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZQW9YF5"
+  },
+  "tradeloft:TL-39628": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-39628",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51vUeoFLvjL",
+      "abo:61RALIkxOBL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K7LM66"
+  },
+  "tradeloft:TL-41051": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-41051",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_2.jpg",
+      "gold:photos/arc-copper_4.jpg"
+    ]
+  },
+  "tradeloft:TL-41369": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-41369",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_3.jpg+engraved",
+      "gold:photos/mule-mug_2.jpg+engraved"
+    ]
+  },
+  "tradeloft:TL-41584": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-41584",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_03.jpg+mark:VAELO",
+      "blank:blank/blank_04.jpg+mark:VAELO"
+    ]
+  },
+  "tradeloft:TL-41651": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-41651",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71vwHI+PY1L",
+      "abo:71VG9NYXUVL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07J4TXJC4"
+  },
+  "tradeloft:TL-41797": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-41797",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_1.jpg"
+    ]
+  },
+  "tradeloft:TL-41831": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-41831",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_05.jpg+mark:VAELOW"
+    ]
+  },
+  "tradeloft:TL-43217": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-43217",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71ibj1-qoPL",
+      "abo:71aH5czHp2L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KSHJ3C"
+  },
+  "tradeloft:TL-43692": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-43692",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51CGrkjw67L",
+      "abo:61Tr21OnBOL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K7FDHL"
+  },
+  "tradeloft:TL-45208": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-45208",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61XHeKJW1HL",
+      "abo:518hYYFbQCL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WXBWZBV"
+  },
+  "tradeloft:TL-46521": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-46521",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71JlYQ1b7JL",
+      "abo:71oeXZ+jO5L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753SCZJ9"
+  },
+  "tradeloft:TL-47914": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-47914",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_3.jpg",
+      "gold:photos/trail-teal_2.jpg",
+      "gold:photos/trail-teal_4.jpg"
+    ]
+  },
+  "tradeloft:TL-48126": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-48126",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71fMwsqGO+L",
+      "abo:71YRJNc6nhL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07M8N6VMX"
+  },
+  "tradeloft:TL-48398": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-48398",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61Q1noPmRXL",
+      "abo:71PVjto5QjL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07MMY5K4F"
+  },
+  "tradeloft:TL-49387": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-49387",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg",
+      "gold:photos/arc-copper_4.jpg"
+    ]
+  },
+  "tradeloft:TL-49552": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-49552",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_4.jpg",
+      "gold:photos/trail-teal_2.jpg"
+    ]
+  },
+  "tradeloft:TL-50946": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-50946",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:514oJQ-Wg5L",
+      "abo:31KlqC57yML"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K77R18"
+  },
+  "tradeloft:TL-51015": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-51015",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_07.jpg"
+    ]
+  },
+  "tradeloft:TL-51072": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-51072",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51QcmKIViVL",
+      "abo:41GDvIQj4lL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WV3YCKF"
+  },
+  "tradeloft:TL-51777": {
+    "category": "counterfeit_identical",
+    "rule_id": "tm_identical",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(1)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-51777",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_4.jpg+jpeg_q25",
+      "gold:photos/clear-glass_3.jpg+brightness+resize"
+    ]
+  },
+  "tradeloft:TL-52154": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-52154",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg+engraved",
+      "gold:photos/clear-glass_1.jpg+engraved"
+    ]
+  },
+  "tradeloft:TL-53642": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-53642",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_4.jpg",
+      "gold:photos/clear-glass_2.jpg"
+    ]
+  },
+  "tradeloft:TL-53900": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-53900",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51OhXXVLxlL",
+      "abo:61p2I15zj2L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753QGJXK"
+  },
+  "tradeloft:TL-55143": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-55143",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg"
+    ]
+  },
+  "tradeloft:TL-55397": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-55397",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61JIl2lXHBL",
+      "abo:51WK9c2UQmL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896L76B3"
+  },
+  "tradeloft:TL-56897": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-56897",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61fvDVz+44L",
+      "abo:51eWWyfHyYL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753SYXXF"
+  },
+  "tradeloft:TL-57996": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-57996",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41dg9shMMhL",
+      "abo:71kBHZtU2kL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HGW1MG1"
+  },
+  "tradeloft:TL-58589": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-58589",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_05.jpg",
+      "other:lookalike/lookalike_06.jpg"
+    ]
+  },
+  "tradeloft:TL-58637": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-58637",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_2.jpg+brightness+watermark"
+    ]
+  },
+  "tradeloft:TL-58749": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-58749",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51qS7rIOOfL",
+      "abo:717q-NAyfJL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WT486FH"
+  },
+  "tradeloft:TL-59220": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-59220",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71RRUGMSKlL",
+      "abo:51zXmsQnnkL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FP5484H"
+  },
+  "tradeloft:TL-59355": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-59355",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:A10judw-T8L",
+      "abo:71SbS107Z-L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07C7RHVDN"
+  },
+  "tradeloft:TL-59436": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-59436",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg+watermark+brightness+jpeg_q25"
+    ]
+  },
+  "tradeloft:TL-59894": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-59894",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_4.jpg+engraved"
+    ]
+  },
+  "tradeloft:TL-60680": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-60680",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61UaI86qpcL",
+      "abo:71DyLkSW5ZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H7RPJ7P"
+  },
+  "tradeloft:TL-61406": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-61406",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81kyUaw5VQL",
+      "abo:81BcJMa4OhL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B000PIBPSI"
+  },
+  "tradeloft:TL-61987": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-61987",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg+engraved",
+      "gold:photos/mule-mug_1.jpg+engraved"
+    ]
+  },
+  "tradeloft:TL-62392": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-62392",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61OnkGVhMWL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08BS6LR15"
+  },
+  "tradeloft:TL-62457": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-62457",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61-e8bNDHeL",
+      "abo:71ZPmzm8g4L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K6GDR2"
+  },
+  "tradeloft:TL-62845": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-62845",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71WySggr-IL",
+      "abo:61hyGJrGc8L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0898B96KM"
+  },
+  "tradeloft:TL-63167": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-63167",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:416CFhHPU6L",
+      "abo:41vdPMhONhL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753QDYPK"
+  },
+  "tradeloft:TL-63501": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-63501",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71WrrK6eaNL",
+      "abo:71ASDk5GJCL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B06X6J9TFJ"
+  },
+  "tradeloft:TL-64090": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64090",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_06.jpg+mark:VAEL0",
+      "blank:blank/blank_07.jpg+mark:VAEL0"
+    ]
+  },
+  "tradeloft:TL-64206": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64206",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_2.jpg"
+    ]
+  },
+  "tradeloft:TL-64234": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64234",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71oFYh57DbL",
+      "abo:81k2pcQcVzL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07DGQ2NSQ"
+  },
+  "tradeloft:TL-64253": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64253",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61WIz2zgEhL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FS6JXBM"
+  },
+  "tradeloft:TL-64261": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64261",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61TiAGVNEEL",
+      "abo:61BqEiWgX-L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WX12JW"
+  },
+  "tradeloft:TL-64371": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64371",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51f3UuK34ZL",
+      "abo:61YmroyDOdL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WZLYS4Q"
+  },
+  "tradeloft:TL-64592": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64592",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg+brightness+watermark+jpeg_q25",
+      "gold:photos/mule-mug_2.jpg+resize+brightness"
+    ]
+  },
+  "tradeloft:TL-64732": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-64732",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_02.jpg"
+    ]
+  },
+  "tradeloft:TL-66054": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-66054",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81qdK8J6kML",
+      "abo:61p+ZpEItDL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HJ7ZNK5"
+  },
+  "tradeloft:TL-68954": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-68954",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_01.jpg+mark:VAELLO"
+    ]
+  },
+  "tradeloft:TL-69473": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-69473",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71MecRzUB8L",
+      "abo:81ONKOIWPWL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07C1PG5BT"
+  },
+  "tradeloft:TL-69500": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-69500",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:519MAyMx8UL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07THV34L1"
+  },
+  "tradeloft:TL-70523": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-70523",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61wxxOixZ+L",
+      "abo:619k1a8V8QL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08C1F5P19"
+  },
+  "tradeloft:TL-70707": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-70707",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71me86FX9DL",
+      "abo:71whBkH-7bL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B087RXCZC1"
+  },
+  "tradeloft:TL-71080": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-71080",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_03.jpg"
+    ]
+  },
+  "tradeloft:TL-71537": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-71537",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_05.jpg",
+      "other:lookalike/lookalike_04.jpg"
+    ]
+  },
+  "tradeloft:TL-72773": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-72773",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_1.jpg",
+      "gold:photos/mule-mug_3.jpg"
+    ]
+  },
+  "tradeloft:TL-72835": {
+    "category": "grey_import",
+    "rule_id": "grey_import",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10 (s.12 not applying)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-72835",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg",
+      "gold:photos/clear-glass_1.jpg"
+    ]
+  },
+  "tradeloft:TL-73202": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-73202",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51AbytQsSXL",
+      "abo:21SYK8Yjt9L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896L3PDP"
+  },
+  "tradeloft:TL-73440": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-73440",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61b2yKXt+8L",
+      "abo:817QNp-yd-L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896L6J8P"
+  },
+  "tradeloft:TL-74366": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-74366",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51q-8lsWjXL",
+      "abo:212zB0sR3rL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZL3ZBLH"
+  },
+  "tradeloft:TL-74885": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-74885",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71EFC7rVpCL",
+      "abo:81uXnhAe2tL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07JVP2NV2"
+  },
+  "tradeloft:TL-74962": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-74962",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_3.jpg",
+      "gold:photos/mule-mug_2.jpg"
+    ]
+  },
+  "tradeloft:TL-75590": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-75590",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51SiKbNmA2L",
+      "abo:41c-J944X-L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K9F6YB"
+  },
+  "tradeloft:TL-75734": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-75734",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71+xXnGXVTL",
+      "abo:71AopWwcC9L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07M8XPM44"
+  },
+  "tradeloft:TL-76013": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-76013",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:612i8PhGQXL",
+      "abo:61MWYYg6lIL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WT4BNJW"
+  },
+  "tradeloft:TL-76560": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-76560",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51pDCHlhhqL",
+      "abo:216nK11fP3L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0896KCKTR"
+  },
+  "tradeloft:TL-77215": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-77215",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_01.jpg"
+    ]
+  },
+  "tradeloft:TL-77637": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-77637",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71oAwZAjeTL",
+      "abo:210czW5ulZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WP4M9GS"
+  },
+  "tradeloft:TL-77658": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-77658",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71N+V8-J1VL",
+      "abo:81O1ndjBMkL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B083KRQFDG"
+  },
+  "tradeloft:TL-80206": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-80206",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_3.jpg+crop"
+    ]
+  },
+  "tradeloft:TL-80430": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-80430",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51c4FPLSJcL",
+      "abo:51cAzBl34+L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07TF8X3YS"
+  },
+  "tradeloft:TL-81219": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-81219",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71oAwZAjeTL",
+      "abo:210czW5ulZL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WT489JN"
+  },
+  "tradeloft:TL-81493": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-81493",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41dAKy4BGOL",
+      "abo:51Ka760NzeL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07HGJ672M"
+  },
+  "tradeloft:TL-81584": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-81584",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:716JEzn0a2L",
+      "abo:51M39MBAwDL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07FQLTCZX"
+  },
+  "tradeloft:TL-82362": {
+    "category": "modified_goods",
+    "rule_id": "modified_goods",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12(2)"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-82362",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_2.jpg+engraved"
+    ]
+  },
+  "tradeloft:TL-82507": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-82507",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71egKkuSLLL",
+      "abo:21kaNLemipL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753QDTTV"
+  },
+  "tradeloft:TL-82744": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-82744",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:415u0U9HVaL",
+      "abo:41aEyV7rESL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086XG9GMF"
+  },
+  "tradeloft:TL-82856": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-82856",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_3.jpg"
+    ]
+  },
+  "tradeloft:TL-83713": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)",
+      "Trade Marks Act 1994 s.92"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [
+      "refer_trading_standards"
+    ],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-83713",
+    "product": "arc-copper",
+    "bulk_cluster": true,
+    "image_sources": [
+      "gold:photos/arc-copper_1.jpg+crop+watermark+cluster",
+      "gold:photos/arc-copper_4.jpg+jpeg_q25+cluster"
+    ]
+  },
+  "tradeloft:TL-83889": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-83889",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81Z+PQUNU0L",
+      "abo:91fG3+nS5SL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WVVDY5"
+  },
+  "tradeloft:TL-84458": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-84458",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61UXdwy98-L",
+      "abo:41CdsfBtjKL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B086K7FZTG"
+  },
+  "tradeloft:TL-84655": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-84655",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71MabNyLVPL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07H2KF92X"
+  },
+  "tradeloft:TL-85511": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "hard",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-85511",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_4.jpg",
+      "gold:photos/trail-teal_1.jpg",
+      "gold:photos/trail-teal_2.jpg"
+    ]
+  },
+  "tradeloft:TL-86550": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-86550",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:unrelated/unrelated_05.jpg"
+    ]
+  },
+  "tradeloft:TL-86892": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-86892",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51PBQOYVh4L",
+      "abo:51lSAFVlPbL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07Y6Q5CTX"
+  },
+  "tradeloft:TL-87840": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-87840",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81pnO7RiHqL",
+      "abo:91CxmDzSitL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07C7HY8HM"
+  },
+  "tradeloft:TL-88370": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-88370",
+    "product": "trail-teal",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/trail-teal_2.jpg",
+      "gold:photos/trail-teal_3.jpg",
+      "gold:photos/trail-teal_1.jpg"
+    ]
+  },
+  "tradeloft:TL-89026": {
+    "category": "copied_photos",
+    "rule_id": "copied_photos",
+    "legal_basis": [
+      "Copyright, Designs and Patents Act 1988 ss.16-17, 20"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-89026",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/mule-mug_3.jpg+jpeg_q25",
+      "gold:photos/mule-mug_2.jpg+resize+mirror+brightness"
+    ]
+  },
+  "tradeloft:TL-89764": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-89764",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61t50h+BSAL",
+      "abo:21SWDHZeNkL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07XYCRFYW"
+  },
+  "tradeloft:TL-89879": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-89879",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71oxAUe02WL",
+      "abo:81X91YvWkaL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07YT18P21"
+  },
+  "tradeloft:TL-90767": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-90767",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:614E1lBf-mL",
+      "abo:71R+vyVYh9L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07M8CM2C3"
+  },
+  "tradeloft:TL-90833": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-90833",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51WBcpIww6L",
+      "abo:21BKNavz8EL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WT4B3JF"
+  },
+  "tradeloft:TL-91234": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-91234",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:712nQ0BBIaL",
+      "abo:21hi8gKIX+L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08989DC23"
+  },
+  "tradeloft:TL-91777": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-91777",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:514LXEH235L",
+      "abo:71abMZmsyKL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07Z3C284C"
+  },
+  "tradeloft:TL-92050": {
+    "category": "genuine_resale",
+    "rule_id": "exhausted_resale",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.12 (UK+ exhaustion)"
+    ],
+    "expected_action": "monitor",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-92050",
+    "product": "clear-glass",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/clear-glass_3.jpg",
+      "gold:photos/clear-glass_1.jpg"
+    ]
+  },
+  "tradeloft:TL-92169": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-92169",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:415KAG8S3NL",
+      "abo:21MEBXYNRBL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0009BOEKW"
+  },
+  "tradeloft:TL-94183": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-94183",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61OnkGVhMWL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B08BS692GS"
+  },
+  "tradeloft:TL-94765": {
+    "category": "counterfeit_similar",
+    "rule_id": "tm_similar",
+    "legal_basis": [
+      "Trade Marks Act 1994 s.10(2)"
+    ],
+    "expected_action": "platform_report",
+    "should_report": true,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-94765",
+    "product": "mule-mug",
+    "bulk_cluster": false,
+    "image_sources": [
+      "blank:blank/blank_05.jpg+mark:V-AELO"
+    ]
+  },
+  "tradeloft:TL-95029": {
+    "category": "lookalike",
+    "rule_id": "lookalike",
+    "legal_basis": [
+      "Passing off (common law) / design rights goodwill, misrepresentation, damage"
+    ],
+    "expected_action": "escalate",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-95029",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "other:lookalike/lookalike_09.jpg"
+    ]
+  },
+  "tradeloft:TL-95205": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-95205",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81QJiKHWDYL",
+      "abo:71SQMXtRpHL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07ZVKK1K1"
+  },
+  "tradeloft:TL-95665": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-95665",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:51qS7rIOOfL",
+      "abo:717q-NAyfJL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07WXBX5NN"
+  },
+  "tradeloft:TL-96007": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-96007",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:41T1BH5Y7TL",
+      "abo:31C192QE4XL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0009BOEO8"
+  },
+  "tradeloft:TL-96535": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-96535",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_4.jpg",
+      "gold:photos/arc-copper_2.jpg"
+    ]
+  },
+  "tradeloft:TL-96537": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-96537",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71xYmeF7S-L",
+      "abo:91ddYGO5WwL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0753SPQ6K"
+  },
+  "tradeloft:TL-97541": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-97541",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81epi1bKvUL",
+      "abo:71lgWvhlnML"
+    ],
+    "source": "abo",
+    "abo_item_id": "B07BG69MRW"
+  },
+  "tradeloft:TL-97929": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-97929",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:61L+9+P5WQL",
+      "abo:61P7t5reMgL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WWWP1B"
+  },
+  "tradeloft:TL-98150": {
+    "category": "authorised",
+    "rule_id": "authorised",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "easy",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-98150",
+    "product": "arc-copper",
+    "bulk_cluster": false,
+    "image_sources": [
+      "gold:photos/arc-copper_2.jpg",
+      "gold:photos/arc-copper_1.jpg"
+    ]
+  },
+  "tradeloft:TL-99057": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "dev",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-99057",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:91GC9BBfBfL",
+      "abo:816ymch+u5L"
+    ],
+    "source": "abo",
+    "abo_item_id": "B072WW22SX"
+  },
+  "tradeloft:TL-99375": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-99375",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:71kuvlYAI7L",
+      "abo:716vaRKaltL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B0898BY7CB"
+  },
+  "tradeloft:TL-99828": {
+    "category": "unrelated",
+    "rule_id": "unrelated",
+    "legal_basis": [],
+    "expected_action": "ignore",
+    "should_report": false,
+    "expected_secondary_actions": [],
+    "difficulty": "real",
+    "split": "test",
+    "site": "tradeloft",
+    "url_path": "/tradeloft/listing/TL-99828",
+    "product": null,
+    "bulk_cluster": false,
+    "image_sources": [
+      "abo:81Eos5GuonL",
+      "abo:71IdfJAoktL"
+    ],
+    "source": "abo",
+    "abo_item_id": "B00MWRX46Q"
+  }
+}

@@ -36,6 +36,8 @@ async def capture_listing(browser: BrowserManager, site: str, url: str, llm: Any
                           screenshot_path: Path | None = None) -> ListingData:
     """Extract a listing; optionally save a screenshot of the page the data came from."""
     adapter = browser.adapter(site)
+    if adapter is None and browser.cfg.site(site).navigator:
+        return await _capture_with_navigator(browser, site, url, llm, screenshot_path)
     attempts = 1 + browser.cfg.browser.retries if adapter is not None else 1
     last: Exception | None = None
     for attempt in range(1, attempts + 1):
@@ -59,6 +61,31 @@ async def capture_listing(browser: BrowserManager, site: str, url: str, llm: Any
             await _screenshot(browser, site, page, screenshot_path)
             return data
     raise ExtractionFailed(f"{site}: could not extract {url}")  # pragma: no cover - loop always returns/raises
+
+
+async def _capture_with_navigator(browser: BrowserManager, site: str, url: str, llm: Any | None,
+                                  screenshot_path: Path | None) -> ListingData:
+    """Recipe replay (no LLM) → agent loop (which re-learns the recipe on success)."""
+    from bh.browser.agent_nav import Navigator, NavOutcome
+    from bh.browser.recipes import RecipeStore, Replayer, ReplayFailed
+
+    store = RecipeStore(browser.cfg)
+    nav = Navigator(browser, site, llm, store=store)
+    recipe = store.load(site)
+    async with browser.page(site) as page:
+        data: ListingData | None = None
+        if recipe is not None and recipe.listing is not None:
+            try:
+                data = await Replayer(nav, recipe).listing(page, url, NavOutcome())
+            except ReplayFailed as e:
+                log.warning("recipe v%d replay failed on %s: %s; using the agent loop", recipe.version, url, e)
+        if data is None:
+            if llm is None:
+                raise ExtractionFailed(f"{site}: the agentic navigator needs an LLM (run with --llm)")
+            data = await nav.listing(page, url)
+        await browser.goto(site, page, url)  # evidence screenshot of the listing as first shown
+        await _screenshot(browser, site, page, screenshot_path)
+        return data
 
 
 async def iter_search_pages(browser: BrowserManager, site: str, query: str, max_pages: int | None = None,
@@ -85,6 +112,42 @@ async def iter_search_pages(browser: BrowserManager, site: str, query: str, max_
             log.warning("adapter %s search failed: %s; using generic extractor", site, e)
             if llm is None:
                 raise ExtractionFailed(f"{site}: search selectors failed and no LLM for fallback: {e}") from e
+    if browser.cfg.site(site).navigator:  # discovery order: recipe replay → agent loop → generic extractor
+        from bh.browser.agent_nav import NavigationFailed, Navigator, NavOutcome
+        from bh.browser.recipes import RecipeStore, Replayer, ReplayFailed
+
+        store = RecipeStore(browser.cfg)
+        nav = Navigator(browser, site, llm, store=store)
+        recipe = store.load(site)
+        if recipe is not None and recipe.search is not None:
+            yielded = 0
+            try:
+                async with browser.page(site) as page, \
+                        aclosing(Replayer(nav, recipe).search(page, query, cap, NavOutcome())) as it:
+                    async for batch in it:
+                        yielded += 1
+                        yield batch
+                return
+            except ReplayFailed as e:
+                if yielded:
+                    log.warning("recipe v%d replay stopped on %s after %d page(s): %s", recipe.version, site,
+                                yielded, e)
+                    return
+                log.warning("recipe v%d replay failed on %s for %r: %s; using the agent loop", recipe.version,
+                            site, query, e)
+        if llm is None:
+            raise ExtractionFailed(f"{site}: no adapter and no LLM for the generic extractor")
+        yielded = 0
+        try:
+            async with browser.page(site) as page, aclosing(nav.search(page, query, cap)) as it:
+                async for batch in it:
+                    yielded += 1
+                    yield batch
+            return
+        except NavigationFailed as e:
+            if yielded or not browser.cfg.site(site).search_url:
+                raise
+            log.warning("navigator failed on %s for %r: %s; using generic extractor", site, query, e)
     if llm is None:
         raise ExtractionFailed(f"{site}: no adapter and no LLM for the generic extractor")
     template = browser.cfg.site(site).search_url

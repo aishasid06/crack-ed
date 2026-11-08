@@ -1,11 +1,11 @@
-PY ?= .venv/bin/python
+PY ?= $(if $(wildcard .venv/Scripts/python.exe),.venv/Scripts/python.exe,.venv/bin/python)
 BRAND ?= vaelo
 
-.PHONY: install mock mock-sample abo seed discover tune classify decide draft submit run ui staff search eval test
+.PHONY: install mock mock-sample abo seed real-listings discover tune classify decide draft submit run bootstrap ui staff search eval test
 
 install:
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev,mock,ml,browser,ui]"
+	uv pip install --python $(PY) -e ".[dev,mock,ml,browser,orchestrator,ui]"
 	$(PY) -m playwright install chromium
 
 test:
@@ -24,6 +24,9 @@ abo:  # ABO metadata + selected images (cached in data/abo/) → seed/brand + se
 seed:  # renders synthetic brand/other assets if missing, then 120 listings + seed/labels.json
 	$(PY) -m seed.assets
 	$(PY) -m seed.generate
+
+real-listings:  # after `make seed`: add ~215 real ABO drinkware listings (all "ignore") → seed/labels_real.json
+	$(PY) -m seed.real_listings
 
 discover:  # needs `make mock` running
 	$(PY) -m bh.discovery.worker
@@ -45,8 +48,13 @@ draft:  # needs `make mock`: fill portal steps 1-4 for in-budget awaiting_approv
 submit:  # needs `make mock`: sign + verify + submit cases a lawyer approved ("Approve and submit"); polls every 10 s
 	$(PY) -m bh.enforce.submit --poll 10
 
-run:
-	@echo "run: implemented in Phase 8 (orchestrator)"; exit 1
+run:  # needs `make mock`: full LangGraph pipeline as one traced run (discover → classify → decide → draft → report)
+	$(PY) -m bh.orchestrator.run --brand $(BRAND) $(ARGS)
+
+bootstrap:  # first run on a fresh DB: capture listings, fit the dev-split scorer, then run everything
+	$(PY) -m bh.orchestrator.run --brand $(BRAND) --until discovery
+	$(PY) -m eval.fit_scorer
+	$(PY) -m bh.orchestrator.run --brand $(BRAND)
 
 ui:  # shoppers: search by name or photo, watch the agent, see which listings look genuine
 	$(PY) -m streamlit run ui/app.py
@@ -57,5 +65,5 @@ staff:  # the brand's lawyers: review queue, approvals, human-required, cases, t
 search:  # one shopper search from the command line, e.g. make search Q="vaelo bottle"
 	$(PY) -m bh.shopper --search-id cli$$(date +%s) --text "$(Q)"
 
-eval:
-	@echo "eval: implemented in Phase 10 (evaluation)"; exit 1
+eval:  # test split: discovery recall, report precision, escalate recall, CIs, per site/difficulty → data/eval/
+	$(PY) -m eval.evaluate $(ARGS)

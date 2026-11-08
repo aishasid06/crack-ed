@@ -67,6 +67,18 @@ class Scored:
     def priority(self) -> float:
         return max(self.clip_sim or 0.0, 1.0 - (self.hash_dist or 64) / 64.0, self.brand_score / 100.0)
 
+    def to_payload(self) -> dict[str, Any]:
+        """JSON-safe record of a kept card, stored on its discovery task so a resumed run can restore it."""
+        return {"card": self.card.model_dump(mode="json"), "queries": list(self.queries), "clip_sim": self.clip_sim,
+                "hash_dist": self.hash_dist, "brand_score": self.brand_score,
+                "matched_product_id": self.matched_product_id, "keep": self.keep, "reasons": list(self.reasons)}
+
+    @classmethod
+    def from_payload(cls, d: dict[str, Any]) -> "Scored":
+        return cls(Card.model_validate(d["card"]), list(d.get("queries", [])), d.get("clip_sim"), d.get("hash_dist"),
+                   d.get("brand_score", 0.0), d.get("matched_product_id"), keep=bool(d.get("keep")),
+                   reasons=list(d.get("reasons", [])))
+
 
 @dataclass
 class DiscoveryResult:
@@ -83,8 +95,18 @@ class DiscoveryResult:
     pages_read: int = 0
 
 
-def marketplace_sites(cfg: AppConfig, only: list[str] | None = None) -> list[str]:
-    sites = [s for s, c in cfg.sites.items() if c.adapter or c.search_url]
+def navigator_active(cfg: AppConfig, llm: Any | None) -> bool:
+    """Navigator sites are opt-in (navigator.enabled / --navigator) and need an LLM."""
+    return cfg.navigator.enabled and llm is not None
+
+
+def enable_navigator(cfg: AppConfig) -> AppConfig:
+    return cfg.model_copy(update={"navigator": cfg.navigator.model_copy(update={"enabled": True})})
+
+
+def marketplace_sites(cfg: AppConfig, only: list[str] | None = None, with_navigator: bool = False) -> list[str]:
+    """Searchable marketplaces. Navigator sites are included only with ``with_navigator`` (see navigator_active)."""
+    sites = [s for s, c in cfg.sites.items() if c.adapter or c.search_url or (c.navigator and with_navigator)]
     return [s for s in sites if not only or s in only]
 
 
@@ -193,6 +215,20 @@ class Prefilter:
             if s.thumb_path is None and s.card.thumbnail_url is None:
                 s.reasons.append("no thumbnail")
             s.keep = bool(s.reasons)
+
+    def kept_for(self, site: str, query: str) -> list[Scored]:
+        """Prefilter-passing cards this (site, query) search saw."""
+        return [s for s in self.cache.values() if s.keep and s.card.site == site and query in s.queries]
+
+    def restore(self, items: list[dict[str, Any]]) -> None:
+        """Re-add kept cards recorded by an already-finished discovery task (resumed runs)."""
+        for d in items:
+            s = Scored.from_payload(d)
+            have = self.cache.get(s.card.url)
+            if have is None:
+                self.cache[s.card.url] = s
+            else:
+                have.queries.extend(q for q in s.queries if q not in have.queries)
 
     def finalize(self) -> list[Scored]:
         """All scored cards; kept ones beyond the listing budget are dropped (highest priority first)."""
@@ -321,8 +357,9 @@ async def capture_one(run_id: int, s: Scored, browser: BrowserManager, llm: Any 
     site = s.card.site
     async with site_sem, task_span(run_id, "capture", site, f"capture:{s.card.url}",
                                    payload={"url": s.card.url, "queries": s.queries, "prefilter": s.reasons}) as t:
-        if t.already_done:
-            return None
+        if t.already_done:  # captured earlier in this run (resume): report the stored listing
+            lid = t.payload.get("listing_id")
+            return int(lid) if lid is not None else None
         shot_tmp = cfg.paths.resolve(cfg.paths.data_dir) / "runs" / str(run_id) / "shots" / \
             f"{hashlib.sha1(s.card.url.encode()).hexdigest()}.png"
         data = await capture_listing(browser, site, s.card.url, llm, screenshot_path=shot_tmp)
@@ -374,7 +411,7 @@ async def discover(run_id: int, cfg: AppConfig, browser: BrowserManager, encoder
     async with task_span(run_id, "generate_queries", None, "generate_queries") as t:
         queries = await generate_queries(ctx, cfg, get_rules().vocabulary, llm)
         t.payload = {"queries": [q.text for q in queries]}
-    site_list = marketplace_sites(cfg, sites)
+    site_list = marketplace_sites(cfg, sites, with_navigator=navigator_active(cfg, llm))
     async with httpx.AsyncClient(timeout=20) as client:
         prefilter = Prefilter(run_id, ctx, cfg, encoder, client)
         cards_seen, pages, waiting = await fan_out_discovery(run_id, site_list, queries, browser, prefilter, llm)
@@ -404,7 +441,13 @@ def main() -> None:
     ap.add_argument("--sites", nargs="+", default=None)
     ap.add_argument("--max-queries", type=int, default=None)
     ap.add_argument("--llm", action="store_true", help="enable the generic LLM fallback / query extension")
+    ap.add_argument("--navigator", action="store_true",
+                    help="also search navigator sites (e.g. bazaarly) with the agentic navigator; needs --llm")
     args = ap.parse_args()
+    if args.navigator:
+        if not args.llm:
+            ap.error("--navigator needs --llm (the agentic navigator is driven by the small model)")
+        cfg = enable_navigator(cfg)
     if args.max_queries:
         cfg = cfg.model_copy(update={"discovery": cfg.discovery.model_copy(update={"max_queries": args.max_queries})})
     llm = None

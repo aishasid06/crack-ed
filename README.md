@@ -18,7 +18,52 @@ make mock                    # mock sites on http://127.0.0.1:8000
 .venv/bin/python -m bh.browser.demo   # (other terminal) search both marketplaces, parse listings
 ```
 
-`make test` runs the test suite. Later phases add `make run`, `make ui` and `make eval`.
+`make test` runs the test suite. Later phases add `make ui` and `make eval`.
+
+### Running the pipeline
+
+With `make mock` running in another terminal:
+
+```bash
+make bootstrap               # first time: capture listings, fit the dev-split scorer, then a full run
+make run                     # later runs: discover → classify → decide → draft (portal steps 1-4) → report
+make submit                  # separate loop: signs + submits only the cases a lawyer approved
+```
+
+`make run` is `python -m bh.orchestrator.run --brand vaelo`, a LangGraph pipeline that writes everything to
+one `Run` (tasks, tokens per model, wall time). Useful flags: `--llm` (borderline vision check and generic
+extractor fallback), `--navigator` (with `--llm`: also search Bazaarly, the adapter-less site, with the agentic navigator; opt-in, off by default), `--until discovery|classify|decide`, `--sites mockbay`, `--max-queries N`. If a portal
+challenge pauses drafting, a human clears it in their own browser and then runs
+`python -m bh.orchestrator.run --resume <run_id>`, which continues the same run without searching again.
+
+On Windows, set `PYTHONUTF8=1` so the CLIs can print non-ASCII output.
+
+### Running a brand from a folder
+
+Any brand folder in the `seed/brand/` layout can be protected without editing config (e.g. one the UI
+writes to `data/brands/<slug>/`):
+
+```bash
+.venv/bin/python -c "from bh.brand import validate_brand_dir; print(validate_brand_dir('data/brands/acme'))"
+.venv/bin/python -m bh.orchestrator.run --brand-dir data/brands/acme      # same flags as make run
+```
+
+`validate_brand_dir` lists every problem (errors block a run, warnings do not); the CLI exits 2 with the
+same list if the folder is invalid. The brand must be marked `"fictional": true`. Later stages (decide,
+drafting, the submit loop) use the brand folder recorded in each case's run.
+
+### Real listings as background noise
+
+To check the system on data it wasn't built around, mix real product listings into the mock sites:
+
+```bash
+make real-listings                                    # ~215 real ABO drinkware listings, all should be ignored
+make run ARGS="--until decide"                        # same config and scorer as before
+make eval ARGS="--labels seed/labels_real.json"       # adds a "real" row and the false-alarm rate
+```
+
+Titles, descriptions and photos are real (ABO, CC BY 4.0). Prices and sellers are generated, because ABO has
+none. `make seed` restores the synthetic-only catalog.
 
 ### Seed images
 

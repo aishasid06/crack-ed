@@ -258,12 +258,20 @@ def el_no_hash_match(e: EvalCtx) -> Element:
     return Element("unmet" if e.f.own_photo else "met", _own_photo_ev(e))
 
 
-def el_inspired_kw_or_no_mark(e: EvalCtx) -> Element:
+def el_inspired_kw_or_close_copy(e: EvalCtx) -> Element:
+    """Evidence of copying, not just resemblance: copying wording ("inspired by", "dupe", ...), or no mark
+    and a very close visual match. Similar products in the same category look alike without copying."""
     if e.f.inspired_kw:
         return Element("met", f"wording: {', '.join(repr(k) for k in e.f.inspired_kw)}")
-    if not e.f.brand_in_text and not e.f.misspelt_brand:
+    if e.f.brand_in_text or e.f.misspelt_brand:
+        return Element("unmet", _mark_ev(e))
+    silent = e.cfg.thresholds.lookalike_silent_clip
+    if silent is None:
         return Element("met", _mark_ev(e))
-    return Element("unmet", _mark_ev(e))
+    clip = e.f.clip_sim or 0
+    if clip >= silent:
+        return Element("met", f"{_mark_ev(e)}; very close match without copying wording (CLIP {clip:.2f} ≥ {silent})")
+    return Element("unmet", f"{_mark_ev(e)}; no copying wording and CLIP {clip:.2f} < {silent}: resemblance only")
 
 
 def el_bulk_seller_or_quantity(e: EvalCtx) -> Element:
@@ -289,7 +297,7 @@ PREDICATES: dict[str, Callable[[EvalCtx], Element]] = {
     "origin_outside_uk_eea": el_origin_outside_uk_eea, "origin_uk_eea_or_unknown": el_origin_uk_eea_or_unknown,
     "own_photo_or_brand": el_own_photo_or_brand, "price_ratio_ge_resale_min": el_price_ratio_ge_resale_min,
     "no_replica_kw": el_no_replica_kw, "clip_ge_lookalike": el_clip_ge_lookalike, "no_hash_match": el_no_hash_match,
-    "inspired_kw_or_no_mark": el_inspired_kw_or_no_mark, "bulk_seller_or_quantity": el_bulk_seller_or_quantity,
+    "inspired_kw_or_close_copy": el_inspired_kw_or_close_copy, "bulk_seller_or_quantity": el_bulk_seller_or_quantity,
 }
 
 

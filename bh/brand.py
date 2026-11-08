@@ -1,19 +1,36 @@
-"""Load the brand's gold assets from ``seed/brand/`` and upsert them into the DB.
+"""Load a brand's gold assets from a brand folder (``seed/brand/`` or e.g. ``data/brands/<slug>/``)
+and upsert them into the DB.
 
-Perceptual hashes and CLIP embeddings are computed later (pipeline ``load_brand`` node,
-Phase 6/8); this module only validates and persists the declared assets.
+Folder layout: ``brand.json``, ``products.json``, ``authorised_sellers.json``, optional
+``trademark.json``, optional ``logo.png``, product photos (e.g. ``photos/``).
+
+``validate_brand_dir`` reports *every* problem without raising (for the UI); ``load_brand_assets``
+refuses an invalid folder with all problems listed. Perceptual hashes and CLIP embeddings are computed
+later (pipeline ``load_brand`` node); this module only validates and persists the declared assets.
 """
 
 from __future__ import annotations
 
 import json
-from pathlib import Path
+import re
+from pathlib import Path, PurePosixPath, PureWindowsPath
+from typing import TYPE_CHECKING, Any
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from PIL import Image, UnidentifiedImageError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 from sqlalchemy.engine import Engine
-from sqlmodel import select
+from sqlmodel import Session, select
 
-from bh.db import AuthorisedSeller, Brand, MarkType, Product, TradeMark, session_scope
+from bh.db import AuthorisedSeller, Brand, MarkType, Product, Run, TradeMark, get_engine, session_scope
+
+if TYPE_CHECKING:
+    from bh.config import AppConfig
+
+SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
+IMAGE_FORMATS = {"JPEG", "PNG"}
+MAX_IMAGE_BYTES = 10 * 1024 * 1024
+MIN_IMAGE_SIDE = 300
+FICTIONAL_ERROR = "brand must be marked fictional: true (this project only runs on fictional brands)"
 
 
 class _M(BaseModel):
@@ -70,7 +87,7 @@ class BrandAssets(_M):
     root: Path
     meta: BrandMeta
     products: list[ProductAsset] = Field(min_length=1)
-    trademarks: list[TradeMarkAsset] = Field(min_length=1)
+    trademarks: list[TradeMarkAsset] = Field(default_factory=list)  # optional: copyright-only brands
     authorised_sellers: list[SellerAsset]
 
     @field_validator("products")
@@ -91,29 +108,239 @@ class BrandAssets(_M):
                    for s in self.authorised_sellers)
 
 
-def load_brand_assets(brand_dir: Path) -> BrandAssets:
-    def read(name: str) -> object:
-        p = brand_dir / name
-        if not p.exists():
-            raise FileNotFoundError(f"{p} missing — run `python -m seed.assets` or add the brand's assets")
-        return json.loads(p.read_text(encoding="utf-8"))
+class InvalidBrandDir(ValueError):
+    """A brand folder failed validation; ``errors`` lists every problem."""
 
-    tm_raw = read("trademark.json")
-    assets = BrandAssets(
-        root=brand_dir,
+    def __init__(self, brand_dir: Path | str, errors: list[str]) -> None:
+        super().__init__(f"brand folder {brand_dir} is invalid:\n" + "\n".join(f"  - {e}" for e in errors))
+        self.brand_dir, self.errors = str(brand_dir), list(errors)
+
+
+class BrandCheck(BaseModel):
+    """Result of ``validate_brand_dir``: errors block a run, warnings need confirmation."""
+
+    ok: bool
+    brand_dir: str
+    slug: str | None = None
+    name: str | None = None
+    products: int = 0
+    errors: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+
+
+def _has_dotdot(path: str | Path) -> bool:
+    return ".." in Path(path).parts
+
+
+def resolve_brand_dir(path: str | Path) -> Path:
+    """Resolve a brand folder path safely: no ``..`` components; must resolve (after symlinks) to a directory."""
+    if _has_dotdot(path):
+        raise InvalidBrandDir(path, [f"path must not contain '..': {path}"])
+    p = Path(path).expanduser()
+    try:
+        resolved = p.resolve(strict=True)
+    except (FileNotFoundError, RuntimeError, OSError):
+        raise InvalidBrandDir(path, [f"folder not found: {path}"]) from None
+    if not resolved.is_dir():
+        raise InvalidBrandDir(path, [f"not a directory: {path}"])
+    return resolved
+
+
+def _field_errors(file: str, idx: int | None, e: ValidationError) -> list[str]:
+    where = f"{file}[{idx}]" if idx is not None else file
+    out = []
+    for err in e.errors():
+        loc = ".".join(str(x) for x in err["loc"])
+        out.append(f"{where}{'.' + loc if loc else ''}: {err['msg']}")
+    return out
+
+
+def _is_rooted(rel: str) -> bool:
+    """Absolute on any OS: '/etc/x' is not ``is_absolute()`` on Windows (no drive) but still escapes the folder."""
+    return (Path(rel).is_absolute() or PurePosixPath(rel).is_absolute() or bool(PureWindowsPath(rel).drive)
+            or rel.startswith(("/", "\\")))
+
+
+def _check_image(root: Path, rel: str, label: str) -> list[str]:
+    """Path must stay inside the brand folder; file must be a JPEG/PNG under 10 MB, ≥ 300 px shorter side."""
+    if _is_rooted(rel) or _has_dotdot(rel):
+        return [f"{label}: path must be relative to the brand folder without '..': {rel}"]
+    p = root / rel
+    try:
+        resolved = p.resolve(strict=True)
+    except (FileNotFoundError, OSError):
+        return [f"{label}: file not found: {rel}"]
+    if not resolved.is_relative_to(root):
+        return [f"{label}: path escapes the brand folder (symlink): {rel}"]
+    size = resolved.stat().st_size
+    if size > MAX_IMAGE_BYTES:
+        return [f"{label}: {rel} is {size / 1024 / 1024:.1f} MB (max 10 MB)"]
+    try:
+        with Image.open(resolved) as im:
+            fmt, (w, h) = im.format, im.size
+            im.verify()
+    except (UnidentifiedImageError, OSError, SyntaxError) as e:
+        return [f"{label}: {rel} is not a readable image ({type(e).__name__})"]
+    errs = []
+    if fmt not in IMAGE_FORMATS:
+        errs.append(f"{label}: {rel} is {fmt}; must be JPEG or PNG")
+    if min(w, h) < MIN_IMAGE_SIDE:
+        errs.append(f"{label}: {rel} is {w}x{h}; shorter side must be at least {MIN_IMAGE_SIDE} px")
+    return errs
+
+
+def validate_brand_dir(path: str | Path) -> BrandCheck:
+    """Check a brand folder and report every problem (never raises). ``ok`` is False if any error."""
+    errors: list[str] = []
+    warnings: list[str] = []
+    try:
+        root = resolve_brand_dir(path)
+    except InvalidBrandDir as e:
+        return BrandCheck(ok=False, brand_dir=str(path), errors=e.errors)
+
+    def read(name: str, required: bool) -> Any:
+        f = root / name
+        if not f.exists():
+            if required:
+                errors.append(f"{name}: missing")
+            return None
+        try:
+            return json.loads(f.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            errors.append(f"{name}: invalid JSON ({e})")
+            return None
+
+    check = BrandCheck(ok=False, brand_dir=str(root))
+    raw_meta = read("brand.json", True)
+    if raw_meta is not None:
+        if not isinstance(raw_meta, dict):
+            errors.append("brand.json: must be a JSON object")
+        else:
+            if raw_meta.get("fictional") is not True:
+                errors.append(f"brand.json.fictional: {FICTIONAL_ERROR}")
+            try:
+                meta = BrandMeta.model_validate(raw_meta)
+                check.slug, check.name = meta.slug, meta.name
+                if not SLUG_RE.match(meta.slug):
+                    errors.append(f"brand.json.slug: {meta.slug!r} must be lowercase letters, digits and hyphens")
+                elif meta.slug != root.name:
+                    warnings.append(f"brand.json.slug {meta.slug!r} differs from the folder name {root.name!r}")
+                if meta.owner is None:
+                    warnings.append("brand.json: no 'owner' details — portal reports cannot be drafted")
+                if meta.copyright is None:
+                    warnings.append("brand.json: no 'copyright' details — copied-photo reports cannot be drafted")
+            except ValidationError as e:
+                errors += _field_errors("brand.json", None, e)
+
+    raw_products = read("products.json", True)
+    if raw_products is not None:
+        if not isinstance(raw_products, list) or not raw_products:
+            errors.append("products.json: must be a non-empty JSON list")
+        else:
+            slugs: list[str] = []
+            for i, rp in enumerate(raw_products):
+                try:
+                    prod = ProductAsset.model_validate(rp)
+                except ValidationError as e:
+                    errors += _field_errors("products.json", i, e)
+                    continue
+                slugs.append(prod.slug)
+                if len(prod.images) < 3:
+                    warnings.append(f"products.json[{i}] ({prod.slug}): only {len(prod.images)} photo(s); 3-4 "
+                                    "recommended")
+                for img in prod.images:
+                    errors += _check_image(root, img, f"products.json[{i}] ({prod.slug}) photo")
+            dupes = sorted({x for x in slugs if slugs.count(x) > 1})
+            if dupes:
+                errors.append(f"products.json: duplicate product slugs {dupes}")
+            check.products = len(slugs)
+
+    raw_sellers = read("authorised_sellers.json", True)
+    if raw_sellers is not None:
+        if not isinstance(raw_sellers, list):
+            errors.append("authorised_sellers.json: must be a JSON list")
+        else:
+            if not raw_sellers:
+                warnings.append("authorised_sellers.json: no authorised sellers — every seller is treated as "
+                                "unauthorised")
+            for i, rs in enumerate(raw_sellers):
+                try:
+                    SellerAsset.model_validate(rs)
+                except ValidationError as e:
+                    errors += _field_errors("authorised_sellers.json", i, e)
+
+    raw_tm = read("trademark.json", False)
+    if raw_tm is None and not (root / "trademark.json").exists():
+        warnings.append("no trademark.json — copyright-only brand: trade mark rules cannot apply")
+    elif raw_tm is not None:
+        tms = raw_tm if isinstance(raw_tm, list) else [raw_tm]
+        if not tms:
+            warnings.append("trademark.json is empty — copyright-only brand: trade mark rules cannot apply")
+        for i, rt in enumerate(tms):
+            try:
+                tm = TradeMarkAsset.model_validate(rt)
+            except ValidationError as e:
+                errors += _field_errors("trademark.json", i, e)
+                continue
+            if tm.logo_path:
+                errors += _check_image(root, tm.logo_path, f"trademark.json[{i}] logo")
+    if (root / "logo.png").exists() and not any("logo.png" in e for e in errors):
+        errors += [e for e in _check_image(root, "logo.png", "logo") if e not in errors]
+
+    check.errors, check.warnings, check.ok = errors, warnings, not errors
+    return check
+
+
+def load_brand_assets(brand_dir: Path) -> BrandAssets:
+    """Load a validated brand folder; raises ``InvalidBrandDir`` listing every problem otherwise."""
+    check = validate_brand_dir(brand_dir)
+    if not check.ok:
+        raise InvalidBrandDir(brand_dir, check.errors)
+    root = Path(check.brand_dir)
+
+    def read(name: str) -> Any:
+        f = root / name
+        return json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
+
+    tm_raw = read("trademark.json") or []
+    return BrandAssets(
+        root=root,
         meta=BrandMeta.model_validate(read("brand.json")),
-        products=[ProductAsset.model_validate(p) for p in read("products.json")],  # type: ignore[union-attr]
+        products=[ProductAsset.model_validate(p) for p in read("products.json")],
         trademarks=[TradeMarkAsset.model_validate(t) for t in (tm_raw if isinstance(tm_raw, list) else [tm_raw])],
-        authorised_sellers=[SellerAsset.model_validate(s) for s in read("authorised_sellers.json")],  # type: ignore[union-attr]
+        authorised_sellers=[SellerAsset.model_validate(x) for x in read("authorised_sellers.json")],
     )
-    for p in assets.products:
-        for img in p.images:
-            if not assets.image_path(img).exists():
-                raise FileNotFoundError(f"product {p.slug}: missing image {img}")
-    for t in assets.trademarks:
-        if t.logo_path and not assets.image_path(t.logo_path).exists():
-            raise FileNotFoundError(f"trade mark {t.registration_number}: missing logo {t.logo_path}")
-    return assets
+
+
+def config_for_brand_dir(cfg: "AppConfig", path: str | Path) -> "AppConfig":
+    """``cfg`` set up to protect the brand in ``path``: validated, absolute ``paths.brand_dir``, ``brand`` = slug."""
+    check = validate_brand_dir(path)
+    if not check.ok:
+        raise InvalidBrandDir(path, check.errors)
+    return cfg.model_copy(update={"brand": check.slug,
+                                  "paths": cfg.paths.model_copy(update={"brand_dir": check.brand_dir})})
+
+
+def config_for_run(cfg: "AppConfig", run_id: int | None, engine: Engine | None = None) -> "AppConfig":
+    """The configuration a run was started with, as far as the brand goes (``brand`` + ``paths.brand_dir``
+    from ``Run.config_snapshot``). Falls back to ``cfg`` when the run has no snapshot of them."""
+    if run_id is None:
+        return cfg
+    with Session(engine or get_engine()) as s:
+        run = s.get(Run, run_id)
+    snap = (run.config_snapshot if run else None) or {}
+    brand_dir = (snap.get("paths") or {}).get("brand_dir")
+    if not brand_dir:
+        return cfg
+    resolved = cfg.paths.resolve(brand_dir)
+    if snap.get("brand") == cfg.brand and resolved == cfg.paths.resolve(cfg.paths.brand_dir):
+        return cfg
+    return config_for_brand_dir(cfg, resolved)
+
+
+def assets_for_run(cfg: "AppConfig", run_id: int | None, engine: Engine | None = None) -> BrandAssets:
+    c = config_for_run(cfg, run_id, engine)
+    return load_brand_assets(c.paths.resolve(c.paths.brand_dir))
 
 
 def upsert_brand(assets: BrandAssets, engine: Engine | None = None) -> int:
@@ -130,6 +357,9 @@ def upsert_brand(assets: BrandAssets, engine: Engine | None = None) -> int:
         for t in assets.trademarks:
             row = s.exec(select(TradeMark).where(TradeMark.registration_number == t.registration_number)).first()
             logo = str(assets.image_path(t.logo_path)) if t.logo_path else None
+            if row is not None and row.brand_id != bid:
+                raise ValueError(f"trade mark registration {t.registration_number} already belongs to another brand "
+                                 f"(brand id {row.brand_id}); a registration can only protect one brand")
             if row is None:
                 row = TradeMark(brand_id=bid, registration_number=t.registration_number, mark_text=t.mark_text,
                                 mark_type=t.mark_type)

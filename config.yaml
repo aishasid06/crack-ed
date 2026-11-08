@@ -63,6 +63,8 @@ own_photo:                         # "listing photo is the brand's own photo"; t
   dhash_max: 8
   clip_min: 0.854                  #   route 2: CLIP similarity to a gold photo (dev lookalike max 0.844 + 0.01)
   orb_min_inliers: 16              #   route 3: ORB keypoint matches surviving RANSAC homography (crops/resizes)
+  orb_clip_min: 0.85               #   ... counted only if the same image has CLIP >= this (dev real listings: 47
+                                   #   images passed ORB alone, max CLIP 0.84; `--labels seed/labels_real.json`)
   crops: [0.9, 0.8]                # gold centre-crop variants (also mirrored)
 
 text:
@@ -86,11 +88,25 @@ enforce:
   require_final_confirm: false     # true: after review-page verification, wait for a second UI confirmation
   max_evidence_mb: 4               # screenshots above this are re-encoded as JPEG before upload
   draft_only_in_budget: true       # draft portal reports only for cases selected within review_budget_minutes
+  # Hosts enforcement may touch. Must be a subset of the allowlist in code (bh/config.py ENFORCEMENT_HOSTS):
+  # config can narrow it, never widen it.
+  allowed_hosts: ["127.0.0.1", "localhost"]
+
+navigator:                         # agentic navigator for adapter-less sites (bh/browser/agent_nav.py)
+  enabled: false                   # opt-in (or --navigator); also needs --llm. Off: navigator sites are skipped
+  max_steps: 30                    # per task (one search, or one listing)
+  max_tokens_per_task: 60000
+  max_elements: 80                 # indexed interactive elements shown to the model per step
+  settle_ms: 400                   # wait after each action before re-observing
+  action_timeout_ms: 3000
+  max_result_pages: 3
+  recipes_dir: "data/recipes"      # learned recipes: replayed without an LLM, re-learned by the agent if they break
 
 sites:
   mockbay:
     display_name: "MockBay"
     base_url: "http://127.0.0.1:8000/mockbay"
+    mode: full                     # full | read_only (read_only sites are never logged into or submitted to)
     adapter: mockbay
     max_concurrency: 3
     max_pages: 10                  # hard safety cap; adaptive stopping usually ends sooner
@@ -98,12 +114,23 @@ sites:
   tradeloft:
     display_name: "TradeLoft"
     base_url: "http://127.0.0.1:8000/tradeloft"
+    mode: full
     adapter: tradeloft
     max_concurrency: 2
     max_pages: 15                  # hard cap on "Load more" batches of 8; adaptive stopping usually ends sooner
     min_delay_ms: 250
+  bazaarly:                        # Phase 11: no adapter, no search_url; browsed by the agentic navigator
+    display_name: "Bazaarly"
+    base_url: "http://127.0.0.1:8000/bazaarly"
+    adapter: null
+    navigator: true                # only searched with navigator.enabled / --navigator and --llm
+    mode: full
+    max_concurrency: 1
+    max_pages: 3
+    min_delay_ms: 250
   portal:
     base_url: "http://127.0.0.1:8000/portal"
+    mode: full
     adapter: null                  # enforcement target, not a marketplace
     max_concurrency: 1
     max_pages: 1
@@ -117,6 +144,8 @@ browser:
   snapshot_max_chars: 12000        # distilled accessibility snapshot sent to the small model
   max_image_candidates: 24
   # Challenge detection: any match pauses the task as waiting_human. The agent never solves challenges.
+  demo_mode: false                 # true: headed browser, each navigator action highlighted first
+  demo_highlight_ms: 700
   challenge:
     url_patterns: ["/verify", "/captcha", "/challenge"]
     selectors: ["#human-verification", "iframe[src*='captcha']", "iframe[src*='challenge']"]
@@ -128,6 +157,8 @@ thresholds:
   prefilter_brand_fuzzy: 80        # ... or brand fuzzy-match score (0-100) >= this
   hash_match: 8                    # phash distance <= this counts as "own photo"
   lookalike_clip: 0.758            # dev-tuned: python -m eval.tune_own_photo (unrelated max 0.726, lookalike min 0.79)
+  lookalike_silent_clip: 0.833     # lookalike WITHOUT copying wording needs CLIP >= this (dev, with real listings:
+                                   # lowest silent lookalike 0.8339; not separable, real max 0.85 — keeps all lookalikes)
   counterfeit_price_ratio: 0.50    # price/RRP below this = "not exhausted" indicator
   resale_min_ratio: 0.55
   act_threshold: 0.70

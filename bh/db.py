@@ -78,6 +78,7 @@ class TaskStatus(StrEnum):
     succeeded = "succeeded"
     failed = "failed"
     waiting_human = "waiting_human"
+    superseded = "superseded"  # step span replaced by its parent's retry after a human hand-off (not an error)
 
 
 class RunStatus(StrEnum):
@@ -89,6 +90,7 @@ class RunStatus(StrEnum):
 class ExtractionMethod(StrEnum):
     adapter = "adapter"
     generic_llm = "generic_llm"
+    recipe = "recipe"  # learned recipe replayed by code (no LLM), adapter-less sites
 
 
 # ---------------------------------------------------------------- brand assets

@@ -16,6 +16,10 @@ class HumanRequired(BountyHunterError):
         self.url = url
 
 
+class EnforcementBlocked(BountyHunterError):
+    """Enforcement (login, draft, verify, submit) refused: target host not allowlisted or site read_only."""
+
+
 class ReviewMismatch(HumanRequired):
     """The portal review page differs from the approved case; submission is blocked until a human acts."""
 
