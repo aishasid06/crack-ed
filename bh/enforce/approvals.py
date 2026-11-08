@@ -1,15 +1,24 @@
 """Human decisions on cases. These are the ONLY functions that move a case to approved / rejected;
-the UI calls them. Nothing in the pipeline approves automatically.
+the UI and this CLI call them. Nothing in the pipeline approves automatically.
 
 "Approve and submit" is the single human authorisation (SPEC §7.1): it also authorises signing the
 portal declarations in the approver's name.
+
+    python -m bh.enforce.approvals approve <case_id> --by "<name>"
+    python -m bh.enforce.approvals reject  <case_id> --by "<name>"
+    python -m bh.enforce.approvals confirm <case_id> --by "<name>"   # only with enforce.require_final_confirm
+    python -m bh.enforce.approvals resume  <case_id>                  # after a human handled waiting_human
 """
 
 from __future__ import annotations
 
-from sqlalchemy.engine import Engine
+import argparse
+import sys
 
-from bh.db import Case, CaseStatus, session_scope, utcnow
+from sqlalchemy.engine import Engine
+from sqlmodel import Session
+
+from bh.db import Case, CaseStatus, get_engine, session_scope, utcnow
 
 APPROVABLE = {CaseStatus.awaiting_approval, CaseStatus.drafted}
 REJECTABLE = {CaseStatus.awaiting_approval, CaseStatus.drafted, CaseStatus.approved, CaseStatus.waiting_human,
@@ -78,3 +87,45 @@ def resume_case(case_id: int, engine: Engine | None = None) -> CaseStatus:
         else:
             c.status = CaseStatus.awaiting_approval
         return c.status
+
+
+def _describe(case_id: int, engine: Engine | None) -> str:
+    with Session(engine or get_engine()) as s:
+        c = s.get(Case, case_id)
+    assert c is not None
+    who = f" by {c.decided_by} at {c.decided_at:%Y-%m-%d %H:%M} UTC" if c.decided_by and c.decided_at else ""
+    return f"case {case_id}: {c.status}{who} (rule {c.rule_id}, portal draft {c.portal_draft_id or '-'})"
+
+
+def main(argv: list[str] | None = None, engine: Engine | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="python -m bh.enforce.approvals", description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest="command", required=True)
+    for name, help_ in (("approve", "Approve and submit: the submit loop may sign as --by and submit"),
+                        ("reject", "Reject: never signed, never submitted"),
+                        ("confirm", "Second confirmation after review-page verification (require_final_confirm)")):
+        p = sub.add_parser(name, help=help_)
+        p.add_argument("case_id", type=int)
+        p.add_argument("--by", required=True, help="name of the lawyer making the decision (declaration signatory)")
+    p = sub.add_parser("resume", help="put a waiting_human case back in the queue")
+    p.add_argument("case_id", type=int)
+    args = ap.parse_args(argv)
+    try:
+        if args.command == "approve":
+            approve_case(args.case_id, args.by, engine)
+        elif args.command == "reject":
+            reject_case(args.case_id, args.by, engine)
+        elif args.command == "confirm":
+            confirm_final(args.case_id, args.by, engine)
+        else:
+            resume_case(args.case_id, engine)
+    except DecisionError as e:
+        print(f"error: {e}", file=sys.stderr)
+        return 2
+    print(_describe(args.case_id, engine))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+

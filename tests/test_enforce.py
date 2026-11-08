@@ -317,3 +317,25 @@ async def test_redeciding_keeps_one_queue(live: LiveServer, seeded_catalog: Path
     ranks = [c.review_rank for c in (_status(engine, v) for v in cases.values())
              if c.status in (CaseStatus.awaiting_approval, CaseStatus.drafted)]
     assert sorted(ranks) == list(range(1, len(ranks) + 1))
+
+
+def test_approvals_cli(engine: Any, cases: dict[str, int], capsys: pytest.CaptureFixture[str],
+                       live: LiveServer, seeded_catalog: Path, tmp_path: Path) -> None:
+    from bh.enforce.approvals import main
+
+    decide_cases(list(cases.values()), _portal_cfg(live, seeded_catalog, tmp_path), engine)
+    assert main(["approve", str(cases["tm_a"]), "--by", LAWYER], engine) == 0
+    out = capsys.readouterr().out
+    assert f"case {cases['tm_a']}: approved by {LAWYER}" in out
+    c = _status(engine, cases["tm_a"])
+    assert c.status == CaseStatus.approved and c.decided_by == LAWYER and c.decided_at is not None
+
+    assert main(["reject", str(cases["tm_b"]), "--by", LAWYER], engine) == 0
+    assert _status(engine, cases["tm_b"]).status == CaseStatus.rejected
+
+    assert main(["approve", str(cases["tm_b"]), "--by", LAWYER], engine) == 2  # rejected cannot be approved
+    assert "error:" in capsys.readouterr().err
+    assert main(["approve", str(cases["cp"]), "--by", "   "], engine) == 2  # a named human is required
+    assert main(["resume", str(cases["cp"])], engine) == 2  # not waiting for a human
+    with pytest.raises(SystemExit):
+        main(["approve", str(cases["cp"])], engine)  # --by is mandatory
