@@ -104,6 +104,9 @@ class ThresholdsConfig(_Strict):
     prefilter_brand_fuzzy: int
     hash_match: int
     lookalike_clip: float
+    # a lookalike without copying wording ("inspired by", "dupe", ...) needs CLIP >= this; None = resemblance
+    # plus "no mark" suffices (the original rule)
+    lookalike_silent_clip: float | None = None
     counterfeit_price_ratio: float
     resale_min_ratio: float
     act_threshold: float
@@ -159,6 +162,8 @@ class OwnPhotoConfig(_Strict):
     dhash_max: int = Field(default=10, ge=0)
     clip_min: float = Field(default=0.93, gt=0, le=1)
     orb_min_inliers: int = Field(default=25, gt=0)
+    # ORB counts only when the same image is also CLIP-similar to a gold photo (0 = ORB alone suffices)
+    orb_clip_min: float = Field(default=0.0, ge=0, le=1)
     crops: list[float] = Field(default_factory=lambda: [0.9, 0.8])
 
 

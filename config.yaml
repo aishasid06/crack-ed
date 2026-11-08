@@ -63,6 +63,8 @@ own_photo:                         # "listing photo is the brand's own photo"; t
   dhash_max: 8
   clip_min: 0.854                  #   route 2: CLIP similarity to a gold photo (dev lookalike max 0.844 + 0.01)
   orb_min_inliers: 16              #   route 3: ORB keypoint matches surviving RANSAC homography (crops/resizes)
+  orb_clip_min: 0.85               #   ... counted only if the same image has CLIP >= this (dev real listings: 47
+                                   #   images passed ORB alone, max CLIP 0.84; `--labels seed/labels_real.json`)
   crops: [0.9, 0.8]                # gold centre-crop variants (also mirrored)
 
 text:
@@ -118,6 +120,8 @@ thresholds:
   prefilter_brand_fuzzy: 80        # ... or brand fuzzy-match score (0-100) >= this
   hash_match: 8                    # phash distance <= this counts as "own photo"
   lookalike_clip: 0.758            # dev-tuned: python -m eval.tune_own_photo (unrelated max 0.726, lookalike min 0.79)
+  lookalike_silent_clip: 0.833     # lookalike WITHOUT copying wording needs CLIP >= this (dev, with real listings:
+                                   # lowest silent lookalike 0.8339; not separable, real max 0.85 — keeps all lookalikes)
   counterfeit_price_ratio: 0.50    # price/RRP below this = "not exhausted" indicator
   resale_min_ratio: 0.55
   act_threshold: 0.70
