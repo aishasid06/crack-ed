@@ -285,11 +285,17 @@ def test_feed_narrates_the_navigator_and_recipe_replay() -> None:
     f = feed.build(tasks, "Acme", finished=False)
     assert [s for _, s in f.steps][:2] == ["done", "active"]  # a navigator search task is the search step
     now = {n.site: n.doing for n in f.now}
-    assert now["bazaarly"] == "Clicking “Next”"
-    assert now["otherbay"].startswith("Typing into “Search”") and "learned" in now["otherbay"]
+    assert now["bazaarly"] == "Going to the next page"
+    assert now["otherbay"] == "Typing in the search box"  # a replayed step reads like any other step
     text = " ".join(f.events)
-    assert "the agent decided: Clicking “Next”, because more results are on the next page." in text
-    assert "Reject non-essential" in text and "without AI" in text and "Learned how Bazaarly works" in text
+    assert "the agent decided: Going to the next page, because more results are on the next page." in text
+    assert "Reject non-essential" in text
+    done = feed.build(tasks + [_task(9, "recipe:step", "otherbay", TaskStatus.succeeded,
+                                     {"action": "click", "target": "#tab-details"})], "Acme", finished=True)
+    assert not any("Otherbay" in e for e in done.events)  # replayed steps show live, not one log line each
+    shopper_text = " ".join(done.events + [n.doing for n in f.now]).lower()
+    for internal in ("recipe", "learn", "without ai", "route"):  # how it works stays out of the shopper's view
+        assert internal not in shopper_text
 
 
 def test_shopper_search_uses_claude_only_when_allowed(monkeypatch: pytest.MonkeyPatch, cfg) -> None:
@@ -342,3 +348,18 @@ def test_every_marketplace_gets_a_fair_share_of_the_listings_opened() -> None:
     assert [p.card.site for p in picked] == ["big", "small", "big", "small", "big", "small"]
     assert picked[0].priority == 0.99 and picked[1].priority == 0.5  # best first within each site
     assert sum(s.keep for s in scored) == 6 and not scored[-1].keep  # a non-match is never opened
+
+
+@pytest.mark.parametrize("action,target,expected", [
+    ("type", 'input[name="term"]', "Typing in the search box"),
+    ("read_results", "article.bz-tile", "Reading the search results"),
+    ("read_fields", "title, price", "Reading the listing details"),
+    ("read_images", "div.bz-photos img", "Looking at the photos"),
+    ("click", "#tab-details", "Opening the “Details” tab"),
+    ("click", '[7] tab "Seller"', "Opening the “Seller” tab"),
+    ("click", '[12] button "Next"', "Going to the next page"),
+    ("click", '[3] link "Copper bottle 900ml"', "Clicking “Copper bottle 900ml”"),
+    ("click", "div.bz-x > a", "Clicking through"),
+])
+def test_browsing_steps_never_show_selectors_or_element_numbers(action: str, target: str, expected: str) -> None:
+    assert feed._verb(action, target) == expected

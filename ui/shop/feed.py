@@ -3,6 +3,7 @@ right now, which step of the search it has reached, and a plain-language log of 
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from urllib.parse import urlparse
@@ -40,14 +41,39 @@ def _step_of(t: Task) -> int | None:
     return STEP_OF.get(t.type)
 
 
+_INDEXED = re.compile(r'^\[\d+\]\s*(?P<role>[\w-]+)?\s*"(?P<name>[^"]*)"')  # agent target: [6] tab "Details"
+_CSS = re.compile(r"[#.\[\]=>:]")  # a CSS selector, never shown to shoppers
+
+
+def _target(target: str) -> tuple[str, str]:
+    """(kind, readable name) for an agent or recipe target; selectors and element numbers are dropped."""
+    target = target.strip()
+    if m := _INDEXED.match(target):
+        return (m.group("role") or "").lower(), m.group("name").strip()
+    if target.startswith("#tab-"):
+        return "tab", target[5:].replace("-", " ").capitalize()
+    if not target or _CSS.search(target):
+        return "", ""
+    return "", target
+
+
 def _verb(action: str, target: str) -> str:
-    """An agent action in plain words, e.g. ``click`` + ``Next`` → ``Clicking “Next”``."""
-    t = f" “{target}”" if target and target not in ("down", "up") else ""
+    """A browsing step in plain words, e.g. ``click`` + ``[6] tab "Details"`` → ``Opening the “Details” tab``."""
+    kind, name = _target(target)
+    if action == "click":
+        if kind == "tab" or (name and "tab" in target.lower()):
+            return f"Opening the “{name}” tab" if name else "Opening a tab"
+        if name.lower() in ("next", "next page", "›", "»"):
+            return "Going to the next page"
+        return f"Clicking “{name}”" if name else "Clicking through"
     return {
-        "click": f"Clicking{t}", "type": f"Typing into{t or ' the search box'}", "back": "Going back a page",
-        "scroll": f"Scrolling {target or 'down'}", "extract_results": "Reading the search results",
-        "extract_listing": "Reading the listing details", "done": "Finishing up", "open": "Opening the site",
-    }.get(action, f"{action.replace('_', ' ').capitalize()}{t}")
+        "type": "Typing in the search box", "back": "Going back a page",
+        "scroll": f"Scrolling {target if target in ('up', 'down') else 'down'}",
+        "extract_results": "Reading the search results", "read_results": "Reading the search results",
+        "extract_listing": "Reading the listing details", "read_fields": "Reading the listing details",
+        "read_images": "Looking at the photos", "done": "Finishing up", "open": "Opening the site",
+        "consent": "Answering the cookie banner", "submit": "Searching",
+    }.get(action, "Browsing the site")
 
 
 @dataclass
@@ -75,16 +101,18 @@ def _ts(t: Task) -> datetime:
 
 def _doing(t: Task) -> str | None:
     p = t.payload or {}
+    # Agent steps and replayed recipe steps read the same: either way the agent is working on the live site.
     if t.type in ("agent:action", "recipe:step") and p.get("action"):
-        verb = _verb(str(p["action"]), str(p.get("target") or ""))
-        return verb if t.type == "agent:action" else f"{verb} (following the route it learned last time)"
+        return _verb(str(p["action"]), str(p.get("target") or ""))
     if t.type == "agent:model":
         return "Working out what to do next on this site"
     if t.type == "agent:consent":
         return "Answering the cookie banner"
     if t.type in NAV_TASKS:
-        what = "Searching" if p.get("task") == "search" else "Reading a listing"
-        return f"{what} on a site it browses by itself" if t.type == "agent:task" else f"{what} using a learned route"
+        subject = str(p.get("subject") or "")
+        if p.get("task") == "search":
+            return f"Searching for “{subject}”" if subject else "Searching"
+        return "Reading a listing"
     if t.type == "discovery":
         return f"Searching for “{p.get('query', '')}”"
     if t.type == "photo_search":
@@ -108,13 +136,11 @@ def _event(t: Task, brand: str) -> str | None:
         return None
     if t.type == "agent:model" and p.get("action"):
         why = str(p.get("reason") or "").strip().rstrip(".")
-        return f"On {site}, the agent decided: {_verb(str(p['action']), str(p.get('target') or ''))}" +             (f", because {why[0].lower() + why[1:]}." if why else ".")
+        step = _verb(str(p["action"]), str(p.get("target") or ""))
+        return f"On {site}, the agent decided: {step}" + (f", because {why[0].lower() + why[1:]}." if why else ".")
     if t.type == "agent:consent":
         return f"Answered {site}'s cookie banner, choosing “{p.get('button', 'reject')}”."
-    if t.type == "recipe:learn" and p.get("learned"):
-        return f"Learned how {site} works, so next time it can follow the same route without AI."
-    if t.type == "recipe:task":
-        return f"Followed the route it learned on {site} last time, without using AI."
+    # recipe:learn / recipe:task are internal bookkeeping: the steps above already say what happened on the site
     if t.type == "load_brand":
         return "Loaded the brand's official product photos to compare against."
     if t.type == "identify_photo":
