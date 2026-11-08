@@ -1,0 +1,51 @@
+{% extends base %}
+{% block title %}Report this listing{% endblock %}
+{% block content %}
+{% include "listing_report/_style.html" %}
+<div class="lr">
+  <h1>Report this listing</h1>
+  <p class="lr-sub">Tell {{ site_name }} about counterfeit, fake or misleading items. Our trust and safety team reviews every report.</p>
+  <div class="lr-listing">
+    <img src="/media/{{ l.images[0] }}" alt="">
+    <div><a href="{{ listing_url }}" id="lr-listing-link">{{ l.title }}</a><br><small>Item {{ l.id }} · sold by {{ l.seller_name }}</small></div>
+  </div>
+  {% if errors %}<p class="lr-error" role="alert">Please fix the highlighted fields.</p>{% endif %}
+  <form id="lr-form" method="post" enctype="multipart/form-data" novalidate>
+    <label for="lr-reason">What's wrong with this listing?</label>
+    <select id="lr-reason" name="reason">
+      <option value="">Choose one</option>
+      {% for k, v in reasons.items() %}<option value="{{ k }}" {% if values.get('reason') == k %}selected{% endif %}>{{ v }}</option>{% endfor %}
+    </select>
+    {% if errors.reason %}<div class="lr-err">{{ errors.reason }}</div>{% endif %}
+
+    <label for="lr-details">Describe the problem</label>
+    <textarea id="lr-details" name="details">{{ values.get('details', '') }}</textarea>
+    {% if errors.details %}<div class="lr-err">{{ errors.details }}</div>{% endif %}
+
+    <fieldset>
+      <legend>How did you come across it?</legend>
+      {% for k, v in relationships.items() %}
+      <label class="lr-choice"><input type="radio" id="lr-relationship-{{ k }}" name="relationship" value="{{ k }}" {% if values.get('relationship') == k %}checked{% endif %}> {{ v }}</label>
+      {% endfor %}
+      {% if errors.relationship %}<div class="lr-err">{{ errors.relationship }}</div>{% endif %}
+    </fieldset>
+
+    <label for="lr-name">Your name</label>
+    <input type="text" id="lr-name" name="reporter_name" value="{{ values.get('reporter_name', '') }}" autocomplete="name">
+    {% if errors.reporter_name %}<div class="lr-err">{{ errors.reporter_name }}</div>{% endif %}
+
+    <label for="lr-email">Your email</label>
+    <input type="email" id="lr-email" name="reporter_email" value="{{ values.get('reporter_email', '') }}" autocomplete="email">
+    {% if errors.reporter_email %}<div class="lr-err">{{ errors.reporter_email }}</div>{% endif %}
+
+    <label for="lr-evidence">Screenshot or photo (optional)</label>
+    <input type="file" id="lr-evidence" name="evidence" accept="image/png,image/jpeg">
+    {% if errors.evidence %}<div class="lr-err">{{ errors.evidence }}</div>{% endif %}
+
+    <label class="lr-choice"><input type="checkbox" id="lr-declaration" name="declaration" {% if values.get('declaration') %}checked{% endif %}> {{ declaration }}</label>
+    {% if errors.declaration %}<div class="lr-err">{{ errors.declaration }}</div>{% endif %}
+
+    <button type="submit" id="lr-submit">Send report</button>
+  </form>
+</div>
+{% endblock %}

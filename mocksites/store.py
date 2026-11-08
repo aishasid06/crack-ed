@@ -50,6 +50,26 @@ class Submission(PortalBase, table=True):
     status: str = "received"
 
 
+class ListingReport(PortalBase, table=True):
+    """A buyer's report of a listing, made through the marketplace's own "Report this listing" form."""
+    id: int | None = Field(default=None, primary_key=True)
+    ref: str = Field(unique=True, index=True)
+    site: str = Field(index=True)
+    listing_id: str
+    listing_url: str
+    listing_title: str
+    seller_name: str | None = None
+    reason: str
+    details: str
+    reporter_name: str
+    reporter_email: str
+    relationship: str
+    evidence: str | None = None  # stored file name under <uploads_dir>/listing_reports/<ref>/
+    declaration: bool = False
+    submitted_at: datetime = Field(default_factory=utcnow)
+    status: str = "received"
+
+
 def make_store_engine(url: str) -> Engine:
     if url.startswith("sqlite:///") and ":memory:" not in url:
         Path(url[len("sqlite:///"):]).parent.mkdir(parents=True, exist_ok=True)
@@ -76,6 +96,10 @@ def new_token() -> str:
 
 def new_draft_id() -> str:
     return "D" + secrets.token_hex(6)
+
+
+def new_listing_report_ref() -> str:
+    return "LR-" + secrets.token_hex(4).upper()
 
 
 def new_ref() -> str:

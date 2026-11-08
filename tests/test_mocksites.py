@@ -496,3 +496,50 @@ def test_catalog_hot_reload(client: TestClient, catalog_dir: Path) -> None:
     later = time.time() + 5
     os.utime(catalog_dir / "catalog.json", (later, later))
     assert client.get("/mockbay/item/1500").status_code == 200
+
+
+# ---------------------------------------------------------------- marketplace "Report this listing" forms
+
+_REPORT = {"reason": "counterfeit", "details": "Sold as genuine but priced at a fraction of the official price.",
+           "reporter_name": "Sam Shopper", "reporter_email": "sam@example.com", "relationship": "shopper",
+           "declaration": "on"}
+
+
+@pytest.mark.parametrize("listing_path", ["/mockbay/item/1001", "/tradeloft/listing/TL-1"])
+def test_listing_page_links_to_its_report_form(client: TestClient, listing_path: str) -> None:
+    page = client.get(listing_path)
+    assert page.status_code == 200 and f'href="{listing_path}/report"' in page.text
+    form = client.get(f"{listing_path}/report")
+    assert form.status_code == 200
+    for field_id in ("lr-reason", "lr-details", "lr-name", "lr-email", "lr-relationship-shopper", "lr-evidence",
+                     "lr-declaration", "lr-submit"):
+        assert f'id="{field_id}"' in form.text
+    assert "rights owner" not in form.text.lower()  # a buyer's declaration, not a rights owner's
+
+
+@pytest.mark.parametrize("site,listing_path", [("mockbay", "/mockbay/item/1001"), ("tradeloft", "/tradeloft/listing/TL-1")])
+def test_report_submission_shows_every_input(client: TestClient, site: str, listing_path: str) -> None:
+    r = client.post(f"{listing_path}/report", data=_REPORT, files={"evidence": ("shot.png", _png(), "image/png")},
+                    follow_redirects=False)
+    assert r.status_code == 303 and r.headers["location"].startswith(f"/{site}/reports/LR-")
+    page = client.get(r.headers["location"])
+    assert page.status_code == 200
+    for text in ("Counterfeit or fake item", _REPORT["details"], "Sam Shopper", "sam@example.com",
+                 "I came across it while shopping", "accurate and complete", "Received, awaiting review"):
+        assert text in page.text
+    ref = r.headers["location"].rsplit("/", 1)[1]
+    ev = client.get(f"/{site}/reports/{ref}/evidence")
+    assert ev.status_code == 200 and ev.headers["content-type"] == "image/png"
+    assert client.get(f"/{'tradeloft' if site == 'mockbay' else 'mockbay'}/reports/{ref}").status_code == 404
+
+
+def test_report_form_rejects_incomplete_reports(client: TestClient) -> None:
+    bad = {**_REPORT, "reason": "", "details": "fake", "reporter_email": "nope", "declaration": ""}
+    r = client.post("/mockbay/item/1001/report", data=bad, follow_redirects=False)
+    assert r.status_code == 422
+    for msg in ("Choose what", "at least 20 characters", "valid email", "Confirm the information"):
+        assert msg in r.text
+    r = client.post("/mockbay/item/1001/report", data=_REPORT,
+                    files={"evidence": ("x.txt", b"not an image", "text/plain")}, follow_redirects=False)
+    assert r.status_code == 422 and "PNG or JPEG" in r.text
+    assert client.get("/mockbay/item/nope/report").status_code == 404

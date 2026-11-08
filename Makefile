@@ -1,11 +1,11 @@
 PY ?= .venv/bin/python
 BRAND ?= vaelo
 
-.PHONY: install mock mock-sample abo seed discover tune classify decide draft submit run ui eval test
+.PHONY: install mock mock-sample abo seed discover tune classify decide draft submit run ui staff search eval test
 
 install:
 	uv venv --python 3.11 .venv
-	uv pip install --python $(PY) -e ".[dev,mock,ml,browser]"
+	uv pip install --python $(PY) -e ".[dev,mock,ml,browser,ui]"
 	$(PY) -m playwright install chromium
 
 test:
@@ -48,8 +48,14 @@ submit:  # needs `make mock`: sign + verify + submit cases a lawyer approved ("A
 run:
 	@echo "run: implemented in Phase 8 (orchestrator)"; exit 1
 
-ui:
-	@echo "ui: implemented in Phase 9 (Streamlit UI)"; exit 1
+ui:  # shoppers: search by name or photo, watch the agent, see which listings look genuine
+	$(PY) -m streamlit run ui/app.py
+
+staff:  # the brand's lawyers: review queue, approvals, human-required, cases, trace, evaluation
+	$(PY) -m streamlit run ui/staff.py --server.port 8502
+
+search:  # one shopper search from the command line, e.g. make search Q="vaelo bottle"
+	$(PY) -m bh.shopper --search-id cli$$(date +%s) --text "$(Q)"
 
 eval:
 	@echo "eval: implemented in Phase 10 (evaluation)"; exit 1

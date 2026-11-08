@@ -80,6 +80,10 @@ class SiteConfig(_Strict):
     min_delay_ms: int = Field(ge=0)
     adapter: str | None = None  # None → generic LLM extractor
     search_url: str | None = None  # for sites without an adapter: "{base}/search?q={query}&page={page}"
+    display_name: str | None = None  # how the site is named to shoppers (defaults to the capitalised key)
+
+    def label(self, key: str) -> str:
+        return self.display_name or key.capitalize()
 
 
 class ChallengeConfig(_Strict):
@@ -177,6 +181,17 @@ class EnforceConfig(_Strict):
     draft_only_in_budget: bool = True
 
 
+class ShopperConfig(_Strict):
+    """Shopper-facing search ("is this listing genuine?"). Runs in its own DB so shopper searches never
+    mix with the enforcement pipeline's runs, cases and review queue."""
+    db_url: str = "sqlite:///data/shopper.db"
+    uploads_dir: str = "data/shopper/uploads"
+    max_queries: int = Field(default=3, gt=0)        # the shopper's words, the identified product, the mark
+    max_listings: int = Field(default=24, gt=0)      # listings opened per search (highest match first)
+    max_pages: int = Field(default=3, gt=0)          # per (site, query); shoppers want answers quickly
+    photo_match_min: float = Field(default=0.80, gt=0, le=1)  # CLIP similarity to name the product in a photo
+
+
 class AppConfig(_Strict):
     brand: str
     paths: PathsConfig
@@ -194,6 +209,7 @@ class AppConfig(_Strict):
     own_photo: OwnPhotoConfig = Field(default_factory=OwnPhotoConfig)
     text: TextConfig = Field(default_factory=TextConfig)
     models: ModelsConfig = Field(default_factory=ModelsConfig)
+    shopper: ShopperConfig = Field(default_factory=ShopperConfig)
 
     def site(self, name: str) -> SiteConfig:
         try:

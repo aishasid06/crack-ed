@@ -1,0 +1,27 @@
+[theme]
+base = "dark"
+primaryColor = "#267C74"
+backgroundColor = "#121B20"
+secondaryBackgroundColor = "#1A252B"
+textColor = "#E2E8E6"
+borderColor = "#2C3B42"
+linkColor = "#5CC0B5"
+greenColor = "#74C48F"
+orangeColor = "#DDA84A"
+redColor = "#E58479"
+grayColor = "#93A2A9"
+baseRadius = "4px"
+font = "'Public Sans':https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap"
+headingFont = "'Newsreader':https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap"
+
+[theme.sidebar]
+backgroundColor = "#162127"
+
+[client]
+toolbarMode = "minimal"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

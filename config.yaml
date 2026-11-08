@@ -74,6 +74,14 @@ text:
 models:
   scorer_path: "data/models/scorer.joblib"   # fitted by python -m eval.fit_scorer (dev split)
 
+shopper:                           # shopper-facing search (ui/app.py); separate DB from the enforcement pipeline
+  db_url: "sqlite:///data/shopper.db"
+  uploads_dir: "data/shopper/uploads"
+  max_queries: 3                   # the shopper's words, the product identified from their photo, the brand mark
+  max_listings: 24                 # listings opened per search, best match first
+  max_pages: 3                     # result pages per (site, query)
+  photo_match_min: 0.80            # CLIP similarity needed to say which product a shopper's photo shows
+
 enforce:
   require_final_confirm: false     # true: after review-page verification, wait for a second UI confirmation
   max_evidence_mb: 4               # screenshots above this are re-encoded as JPEG before upload
@@ -81,12 +89,14 @@ enforce:
 
 sites:
   mockbay:
+    display_name: "MockBay"
     base_url: "http://127.0.0.1:8000/mockbay"
     adapter: mockbay
     max_concurrency: 3
     max_pages: 10                  # hard safety cap; adaptive stopping usually ends sooner
     min_delay_ms: 250              # polite pacing between requests (not evasion)
   tradeloft:
+    display_name: "TradeLoft"
     base_url: "http://127.0.0.1:8000/tradeloft"
     adapter: tradeloft
     max_concurrency: 2

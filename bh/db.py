@@ -227,6 +227,31 @@ class Case(SQLModel, table=True):
     review_verified_at: datetime | None = None  # extra: review page matched the approved case
     final_confirmed: bool = False  # extra: second confirmation (only used when enforce.require_final_confirm)
     submitted_at: datetime | None = None  # extra
+    shopper_reports: int | None = 0  # extra: times shoppers reported this listing to the brand's legal team
+
+
+class ShopperReport(SQLModel, table=True):
+    """extra: a shopper's report of a listing, filed by the agent through the marketplace's own report form
+    (not the rights-holder portal). Lives in the shopper DB."""
+    id: int | None = Field(default=None, primary_key=True)
+    search_id: str | None = Field(default=None, index=True)
+    listing_url: str = Field(index=True)
+    listing_title: str = ""
+    site: str
+    reason: str  # counterfeit | copied_photos | imitation_brand | other
+    details: str
+    reporter_name: str
+    reporter_email: str
+    relationship: str = "shopper"
+    evidence_path: str | None = None
+    status: str = Field(default="queued", index=True)  # queued | filing | submitted | waiting_human | failed
+    progress: str | None = None  # what the agent is doing right now, in plain words
+    report_ref: str | None = None
+    report_url: str | None = None  # the marketplace's page for the submitted report
+    waiting_url: str | None = None
+    error: str | None = None
+    created_at: datetime = Field(default_factory=utcnow)
+    submitted_at: datetime | None = None
 
 
 # ---------------------------------------------------------------- tracing
