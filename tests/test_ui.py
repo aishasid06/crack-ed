@@ -165,3 +165,22 @@ def test_evaluation_renders_the_eval_report(ids: dict[str, int], tmp_path: Path,
     assert values["Discovery recall"] == "100%" and values["Precision on “should report”"] == "100%"
     assert values["False-alarm rate"] == "0%"
     assert any("Run 7" in c.value for c in at.caption)
+
+
+def test_run_page_passes_the_orchestrator_options(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(workers, "has_module", lambda name: name == "bh.orchestrator.run")
+    cmd = workers.command_for("pipeline", brand="vaelo", use_llm=True, navigator=True, until="classify",
+                              sites=["mockbay", "bazaarly"], brand_dir="data/brands/acme")
+    assert cmd[1:] == ["-m", "bh.orchestrator.run", "--brand", "vaelo", "--brand-dir", "data/brands/acme",
+                       "--until", "classify", "--sites", "mockbay", "bazaarly", "--navigator", "--llm"]
+
+
+def test_orchestrator_stage_chips_follow_the_runs_tasks() -> None:
+    from types import SimpleNamespace as NS
+
+    from ui.views.run import orchestrator_stages
+
+    tasks = [NS(type="discovery", status="succeeded"), NS(type="classify_all", status="running"),
+             NS(type="draft_all", status="waiting_human")]
+    assert [s["status"] for s in orchestrator_stages(tasks, finished=False)] == \
+        ["succeeded", "running", "pending", "waiting_human", "pending"]

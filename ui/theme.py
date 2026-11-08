@@ -47,6 +47,7 @@ STATUS_STYLE: dict[str, tuple[str, str]] = {
     "succeeded": ("Succeeded", GREEN),
     "finished": ("Finished", GREEN),
     "not_started": ("Not started", MUTED),
+    "superseded": ("Replaced after hand-off", MUTED),
 }
 
 CATEGORY_LABEL = {

@@ -228,6 +228,10 @@ class ShopperConfig(_Strict):
     max_listings: int = Field(default=24, gt=0)      # listings opened per search (highest match first)
     max_pages: int = Field(default=3, gt=0)          # per (site, query); shoppers want answers quickly
     photo_match_min: float = Field(default=0.80, gt=0, le=1)  # CLIP similarity to name the product in a photo
+    # auto: use the LLM features (extractor fallback, borderline vision check, navigator) when an API key is set
+    use_llm: Literal["auto", "always", "never"] = "auto"
+    # include adapter-less sites: replay their learned recipe (no LLM), or let the navigator browse (LLM only)
+    navigator_sites: bool = True
 
 
 class AppConfig(_Strict):

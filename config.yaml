@@ -83,6 +83,8 @@ shopper:                           # shopper-facing search (ui/app.py); separate
   max_listings: 24                 # listings opened per search, best match first
   max_pages: 3                     # result pages per (site, query)
   photo_match_min: 0.80            # CLIP similarity needed to say which product a shopper's photo shows
+  use_llm: auto                    # auto: Claude features on when ANTHROPIC_API_KEY is set (fallback, vision check, navigator)
+  navigator_sites: true            # adapter-less sites: replay a learned recipe (0 tokens) or, with an LLM, the navigator
 
 enforce:
   require_final_confirm: false     # true: after review-page verification, wait for a second UI confirmation

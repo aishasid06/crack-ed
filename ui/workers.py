@@ -44,9 +44,18 @@ def has_module(name: str) -> bool:
         return False
 
 
-def pipeline_command(brand: str, use_llm: bool) -> list[str]:
+def pipeline_command(brand: str, use_llm: bool, navigator: bool = False, until: str | None = None,
+                     sites: list[str] | None = None, brand_dir: str | None = None) -> list[str]:
     if has_module("bh.orchestrator.run"):
         cmd = [sys.executable, "-m", "bh.orchestrator.run", "--brand", brand]
+        if brand_dir:
+            cmd += ["--brand-dir", brand_dir]
+        if until:
+            cmd += ["--until", until]
+        if sites:
+            cmd += ["--sites", *sites]
+        if navigator:
+            cmd += ["--navigator"]
     else:
         cmd = [sys.executable, "-m", "ui.pipeline", "--brand", brand]
     return cmd + (["--llm"] if use_llm else [])
@@ -64,7 +73,8 @@ def command_for(name: str, **kw: Any) -> list[str]:
             cmd += ["--photo", str(kw["photo"])]
         return cmd
     if name == "pipeline":
-        return pipeline_command(kw.get("brand", cfg.brand), bool(kw.get("use_llm")))
+        return pipeline_command(kw.get("brand", cfg.brand), bool(kw.get("use_llm")), bool(kw.get("navigator")),
+                                kw.get("until"), kw.get("sites"), kw.get("brand_dir"))
     if name == "submit":
         return [sys.executable, "-m", "bh.enforce.submit", "--poll", str(kw.get("interval", 5))]
     if name == "mock":

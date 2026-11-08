@@ -265,3 +265,63 @@ def test_nothing_is_filed_until_the_shopper_submits_the_report(shop: dict, monke
     with Session(shop_data.get_engine()) as s:
         assert s.exec(select(ShopperReport)).all() == []
     assert not [n for n in started if n.startswith("report-")]
+
+
+# ---------------------------------------------------------------- navigator logic in the shopper search
+
+
+def test_feed_narrates_the_navigator_and_recipe_replay() -> None:
+    tasks = [
+        _task(1, "plan_search", None, TaskStatus.succeeded, {"queries": ["acme"]}),
+        _task(2, "agent:task", "bazaarly", TaskStatus.running, {"task": "search", "subject": "acme"}),
+        _task(3, "agent:consent", "bazaarly", TaskStatus.succeeded, {"button": "Reject non-essential"}),
+        _task(4, "agent:model", "bazaarly", TaskStatus.succeeded,
+              {"action": "click", "target": "Next", "reason": "More results are on the next page."}),
+        _task(5, "agent:action", "bazaarly", TaskStatus.running, {"action": "click", "target": "Next"}),
+        _task(6, "recipe:task", "otherbay", TaskStatus.succeeded, {"task": "search"}),
+        _task(7, "recipe:step", "otherbay", TaskStatus.running, {"action": "type", "target": "Search"}),
+        _task(8, "recipe:learn", "bazaarly", TaskStatus.succeeded, {"learned": True}),
+    ]
+    f = feed.build(tasks, "Acme", finished=False)
+    assert [s for _, s in f.steps][:2] == ["done", "active"]  # a navigator search task is the search step
+    now = {n.site: n.doing for n in f.now}
+    assert now["bazaarly"] == "Clicking “Next”"
+    assert now["otherbay"].startswith("Typing into “Search”") and "learned" in now["otherbay"]
+    text = " ".join(f.events)
+    assert "the agent decided: Clicking “Next”, because more results are on the next page." in text
+    assert "Reject non-essential" in text and "without AI" in text and "Learned how Bazaarly works" in text
+
+
+def test_shopper_search_uses_claude_only_when_allowed(monkeypatch: pytest.MonkeyPatch, cfg) -> None:
+    pytest.importorskip("imagehash")
+    from pydantic import SecretStr
+
+    import bh.config
+    from bh import shopper
+    from bh.config import Secrets
+
+    never = cfg.model_copy(update={"shopper": cfg.shopper.model_copy(update={"use_llm": "never"})})
+    assert shopper.make_llm(never) is None
+    monkeypatch.setattr(bh.config, "get_secrets", lambda: Secrets())
+    assert shopper.make_llm(cfg) is None  # auto, no key
+    monkeypatch.setattr(bh.config, "get_secrets", lambda: Secrets(anthropic_api_key=SecretStr("sk-ant-test")))
+    assert shopper.make_llm(cfg) is not None  # auto, key set
+
+
+def test_shopper_search_covers_navigator_sites_by_recipe_or_with_claude(monkeypatch: pytest.MonkeyPatch, cfg) -> None:
+    pytest.importorskip("imagehash")
+    from types import SimpleNamespace as NS
+
+    from bh import shopper
+    from bh.browser import recipes
+
+    navigable = [s for s, c in cfg.sites.items() if c.navigator]
+    assert navigable, "config should define an adapter-less site for the navigator"
+    monkeypatch.setattr(recipes.RecipeStore, "load", lambda self, site: None)
+    without = shopper.search_sites(cfg, llm=None)
+    assert not set(navigable) & set(without) and {"mockbay", "tradeloft"} <= set(without)
+    assert set(navigable) <= set(shopper.search_sites(cfg, llm=object()))
+    monkeypatch.setattr(recipes.RecipeStore, "load", lambda self, site: NS(search=object(), version=2))
+    assert set(navigable) <= set(shopper.search_sites(cfg, llm=None))  # learned recipe: replay with no tokens
+    off = cfg.model_copy(update={"shopper": cfg.shopper.model_copy(update={"navigator_sites": False})})
+    assert not set(navigable) & set(shopper.search_sites(off, llm=object()))

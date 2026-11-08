@@ -9,7 +9,11 @@ A shopper gives a product name and/or a photo. The agent:
 
 Every step is a traced task, so the shopper UI can show what the agent is doing and which site it is on.
 Searches run in their own database (``config.shopper.db_url``) so they never mix with the enforcement
-pipeline's runs, cases and review queue. No LLM is used.
+pipeline's runs, cases and review queue.
+
+With an API key (``shopper.use_llm``: auto), the same LLM features as the pipeline's ``--llm`` apply: the
+generic extractor fallback, the borderline vision check, and the navigator on adapter-less sites (which learns a
+recipe). Without a key, adapter-less sites with a learned recipe are still searched by replaying it (no tokens).
 
     python -m bh.shopper --search-id ID [--text "product name"] [--photo path/to/photo.jpg]
 """
@@ -60,12 +64,44 @@ def shopper_queries(text: str | None, match: PhotoMatch | None, ctx: Any, max_qu
     return dedupe(qs)[:max_queries]
 
 
-def search_config(cfg: AppConfig) -> AppConfig:
+def search_config(cfg: AppConfig, with_navigator: bool = False) -> AppConfig:
     """Shopper searches page less deeply and open fewer listings than an enforcement run."""
     sh = cfg.shopper
     sites = {k: v.model_copy(update={"max_pages": min(v.max_pages, sh.max_pages)}) for k, v in cfg.sites.items()}
     budgets = cfg.budgets.model_copy(update={"max_listings_per_run": sh.max_listings})
-    return cfg.model_copy(update={"sites": sites, "budgets": budgets})
+    out = cfg.model_copy(update={"sites": sites, "budgets": budgets})
+    if with_navigator:
+        out = out.model_copy(update={"navigator": out.navigator.model_copy(update={"enabled": True})})
+    return out
+
+
+def make_llm(cfg: AppConfig) -> Any | None:
+    """The LLM client for shopper searches, per ``shopper.use_llm`` (auto: only when an API key is set)."""
+    from bh.config import get_secrets
+
+    mode = cfg.shopper.use_llm
+    if mode == "never" or (mode == "auto" and get_secrets().anthropic_api_key is None):
+        return None
+    from bh.llm import LLMClient
+
+    return LLMClient(cfg)
+
+
+def search_sites(cfg: AppConfig, llm: Any | None) -> list[str]:
+    """Marketplaces with an adapter, plus adapter-less sites the navigator can handle: with an LLM it can
+    browse any of them; without one, only sites with a learned search recipe (replayed with no tokens)."""
+    from bh.discovery.worker import marketplace_sites
+
+    sites = marketplace_sites(cfg)
+    if not cfg.shopper.navigator_sites:
+        return sites
+    navigable = [s for s, c in cfg.sites.items() if c.navigator and s not in sites]
+    if llm is not None:
+        return sites + navigable
+    from bh.browser.recipes import RecipeStore
+
+    store = RecipeStore(cfg)
+    return sites + [s for s in navigable if (r := store.load(s)) is not None and r.search is not None]
 
 
 class RulesOnlyScorer:
@@ -105,21 +141,27 @@ async def photo_search(run_id: int, browser: Any, prefilter: Any, photo: Path, s
     return seen
 
 
+_AUTO: Any = object()
+
+
 async def run_search(search_id: str, text: str | None, photo: Path | None, cfg: AppConfig | None = None,
-                     encoder: Any | None = None, browser: Any | None = None) -> int:
+                     encoder: Any | None = None, browser: Any | None = None, llm: Any = _AUTO) -> int:
     import httpx
 
     from bh.brand_index import load_brand
     from bh.browser.session import BrowserManager
     from bh.classify import classify_listings
-    from bh.discovery.worker import Prefilter, capture_all, fan_out_discovery, finalize_prefilter, marketplace_sites
+    from bh.discovery.worker import Prefilter, capture_all, fan_out_discovery, finalize_prefilter
     from bh.trace import run_span, task_span
     from bh.vision import ClipEncoder, open_rgb
 
     base = cfg or get_config()
-    scfg = search_config(base)
+    llm = make_llm(base) if llm is _AUTO else llm
+    scfg = search_config(base, with_navigator=llm is not None and base.shopper.navigator_sites)
     encoder = encoder or ClipEncoder(scfg.vision.clip_model)
-    snapshot = {"stage": "shopper", "search_id": search_id, "query": text, "has_photo": photo is not None}
+    sites = search_sites(scfg, llm)
+    snapshot = {"stage": "shopper", "search_id": search_id, "query": text, "has_photo": photo is not None,
+                "llm": llm is not None, "sites": sites}
     async with run_span(None, snapshot) as run:
         rid = run.id
         async with task_span(rid, "load_brand", None, "load_brand"):
@@ -133,19 +175,18 @@ async def run_search(search_id: str, text: str | None, photo: Path | None, cfg: 
                              "similarity": match.similarity if match else None}
         queries = shopper_queries(text, match, ctx, scfg.shopper.max_queries)
         async with task_span(rid, "plan_search", None, "plan_search") as t:
-            t.payload = {"queries": [q.text for q in queries], "brand": ctx.name}
-        sites = marketplace_sites(scfg)
+            t.payload = {"queries": [q.text for q in queries], "brand": ctx.name, "sites": sites}
 
         async def work(b: Any) -> list[int]:
             async with httpx.AsyncClient(timeout=20) as client:
                 prefilter = Prefilter(rid, ctx, scfg, encoder, client)
-                await fan_out_discovery(rid, sites, queries, b, prefilter, None)
+                await fan_out_discovery(rid, sites, queries, b, prefilter, llm)
                 if photo is not None:
                     await photo_search(rid, b, prefilter, photo, sites)
                 scored = await finalize_prefilter(rid, prefilter)
             kept = [s for s in scored if s.keep]
             async with task_span(rid, "capture_all", None, "capture_all", payload={"n": len(kept)}):
-                ids, _, _ = await capture_all(rid, kept, b, None, scfg)
+                ids, _, _ = await capture_all(rid, kept, b, llm, scfg)
             return ids
 
         if browser is not None:
@@ -153,7 +194,7 @@ async def run_search(search_id: str, text: str | None, photo: Path | None, cfg: 
         else:
             async with BrowserManager(scfg) as b:
                 ids = await work(b)
-        await classify_listings(rid, ids, scfg, encoder, None, scorer=_scorer(scfg))
+        await classify_listings(rid, ids, scfg, encoder, llm, scorer=_scorer(scfg))  # llm: borderline vision check
     return rid
 
 

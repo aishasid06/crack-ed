@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from typing import Any
 
 import altair as alt
 import pandas as pd
@@ -17,6 +18,29 @@ STATUSES = ["succeeded", "running", "waiting_human", "failed", "pending"]
 
 def _aware(dt: datetime | None) -> datetime | None:
     return None if dt is None else (dt if dt.tzinfo else dt.replace(tzinfo=UTC))
+
+
+def detail(t: Any) -> str:
+    """One line on what a task did: the navigator's decision and reason, a replayed recipe step, a query."""
+    p = t.payload or {}
+    if t.type == "agent:model" and p.get("action"):
+        why = f": {p['reason']}" if p.get("reason") else ""
+        return f"chose {p['action']} {p.get('target') or ''}".strip() + why
+    if t.type in ("agent:action", "recipe:step") and p.get("action"):
+        tail = " (recipe replay)" if t.type == "recipe:step" else ""
+        return f"{p['action']} {p.get('target') or ''}".strip() + tail
+    if t.type == "agent:consent":
+        return f"cookie banner: clicked {p.get('button', '?')}"
+    if t.type in ("agent:task", "recipe:task"):
+        bits = [f"{p.get('task', '')} {p.get('subject', '')}".strip()]
+        if p.get("mode"):
+            bits.append(f"mode {p['mode']}")
+        if p.get("recipe_version"):
+            bits.append(f"recipe v{p['recipe_version']}")
+        return ", ".join(b for b in bits if b)
+    if t.type == "discovery" and p.get("query"):
+        return f"query “{p['query']}”"
+    return ""
 
 
 def render() -> None:
@@ -89,12 +113,13 @@ def render() -> None:
             "Status": theme.STATUS_STYLE.get(str(t.status), (str(t.status),))[0],
             "Start (s)": round((start - t0).total_seconds(), 2) if start else None,
             "Duration (s)": round(((end or now) - start).total_seconds(), 2) if start else None,
-            "Attempts": t.attempts, "LLM calls": len(tc),
+            "Detail": detail(t), "Attempts": t.attempts, "LLM calls": len(tc),
             "Tokens": sum(c.input_tokens + c.output_tokens for c in tc), "Error": t.error,
         })
     st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch", height=min(38 + 35 * len(rows), 520),
                  column_config={
         "Task": st.column_config.TextColumn(width="large"),
+        "Detail": st.column_config.TextColumn(width="large"),
         "Tokens": st.column_config.NumberColumn(format="localized"),
     })
 

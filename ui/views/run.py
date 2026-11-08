@@ -10,7 +10,7 @@ import streamlit as st
 
 from bh.config import get_config
 from ui import theme, workers
-from ui.data import brands, llm_calls_for_runs, runs, stage_of, task_status_counts, tasks_for_runs, \
+from ui.data import llm_calls_for_runs, runs, stage_of, task_status_counts, tasks_for_runs, \
     tokens_by_model
 
 STATUS_ORDER = ["running", "pending", "succeeded", "waiting_human", "failed"]
@@ -31,33 +31,79 @@ def _worker_row(w: workers.WorkerState, title: str, detail: str) -> str:
             f' <span class="meta">{theme.e(when)}</span></div></div>')
 
 
+def brand_folders() -> list[str]:
+    """Candidate brand folders: the configured one, then any folder with a brand.json under seed/ or data/brands/."""
+    from bh.config import PROJECT_ROOT
+
+    cfg = get_config()
+    found = [cfg.paths.brand_dir]
+    for base in (PROJECT_ROOT / "seed", PROJECT_ROOT / "data" / "brands"):
+        if base.is_dir():
+            for d in sorted(base.iterdir()):
+                if (d / "brand.json").exists():
+                    rel = d.relative_to(PROJECT_ROOT).as_posix()
+                    if rel not in found:
+                        found.append(rel)
+    return found
+
+
 def _start_panel() -> None:
+    from bh.brand import validate_brand_dir
+    from bh.config import get_secrets
+    from bh.orchestrator.graph import STAGES
+
     cfg = get_config()
     pipe = workers.status("pipeline")
-    known = sorted({b.slug for b in brands()} | {cfg.brand})
+    has_key = get_secrets().anthropic_api_key is not None
     left, right = st.columns([1.15, 1], gap="large")
     with left:
         st.subheader("Start a run")
-        brand = st.selectbox("Brand", known, index=known.index(cfg.brand),
-                             help="Brands are configured in config.yaml (`brand`, `paths.brand_dir`).")
-        use_llm = st.toggle("Use the LLM fallback extractor and borderline checks", value=False,
-                            help="Off: deterministic adapters and the calibrated scorer only — no tokens spent.")
+        folders = brand_folders()
+        folder = st.selectbox("Brand folder", folders, help="The brand's official products, trade marks and "
+                              "authorised sellers. Checked before anything runs.")
+        check = validate_brand_dir(cfg.paths.resolve(folder))
+        if check.ok:
+            st.caption(f"{check.name}: {check.products} products" + (f". {len(check.warnings)} warning(s)."
+                                                                     if check.warnings else "."))
+            for w in check.warnings:
+                st.warning(w)
+        else:
+            st.error("This brand folder can't be used:\n\n" + "\n".join(f"- {e}" for e in check.errors))
+        marketplaces = [s for s, c in cfg.sites.items() if c.adapter or c.search_url or c.navigator]
+        use_llm = st.toggle("Use Claude", value=False, disabled=not has_key,
+                            help="Borderline vision checks (strong model), the extractor fallback when a site's "
+                                 "adapter breaks, and the navigator. Off: adapters, image matching and rules only, "
+                                 "no tokens." + ("" if has_key else " Add ANTHROPIC_API_KEY to .env to enable."))
+        navigable = [s for s in marketplaces if cfg.sites[s].navigator]
+        navigator = st.toggle("Let the agent browse sites it has no adapter for", value=False,
+                              disabled=not use_llm or not navigable,
+                              help="The navigator searches " + ", ".join(cfg.sites[s].label(s) for s in navigable)
+                                   + " on its own, under code-enforced guardrails, and saves a recipe so later "
+                                     "visits replay it without tokens. Needs Claude.")
+        default_sites = [s for s in marketplaces if not cfg.sites[s].navigator or navigator]
+        sites = st.multiselect("Sites to search", marketplaces, default=default_sites,
+                               format_func=lambda s: cfg.sites[s].label(s))
+        until = st.select_slider("Run until", list(STAGES), value="draft",
+                                 format_func={"discovery": "Find listings", "classify": "Judge them",
+                                              "decide": "Decide actions", "draft": "Draft reports"}.get)
         mock_up = workers.mock_sites_up()
         if not mock_up:
             st.warning("The mock marketplaces aren't reachable on "
-                       f"{cfg.mocksites.host}:{cfg.mocksites.port}. Start them below before running.")
+                       f"{cfg.mocksites.host}:{cfg.mocksites.port}. Start them under Workers before running.")
         c1, c2 = st.columns(2)
         if pipe.alive:
             if c1.button("Stop run", type="secondary", width="stretch"):
                 workers.stop("pipeline")
                 st.rerun()
-        elif c1.button("Start run", type="primary", width="stretch", disabled=not mock_up):
-            workers.start("pipeline", extra={"brand": brand, "llm": use_llm}, brand=brand, use_llm=use_llm)
+        elif c1.button("Start run", type="primary", width="stretch",
+                       disabled=not mock_up or not check.ok or not sites):
+            brand_dir = None if folder == cfg.paths.brand_dir else folder
+            opts = {"brand": check.slug or cfg.brand, "use_llm": use_llm, "navigator": navigator and use_llm,
+                    "until": until, "sites": sites,
+                    "brand_dir": brand_dir}
+            workers.start("pipeline", extra=opts, **opts)
             st.toast("Run started")
             st.rerun()
-        if not workers.has_module("bh.orchestrator.run"):
-            st.caption("Runs the stage chain (discover → classify → decide → draft). The LangGraph "
-                       "orchestrator replaces it once `bh/orchestrator/run.py` exists.")
     with right:
         st.subheader("Workers")
         mock = workers.status("mock")
@@ -87,6 +133,34 @@ def _start_panel() -> None:
             st.rerun()
 
 
+ORCHESTRATOR_STAGES = [
+    ("Find listings", {"load_brand", "generate_queries", "discovery", "prefilter", "capture_all", "capture"}),
+    ("Judge them", {"features", "classify_all", "classify"}),
+    ("Decide actions", {"decide"}),
+    ("Draft reports", {"draft_all", "draft"}),
+    ("Report", {"report"}),
+]
+
+
+def orchestrator_stages(tasks: list, finished: bool) -> list[dict]:
+    """Stage chips for a LangGraph run, read from the run's own tasks."""
+    out = []
+    for label, types in ORCHESTRATOR_STAGES:
+        mine = [t for t in tasks if t.type in types]
+        if not mine:
+            status = "pending"
+        elif any(str(t.status) == "running" for t in mine) and not finished:
+            status = "running"
+        elif any(str(t.status) == "waiting_human" for t in mine):
+            status = "waiting_human"
+        elif any(str(t.status) == "failed" for t in mine) and all(str(t.status) != "succeeded" for t in mine):
+            status = "failed"
+        else:
+            status = "succeeded"
+        out.append({"label": label, "status": status})
+    return out
+
+
 @st.fragment(run_every=2)
 def _live() -> None:
     pipe = workers.status("pipeline")
@@ -112,8 +186,12 @@ def _live() -> None:
     m[3].metric("Need a person", counts["waiting_human"])
     m[4].metric("LLM tokens", f"{sum(t['input_tokens'] + t['output_tokens'] for t in tokens):,}")
 
+    stages = None
     if prog.get("stages") and since and prog.get("started_at", "") >= since.isoformat()[:19]:
-        stages = prog["stages"]
+        stages = prog["stages"]  # ui.pipeline fallback writes its own progress
+    elif any(stage_of(r) == "pipeline" for r in run_rows):
+        stages = orchestrator_stages(tasks, finished=not pipe.alive)
+    if stages:
         st.markdown(" ".join(
             f'{theme.pill(s["status"] if s["status"] != "skipped" else "classified")} '
             f'<span style="margin-right:1rem">{theme.e(s["label"])}'
