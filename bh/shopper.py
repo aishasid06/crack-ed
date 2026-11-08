@@ -104,6 +104,27 @@ def search_sites(cfg: AppConfig, llm: Any | None) -> list[str]:
     return sites + [s for s in navigable if (r := store.load(s)) is not None and r.search is not None]
 
 
+BUDGET_REASON = "over max_listings_per_run"
+
+
+def pick_fairly(scored: list[Any], limit: int) -> list[Any]:
+    """Which matches to open: every site gets its turn, best match first, until ``limit``. A shopper wants
+    results from every marketplace, not only the largest one (the prefilter's own cut is by score alone)."""
+    eligible = [s for s in scored if s.keep or BUDGET_REASON in s.reasons]
+    by_site: dict[str, list[Any]] = {}
+    for s in sorted(eligible, key=lambda s: -s.priority):
+        by_site.setdefault(s.card.site, []).append(s)
+    picked: list[Any] = []
+    while len(picked) < limit and any(by_site.values()):
+        for site in sorted(by_site):
+            if by_site[site] and len(picked) < limit:
+                picked.append(by_site[site].pop(0))
+    chosen = {id(s) for s in picked}
+    for s in eligible:
+        s.keep = id(s) in chosen
+    return picked
+
+
 class RulesOnlyScorer:
     """Used when the calibrated scorer hasn't been fitted: shoppers see the rule outcome, not a score."""
 
@@ -184,7 +205,7 @@ async def run_search(search_id: str, text: str | None, photo: Path | None, cfg: 
                 if photo is not None:
                     await photo_search(rid, b, prefilter, photo, sites)
                 scored = await finalize_prefilter(rid, prefilter)
-            kept = [s for s in scored if s.keep]
+            kept = pick_fairly(scored, scfg.shopper.max_listings)
             async with task_span(rid, "capture_all", None, "capture_all", payload={"n": len(kept)}):
                 ids, _, _ = await capture_all(rid, kept, b, llm, scfg)
             return ids

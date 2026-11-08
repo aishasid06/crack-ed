@@ -325,3 +325,20 @@ def test_shopper_search_covers_navigator_sites_by_recipe_or_with_claude(monkeypa
     assert set(navigable) <= set(shopper.search_sites(cfg, llm=None))  # learned recipe: replay with no tokens
     off = cfg.model_copy(update={"shopper": cfg.shopper.model_copy(update={"navigator_sites": False})})
     assert not set(navigable) & set(shopper.search_sites(off, llm=object()))
+
+
+def test_every_marketplace_gets_a_fair_share_of_the_listings_opened() -> None:
+    pytest.importorskip("imagehash")
+    from bh.shopper import BUDGET_REASON, pick_fairly
+
+    def card(site: str, prio: float, kept: bool = True):
+        return SimpleNamespace(card=SimpleNamespace(site=site), priority=prio, keep=kept,
+                               reasons=[] if kept else [BUDGET_REASON])
+
+    scored = ([card("big", 0.99 - i / 100) for i in range(20)] +
+              [card("small", 0.5 - i / 100, kept=False) for i in range(3)] +
+              [SimpleNamespace(card=SimpleNamespace(site="small"), priority=0.9, keep=False, reasons=[])])  # no match
+    picked = pick_fairly(scored, 6)
+    assert [p.card.site for p in picked] == ["big", "small", "big", "small", "big", "small"]
+    assert picked[0].priority == 0.99 and picked[1].priority == 0.5  # best first within each site
+    assert sum(s.keep for s in scored) == 6 and not scored[-1].keep  # a non-match is never opened
