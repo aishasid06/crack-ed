@@ -333,7 +333,7 @@ def test_borderline_llm_can_resolve_unknowns(cfg: AppConfig, secrets: Any, engin
     verdict = {"rule_id": "tm_identical", "reasoning": "Mark printed on bottle; listed at a fraction of RRP.",
                "elements": [{"name": "not_exhausted", "status": "met", "evidence": "price far below RRP"}]}
     llm, seen = _fake_llm(cfg, secrets, engine, verdict)
-    out2, els2, note = asyncio.run(borderline_check(llm, e, els, out, 0.55, RULES))
+    out2, els2, note, _ = asyncio.run(borderline_check(llm, e, els, out, 0.55, RULES))
     assert out2.rule.id == "tm_identical" and els2["not_exhausted"].evidence.startswith("[LLM]")
     req = seen[0]
     assert req["model"] == "claude-opus-5-5" and req["output_format"] is LLMVerdict
@@ -354,7 +354,7 @@ def test_borderline_llm_cannot_invent(cfg: AppConfig, secrets: Any, engine: Any,
     els = evaluate_elements(e, RULES)
     out = apply_rules(els, RULES)
     llm, _ = _fake_llm(cfg, secrets, engine, verdict)
-    out2, els2, note = asyncio.run(borderline_check(llm, e, els, out, 0.5, RULES))
+    out2, els2, note, _ = asyncio.run(borderline_check(llm, e, els, out, 0.5, RULES))
     assert out2.rule.id == out.rule.id and els2 == els and why in note
 
 

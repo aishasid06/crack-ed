@@ -56,6 +56,9 @@ discovery:
   max_image_mb: 8
   screenshot_full_page: true
   stop_after_empty_pages: 2        # stop paging after N consecutive pages with no prefilter-passing card
+  # Real brand names (SPEC Phase 11 item 5): a query containing one is never sent to a read_only (real) site.
+  # Misspellings of our fictional mark can be real brands ("valeo" is generated with misspelling_variants >= 7).
+  real_brand_stoplist: ["valeo", "velo"]
 
 own_photo:                         # "listing photo is the brand's own photo"; thresholds tuned on DEV only
   # values from `python -m eval.tune_own_photo` (dev: 91/91 gold-derived images matched, 0/15 lookalikes)
@@ -117,6 +120,22 @@ sites:
     max_concurrency: 1
     max_pages: 3
     min_delay_ms: 250
+  # Real site, read-only (SPEC Phase 11 item 6): the Oxylabs Scraping Sandbox, a public demo shop built for
+  # scraping practice. robots.txt: 404 (no rules) when checked on 2026-11-08. Pages, Next.js images
+  # (/_next/image) and product pages are all on sandbox.oxylabs.io, so no extra_hosts. Enforced in code
+  # (bh/config.py, bh/browser/readonly.py): read_only is mandatory for any non-local host; max_concurrency 1,
+  # max_pages <= 2, min_delay_ms >= 2000; robots.txt honoured; stop-listed queries never sent; no login,
+  # drafting or submission; runs with this site stop at --until classify. Only searched with --sites realsite
+  # --navigator --llm. Purge afterwards: python -m bh.discovery.purge --site realsite --yes
+  realsite:
+    base_url: "https://sandbox.oxylabs.io"
+    mode: read_only
+    adapter: null
+    navigator: true                # browsed by the agentic navigator (--navigator --llm)
+    extra_hosts: []                # other hosts of the same site to read (none seen on this site)
+    max_concurrency: 1
+    max_pages: 1
+    min_delay_ms: 4000
   portal:
     base_url: "http://127.0.0.1:8000/portal"
     mode: full
@@ -133,6 +152,7 @@ browser:
   snapshot_max_chars: 12000        # distilled accessibility snapshot sent to the small model
   max_image_candidates: 24
   # Challenge detection: any match pauses the task as waiting_human. The agent never solves challenges.
+  robots_user_agent: "BountyHunter"  # robots.txt group honoured on read_only sites (with "*")
   demo_mode: false                 # true: headed browser, each navigator action highlighted first
   demo_highlight_ms: 700
   challenge:

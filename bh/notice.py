@@ -16,6 +16,7 @@ from pydantic import BaseModel, Field
 
 from bh.brand import BrandAssets
 from bh.db import Case, Features, Listing
+from bh.money import money
 
 TRADE_MARK_STATUTE = "Trade Marks Act 1994"
 COPYRIGHT_STATUTE = "Copyright, Designs and Patents Act 1988"
@@ -62,7 +63,7 @@ def _details(case: Case, listing: Listing, assets: BrandAssets, features: Featur
     stays in the case file for the lawyer; it is not asserted in the notice."""
     marks = ", ".join(sorted({t.mark_text for t in assets.trademarks}))
     classes = ", ".join(str(c) for c in sorted({c for t in assets.trademarks for c in t.classes}))
-    price = f" at £{listing.price:,.2f}" if listing.price is not None else ""
+    price = f" at {money(listing.price, listing.currency)}" if listing.price is not None else ""
     facts = [f"The listing '{listing.title}' is offered by seller '{listing.seller_name}'{price}."]
     if case.rule_id == "copied_photos":
         facts.append("The listing displays photographs reproduced from the rights owner's product photography.")

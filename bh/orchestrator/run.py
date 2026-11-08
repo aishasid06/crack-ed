@@ -27,7 +27,7 @@ from sqlmodel import Session, select
 from bh.brand import InvalidBrandDir, config_for_brand_dir, config_for_run
 from bh.browser.session import BrowserManager
 from bh.classify import Scorer
-from bh.config import AppConfig, Secrets, get_config, get_secrets, load_config
+from bh.config import DEMO_BANNER, AppConfig, Secrets, get_config, get_secrets, load_config
 from bh.db import Case, CaseStatus, Run, RunStatus, get_engine
 from bh.discovery.worker import enable_navigator, marketplace_sites, navigator_active
 from bh.enforce.approvals import resume_case
@@ -47,7 +47,8 @@ def _includes(until: Stage, stage: Stage) -> bool:
 
 
 async def preflight(cfg: AppConfig, until: Stage, secrets: Secrets, sites: list[str] | None,
-                    brand: str | None, scorer: Scorer | None = None, with_navigator: bool = False) -> Scorer | None:
+                    brand: str | None, scorer: Scorer | None = None, with_navigator: bool = False,
+                    queries: list[str] | None = None) -> Scorer | None:
     """Check brand, scorer, portal credentials and site reachability. Returns the scorer to use (None
     when classification is not part of this run)."""
     if brand is not None and brand != cfg.brand:
@@ -58,6 +59,31 @@ async def preflight(cfg: AppConfig, until: Stage, secrets: Secrets, sites: list[
     chosen = marketplace_sites(cfg, sites, with_navigator)
     if not chosen:
         raise PreflightError(f"no marketplace sites selected (configured: {marketplace_sites(cfg)})")
+    real = [s for s in chosen if cfg.site(s).mode == "read_only"]
+    if cfg.real_brand_demo:  # narrow exception to SPEC §1: read only, classify only, explicit queries
+        if _includes(until, "decide"):
+            raise PreflightError("a real-brand demo runs up to classify only; no case is decided, drafted or "
+                                 "submitted")
+        if len(real) != len(chosen):
+            raise PreflightError(f"a real-brand demo may only use read_only sites (pick them with --sites); "
+                                 f"{sorted(set(chosen) - set(real))} are full-mode sites")
+        if not queries:
+            raise PreflightError("a real-brand demo needs explicit --query text")
+    if queries is not None:
+        full = [s for s in chosen if s not in real]
+        if full:
+            raise PreflightError(f"--query is only for read_only (real) sites; {full} are full-mode sites that are "
+                                 "searched with the brand's own queries (pick read_only sites with --sites)")
+        if not queries or any(not q.strip() for q in queries):
+            raise PreflightError("--query needs non-empty text")
+        from bh.browser.readonly import stoplist_hit
+
+        if blocked := [q for q in queries if stoplist_hit(cfg, q)]:
+            raise PreflightError(f"--query {blocked} contain a stop-listed real brand name; not sent")
+    if real and _includes(until, "decide"):
+        raise PreflightError(f"{real} are real marketplaces (read_only): run them with --until discovery or "
+                             "--until classify (false-positive measurement); real sellers are never decided, "
+                             "drafted or reported")
     if not _includes(until, "classify"):
         scorer = None
     elif scorer is None:
@@ -70,9 +96,14 @@ async def preflight(cfg: AppConfig, until: Stage, secrets: Secrets, sites: list[
     if _includes(until, "draft"):
         secrets.require_portal()
         targets.append("portal")
+    from bh.browser.readonly import RobotsPolicy
+
+    robots = RobotsPolicy(cfg)
     async with httpx.AsyncClient(timeout=5) as h:
         for site in targets:
             url = cfg.site(site).base_url
+            if not await robots.allowed(site, url):
+                raise PreflightError(f"{site}: robots.txt disallows {url} for {cfg.browser.robots_user_agent!r}")
             try:
                 await h.get(url)
             except httpx.HTTPError as e:
@@ -106,13 +137,15 @@ async def run_pipeline(cfg: AppConfig | None = None, *, until: Stage = "draft", 
                        encoder: ImageEncoder | None = None, browser: BrowserManager | None = None,
                        engine: Engine | None = None, secrets: Secrets | None = None, scorer: Scorer | None = None,
                        sites: list[str] | None = None, brand: str | None = None,
-                       resume_run_id: int | None = None, force: bool = False) -> dict[str, Any]:
+                       resume_run_id: int | None = None, force: bool = False,
+                       queries: list[str] | None = None) -> dict[str, Any]:
     """Run the LangGraph pipeline as one traced Run. Returns the final graph state, with ``totals`` read
     from the Run after it closed (so they include the whole wall time)."""
     cfg = cfg or get_config()
     eng = engine or get_engine()
     secrets = secrets or (browser.secrets if browser is not None else get_secrets())
-    scorer = await preflight(cfg, until, secrets, sites, brand, scorer, with_navigator=navigator_active(cfg, llm))
+    scorer = await preflight(cfg, until, secrets, sites, brand, scorer, with_navigator=navigator_active(cfg, llm),
+                             queries=queries)
     if resume_run_id is not None:
         _check_resumable(eng, resume_run_id, force)
         released = release_paused_drafts(eng, resume_run_id)
@@ -125,7 +158,7 @@ async def run_pipeline(cfg: AppConfig | None = None, *, until: Stage = "draft", 
     async with run_span(None, snapshot, engine=eng, resume_run_id=resume_run_id) as run:
         async with httpx.AsyncClient(timeout=30) as http:
             async def go(b: BrowserManager) -> dict[str, Any]:
-                deps = PipelineDeps(run.id, cfg, eng, b, encoder, http, llm, scorer, sites)
+                deps = PipelineDeps(run.id, cfg, eng, b, encoder, http, llm, scorer, sites, queries)
                 return await graph.ainvoke({"run_id": run.id}, context=deps)
 
             if browser is not None:
@@ -170,7 +203,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--brand-dir", type=Path, default=None,
                     help="brand folder in the seed/brand layout (e.g. data/brands/<slug>); validated before anything runs")
     ap.add_argument("--config", type=Path, default=None, help="alternative config.yaml")
-    ap.add_argument("--until", choices=STAGES, default="draft", help="last stage to run (report always runs)")
+    ap.add_argument("--until", choices=STAGES, default=None,
+                    help="last stage to run (default: draft; classify for a real-brand demo; report always runs)")
     ap.add_argument("--sites", nargs="+", default=None, help="marketplaces to search (default: all configured)")
     ap.add_argument("--max-queries", type=int, default=None)
     ap.add_argument("--llm", action="store_true",
@@ -178,6 +212,13 @@ def main(argv: list[str] | None = None) -> int:
                          "(if enabled in config)")
     ap.add_argument("--navigator", action="store_true",
                     help="also search navigator sites (e.g. bazaarly) with the agentic navigator; needs --llm")
+    ap.add_argument("--query", action="append", default=None, metavar="TEXT",
+                    help="read_only (real) sites only: search for TEXT instead of the brand's queries (repeatable; "
+                         "the real-brand stop-list still applies)")
+    ap.add_argument("--allow-real-brand-demo", action="store_true",
+                    help="run a brand folder marked demo_real_brand: true (fictional: false): forces --until "
+                         "classify, read_only sites and --query; no case is ever decided, drafted, approved or "
+                         "submitted")
     ap.add_argument("--resume", type=int, default=None, metavar="RUN_ID", help="continue an earlier run")
     ap.add_argument("--force", action="store_true", help="with --resume: reopen a run still marked running")
     args = ap.parse_args(argv)
@@ -186,12 +227,22 @@ def main(argv: list[str] | None = None) -> int:
     cfg = load_config(args.config) if args.config else get_config()
     try:
         if args.brand_dir is not None:
-            cfg = config_for_brand_dir(cfg, args.brand_dir)
+            cfg = config_for_brand_dir(cfg, args.brand_dir, allow_real_brand_demo=args.allow_real_brand_demo)
         elif args.resume is not None:  # continue with the brand the run was started with
-            cfg = config_for_run(cfg, args.resume)
+            cfg = config_for_run(cfg, args.resume, allow_real_brand_demo=args.allow_real_brand_demo)
     except InvalidBrandDir as e:
         print(f"cannot start: {e}", file=sys.stderr)
         return 2
+    if args.allow_real_brand_demo and not cfg.real_brand_demo:
+        print("cannot start: --allow-real-brand-demo is only for a brand folder marked demo_real_brand: true",
+              file=sys.stderr)
+        return 2
+    until: Stage = args.until or ("classify" if cfg.real_brand_demo else "draft")
+    if cfg.real_brand_demo:
+        if _includes(until, "decide"):
+            print(f"cannot start: a real-brand demo runs up to classify only (not --until {until})", file=sys.stderr)
+            return 2
+        print(f"*** {DEMO_BANNER} ***", file=sys.stderr)
     if args.navigator:
         if not args.llm:
             print("cannot start: --navigator needs --llm (the agentic navigator is driven by the small model)",
@@ -206,12 +257,15 @@ def main(argv: list[str] | None = None) -> int:
 
         llm = LLMClient(cfg)
     try:
-        state = asyncio.run(run_pipeline(cfg, until=args.until, llm=llm, sites=args.sites, brand=args.brand,
-                                         resume_run_id=args.resume, force=args.force))
+        state = asyncio.run(run_pipeline(cfg, until=until, llm=llm, sites=args.sites, brand=args.brand,
+                                         resume_run_id=args.resume, force=args.force, queries=args.query))
     except PreflightError as e:
         print(f"cannot start: {e}", file=sys.stderr)
         return 2
-    print(json.dumps(summarise(state), indent=2, default=str))
+    out = summarise(state)
+    if cfg.real_brand_demo:
+        out = {"banner": DEMO_BANNER, **out}
+    print(json.dumps(out, indent=2, default=str))
     return 0
 
 

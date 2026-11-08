@@ -36,6 +36,10 @@ extractor fallback), `--navigator` (with `--llm`: also search Bazaarly, the adap
 challenge pauses drafting, a human clears it in their own browser and then runs
 `python -m bh.orchestrator.run --resume <run_id>`, which continues the same run without searching again.
 
+Real marketplaces may only be read: register one with `mode: read_only` (template in `config.yaml`; limits,
+`robots.txt` and the real-brand stop-list are enforced in code) and run it with `--until classify` at most.
+Afterwards, `python -m bh.discovery.purge --site <name> --yes` deletes what was collected.
+
 On Windows, set `PYTHONUTF8=1` so the CLIs can print non-ASCII output.
 
 ### Running a brand from a folder

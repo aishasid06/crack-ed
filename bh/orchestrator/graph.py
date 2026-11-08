@@ -102,6 +102,7 @@ class PipelineDeps:
     llm: Any | None = None
     scorer: Scorer | None = None
     sites: list[str] | None = None  # None → every configured marketplace
+    queries: list[str] | None = None  # --query: replaces the brand's queries (read_only sites only; see preflight)
     # created by load_brand
     brand: BrandContext | None = None
     prefilter: Prefilter | None = None
@@ -146,6 +147,9 @@ async def node_generate_queries(state: PipelineState, runtime: Rt) -> dict[str, 
     async with task_span(d.run_id, "generate_queries", None, "generate_queries") as t:
         if t.already_done and t.payload.get("kinds"):  # resumed: reuse the exact queries (no second LLM call)
             queries = [Query(q, k) for q, k in zip(t.payload["queries"], t.payload["kinds"], strict=True)]
+        elif d.queries:  # given on the command line (read_only sites only)
+            queries = [Query(q, "manual") for q in d.queries]
+            t.payload = {**t.payload, "queries": list(d.queries), "kinds": ["manual"] * len(d.queries)}
         else:
             queries = await generate_queries(d.brand, d.cfg, get_rules().vocabulary, d.llm)
             t.payload = {**t.payload, "queries": [q.text for q in queries], "kinds": [q.kind for q in queries]}

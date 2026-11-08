@@ -95,7 +95,10 @@ async def iter_search_pages(browser: BrowserManager, site: str, query: str, max_
     Uses the site adapter; falls back to the generic extractor if the site has no adapter or the
     adapter's selectors fail before any page was read. Callers may stop early (``aclosing`` + break).
     """
-    cap = max_pages or browser.cfg.site(site).max_pages
+    from bh.browser.readonly import check_query
+
+    check_query(browser.cfg, site, query)  # real-brand stop-list (read_only sites)
+    cap = min(max_pages or browser.cfg.site(site).max_pages, browser.cfg.site(site).max_pages)
     adapter = browser.adapter(site)
     if adapter is not None:
         yielded = 0

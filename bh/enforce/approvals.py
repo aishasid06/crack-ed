@@ -18,7 +18,7 @@ import sys
 from sqlalchemy.engine import Engine
 from sqlmodel import Session
 
-from bh.db import Case, CaseStatus, get_engine, session_scope, utcnow
+from bh.db import Case, CaseStatus, Listing, get_engine, session_scope, utcnow
 
 APPROVABLE = {CaseStatus.awaiting_approval, CaseStatus.drafted}
 REJECTABLE = {CaseStatus.awaiting_approval, CaseStatus.drafted, CaseStatus.approved, CaseStatus.waiting_human,
@@ -45,6 +45,13 @@ def approve_case(case_id: int, user: str, engine: Engine | None = None) -> None:
             raise DecisionError(f"case {case_id} not found")
         if c.status not in APPROVABLE:
             raise DecisionError(f"case {case_id} is {c.status}; only awaiting_approval/drafted cases can be approved")
+        from bh.config import get_config
+        from bh.enforce.guard import check_case_claimable, check_listing_target
+
+        check_case_claimable(get_config(), s, c)  # no claim from a real-brand demo run
+        listing = s.get(Listing, c.listing_id)
+        if listing is not None:  # real sellers are never reported (SPEC §1); refuse before any approval is stored
+            check_listing_target(get_config(), listing.platform, listing.url)
         c.status, c.decided_by, c.decided_at = CaseStatus.approved, u, utcnow()
 
 
@@ -97,6 +104,21 @@ def _describe(case_id: int, engine: Engine | None) -> str:
     return f"case {case_id}: {c.status}{who} (rule {c.rule_id}, portal draft {c.portal_draft_id or '-'})"
 
 
+def _queue_text(run_id: int | None, engine: Engine | None) -> str:
+    from bh.decide import review_queue
+
+    rows = review_queue(engine, run_id)
+    if not rows:
+        return "review queue is empty"
+    out = []
+    for r in rows:
+        out.append(f"#{r['rank'] if r['rank'] is not None else '-'}  case {r['case_id']}  {r['status']}  "
+                   f"{r['category']} ({r['rule']}) -> {r['action']}  EV {r['expected_value']:.2f}  {r['listing']}")
+        if r["model_disagrees"]:
+            out.append(f"     {r['label']}: {r['model_disagreement']}")
+    return "\n".join(out)
+
+
 def main(argv: list[str] | None = None, engine: Engine | None = None) -> int:
     ap = argparse.ArgumentParser(prog="python -m bh.enforce.approvals", description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -109,7 +131,12 @@ def main(argv: list[str] | None = None, engine: Engine | None = None) -> int:
         p.add_argument("--by", required=True, help="name of the lawyer making the decision (declaration signatory)")
     p = sub.add_parser("resume", help="put a waiting_human case back in the queue")
     p.add_argument("case_id", type=int)
+    p = sub.add_parser("queue", help="list cases waiting for a lawyer (review order; flags model disagreement)")
+    p.add_argument("--run", type=int, default=None)
     args = ap.parse_args(argv)
+    if args.command == "queue":
+        print(_queue_text(args.run, engine))
+        return 0
     try:
         if args.command == "approve":
             approve_case(args.case_id, args.by, engine)

@@ -13,7 +13,7 @@ from sqlmodel import Session, select
 from bh.browser.nav_report import markdown as nav_markdown
 from bh.browser.nav_report import summarise as nav_summary
 from bh.browser.ops import capture_listing, search_site
-from bh.browser.recipes import (FieldLoc, choose_locations, Locator, Recipe, RecipeStore, SearchRecipe, field_pattern, parse_field,
+from bh.browser.recipes import (FieldLoc, Replayer, choose_locations, Locator, Recipe, RecipeStore, SearchRecipe, field_pattern, parse_field,
                                 path_pattern)
 from bh.browser.session import BrowserManager
 from bh.config import AppConfig, Secrets
@@ -253,3 +253,96 @@ async def test_recipe_without_next_control_still_pages(bz_live: LiveServer, rcfg
     assert len(first) > 10 and [c.url for c in again] == [c.url for c in first]
     assert [t.payload["action"] for t in _tasks(engine, run, "recipe:step")] == \
         ["open", "type", "read_results", "click", "read_results"]
+
+
+# ---------------------------------------------------------------- fixes from the live sandbox run (runs 25/26)
+
+
+async def test_caller_stopping_early_is_not_a_failure(bz_live: LiveServer, rcfg: AppConfig,  # noqa: F811
+                                                      secrets: Secrets, engine: Any, tmp_path: Path) -> None:
+    """Run 25: the site allows 1 result page, discovery stopped reading after it, and the agent's search was
+    recorded as "failed: GeneratorExit". Stopping early is normal; the recipe must still be learned."""
+    from contextlib import aclosing
+
+    from bh.browser.ops import iter_search_pages
+
+    async def first_page(llm: Any) -> int:
+        async with run_span(None, {}) as run, BrowserManager(rcfg, secrets, sessions_dir=tmp_path / "s",
+                                                             headless=True) as b:
+            async with aclosing(iter_search_pages(b, "bazaarly", "vaelo", llm=llm)) as it:
+                async for _ in it:
+                    break  # e.g. max_pages reached
+        return run.id
+
+    run1 = await first_page(_llm(rcfg, secrets, engine, SEARCH[:2])[0])  # type + extract_results, then stopped
+    t = _tasks(engine, run1, "agent:task")[0]
+    assert t.status.value == "succeeded" and "stopped by the caller after 1" in t.payload["reason"]
+    assert RecipeStore(rcfg).load("bazaarly").search is not None  # type: ignore[union-attr]
+    run2 = await first_page(None)  # replay, also stopped after page 1
+    r = _tasks(engine, run2, "recipe:task")[0]
+    assert r.status.value == "succeeded" and r.payload["success"] is True and "stopped by the caller" in r.payload["reason"]
+
+
+@pytest.mark.parametrize("text,expected", [("£1,234.50", 1234.5), ("89,99 €", 89.99), ("1.234,56 €", 1234.56),
+                                           ("Asking £12.99", 12.99), ("1,234", 1234.0), ("€ 7", 7.0), ("free", None)])
+def test_parse_price_both_conventions(text: str, expected: float | None) -> None:
+    from bh.browser.recipes import parse_price
+
+    assert parse_price(text) == expected
+
+
+def test_comma_decimal_price_pattern() -> None:
+    """Run 25: "89,99 €" was not learned (only "89.99" was looked for), so replay returned no price."""
+    from bh.browser.recipes import _candidates
+
+    assert "89,99" in _candidates("price", 89.99) and "1.234,56" in _candidates("price", 1234.56)
+    loc = FieldLoc(css="x", pattern=field_pattern("price", "89,99 €", "89,99"))
+    assert parse_field("price", "89,99 €", loc) == 89.99 and parse_field("price", "1.299,00 €", loc) == 1299.0
+
+
+_ONE = """<!doctype html><html><body><header><a href="/">shop</a><input type="text"></header>
+<nav><a href="/products/category/nintendo">Nintendo</a></nav><main><div class="grid">{cards}</div></main></body></html>"""
+_CARD = ('<div class="card"><img src="/img/{i}.jpg" alt=""><a class="card-link" href="/products/{i}">'
+         '<h4 class="title">Game {i}</h4></a><div class="price">{p} €</div></div>')
+
+
+async def test_card_pattern_learned_from_a_single_result() -> None:
+    """Run 25: one search result, and the card pattern needed two, so no search recipe was learned."""
+    from playwright.async_api import async_playwright
+
+    from bh.browser.adapters.base import Card
+    from bh.browser.recipes import _READ_CARDS_JS, probe_cards
+
+    pages = {"/one": _ONE.format(cards=_CARD.format(i=5, p="89,99")),
+             "/many": _ONE.format(cards="".join(_CARD.format(i=i, p=f"{i}9,99") for i in range(1, 4)))}
+
+    async def handler(route: Any) -> None:
+        path = route.request.url[len("http://shop.test"):]
+        await route.fulfill(status=200, content_type="text/html; charset=utf-8", body=pages.get(path, ""))
+
+    async with async_playwright() as pw:
+        browser = await pw.chromium.launch()
+        page = await browser.new_page()
+        await page.route("http://shop.test/**", handler)
+        await page.goto("http://shop.test/one")
+        probe = await probe_cards(page, [Card(site="s", url="http://shop.test/products/5", title="Game 5")])
+        assert probe is not None and probe["container"] == "div.card" and probe["covered"] == probe["total"] == 1
+        assert (probe["link"], probe["title"], probe["price"]) == ("a.card-link", "h4.title", "div.price")
+        await page.goto("http://shop.test/many")
+        raw = await page.evaluate(_READ_CARDS_JS, {"container": probe["container"], "link": probe["link"],
+                                                   "title": probe["title"], "title_label_prefix": None,
+                                                   "price": probe["price"]})
+        await browser.close()
+    assert [(r["url"].rsplit("/", 1)[1], r["title"], r["price"]) for r in raw] == \
+        [("1", "Game 1", "19,99 €"), ("2", "Game 2", "29,99 €"), ("3", "Game 3", "39,99 €")]
+    assert Replayer._card("s", raw[0]).price == 19.99 and Replayer._card("s", raw[0]).currency == "EUR"  # type: ignore[union-attr]
+
+
+def test_recipes_from_before_the_fixes_are_ignored(rcfg: AppConfig) -> None:
+    """Run 27 replayed a recipe learned before comma-decimal prices were supported (no price field). Recipes of an
+    older schema are ignored, so the agent re-learns them."""
+    store = RecipeStore(rcfg)
+    store.path("bazaarly").parent.mkdir(parents=True, exist_ok=True)
+    store.path("bazaarly").write_text(Recipe(site="bazaarly", version=1).model_copy(
+        update={"schema_version": 1}).model_dump_json())
+    assert store.load("bazaarly") is None

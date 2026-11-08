@@ -29,7 +29,7 @@ import logging
 import re
 from collections import Counter
 from collections.abc import AsyncIterator
-from contextlib import AbstractAsyncContextManager, asynccontextmanager, nullcontext
+from contextlib import AbstractAsyncContextManager, aclosing, asynccontextmanager, nullcontext
 from dataclasses import dataclass, field
 from typing import Any
 from urllib.parse import urljoin, urlparse
@@ -106,6 +106,8 @@ _OBSERVE_JS = """
                       + ' ' + dialog.innerText),
       selected: el.getAttribute('aria-selected'),
       css: bhCss(el),
+      header: !!el.closest('header, [role=banner]'),
+      page_has_password: !!document.querySelector('input[type=password]'),
     });
   }
   return out;
@@ -250,6 +252,9 @@ class Navigator:
         self.cfg = browser.cfg
         self.nav = browser.cfg.navigator
         self.host = (urlparse(browser.cfg.site(site).base_url).hostname or "").lower()
+        from bh.browser.readonly import site_hosts
+
+        self.hosts = site_hosts(browser.cfg, site)  # base host + a read_only site's extra_hosts
         self._seq = 0
 
     # ------------------------------------------------------------ observation
@@ -285,6 +290,8 @@ class Navigator:
         extra = f" -> {el['href']}" if el["href"] else ""
         if el.get("selected") == "true":
             extra += " (selected)"
+        if el["tag"] == "input" and el["form"] is None and el.get("header"):
+            extra += " (text box in the page header)"
         return f"[{el['index']}] {kind} \"{el['name']}\"{extra}"
 
     def _prompt(self, goal: str, obs: dict[str, Any], history: list[StepRecord], note: str) -> str:
@@ -303,7 +310,38 @@ class Navigator:
     # ------------------------------------------------------------ guardrails
 
     def _same_host(self, url: str) -> bool:
-        return (urlparse(url).hostname or "").lower() == self.host
+        hosts = getattr(self, "hosts", None) or {self.host}
+        return (urlparse(url).hostname or "").lower() in hosts
+
+    async def _robots_ok(self, url: str) -> bool:
+        return await self.b.robots.allowed(self.site, url)
+
+    async def _robots_before(self, page: Page, action: str, args: dict[str, Any], el: dict[str, Any] | None) -> None:
+        """Read_only sites: a link, or the form a submit would send, must be allowed by robots.txt before the
+        request is made (the page landed on is checked again afterwards)."""
+        if el is None:
+            return
+        targets = []
+        if action == "click" and el["href"] and not el["href"].startswith(("#", "javascript:")):
+            targets.append(urljoin(page.url, el["href"]))
+        submits = (action == "click" and el.get("submits")) or (action == "type" and args.get("submit"))
+        if submits and el.get("form"):
+            targets.append(urljoin(page.url, el["form"].get("action") or page.url))
+        for url in targets:
+            if not await self._robots_ok(url):
+                raise GuardrailBlocked(f"robots.txt disallows {urlparse(url).path}; refused")
+
+    async def after_navigation(self, page: Page) -> None:
+        """After an in-page action: still on the site, and (read_only sites) on a page robots.txt allows.
+        Otherwise go back and stop."""
+        if not self._same_host(page.url):
+            off = page.url
+            await page.go_back()
+            raise NavigationFailed(f"navigation left the site ({off}); undone and stopped")
+        if not await self._robots_ok(page.url):
+            off = page.url
+            await page.go_back()
+            raise NavigationFailed(f"robots.txt disallows {off}; undone and stopped")
 
     @staticmethod
     def _is_search_form(form: dict[str, Any] | None) -> bool:
@@ -311,6 +349,17 @@ class Navigator:
             return False
         hay = f"{form.get('action', '')} {form.get('label', '')}".lower()
         return form.get("role") == "search" or bool(form.get("search_input")) or "search" in hay
+
+    @staticmethod
+    def _is_formless_search(el: dict[str, Any], elements: list[dict[str, Any]]) -> bool:
+        """A search box outside any <form> (JavaScript search, e.g. a header box with a magnifier icon). Allowed
+        only when it is the page's single free text box, the page has no password field, and it sits in the
+        page header or says it is a search box. Pressing Enter in it cannot submit a form to the server."""
+        if el["tag"] != "input" or el["type"] not in ("", "text", "search") or el.get("page_has_password"):
+            return False
+        free = [e for e in elements if e["tag"] == "input" and e["form"] is None and e["type"] in ("", "text", "search")]
+        hinted = el["type"] == "search" or bool(re.search(r"search|find|query", el["name"] or "", re.I))
+        return len(free) == 1 and (bool(el.get("header")) or hinted)
 
     def _check(self, action: str, args: dict[str, Any], el: dict[str, Any] | None, page_url: str,
                elements: list[dict[str, Any]] | None = None) -> None:
@@ -330,8 +379,10 @@ class Navigator:
         if action == "type" and el is not None:
             if el["tag"] not in ("input", "textarea") or el["type"] in ("password", "email", "tel", "file"):
                 raise GuardrailBlocked(f"cannot type into {el['tag']}[{el['type']}]; only the search box")
-            if not self._is_search_form(el["form"]):
+            if el["form"] is not None and not self._is_search_form(el["form"]):
                 raise GuardrailBlocked("this input is not part of the site search form; refused")
+            if el["form"] is None and not self._is_formless_search(el, elements or []):
+                raise GuardrailBlocked("this input is not the site search box; refused")
 
     # ------------------------------------------------------------ actions
 
@@ -399,9 +450,13 @@ class Navigator:
                              {"kind": CONSENT, "button": el["name"], "choice": choice, "options": options,
                               "url_before": url_before}) as sp:
                 try:
+                    await self._robots_before(page, "click", {"index": el["index"]}, el)
                     await self._execute(page, "click", {"index": el["index"]})
                     await self._settle(page)
+                    await self.after_navigation(page)
                     result = "ok"
+                except (NavigationFailed, HumanRequired):
+                    raise
                 except Exception as e:  # noqa: BLE001 - reported; the model sees the dialog if it stays
                     result = f"failed: {type(e).__name__}: {str(e).splitlines()[0][:160]}"
                 obs = await self.observe(page)
@@ -493,12 +548,10 @@ class Navigator:
                             result = f"recorded: {', '.join(got) or 'nothing new'}"
                     else:
                         self._check(action, args, el, page.url, obs["elements"])
+                        await self._robots_before(page, action, args, el)
                         await self._execute(page, action, args)
                         await self._settle(page)
-                        if not self._same_host(page.url):
-                            off = page.url
-                            await page.go_back()
-                            raise NavigationFailed(f"navigation left the site ({off}); undone and stopped")
+                        await self.after_navigation(page)
                 except GuardrailBlocked as e:
                     result = f"blocked: {e}"
                 except (NavigationFailed, HumanRequired):
@@ -508,7 +561,11 @@ class Navigator:
                 obs = await self.observe(page) if action not in ("done",) else obs
                 changed = obs["sig"] != sig_before
                 if action in ("click", "type", "scroll", "back") and result == "ok" and not changed:
-                    result = "no visible effect"
+                    is_text_box = el is not None and (el["tag"] == "textarea" or (
+                        el["tag"] == "input" and el["type"] in ("", "text", "search")))
+                    # focusing a text box changes nothing visible; that is progress, not a no-op
+                    result = ("focused the text box (no visible change); next, type into it"
+                              if action == "click" and is_text_box else "no visible effect")
                 if action in ("click", "type"):
                     outcome.trace.append({"action": action, "el": el, "args": dict(args), "outcome": result,
                                           "url_before": url_before, "url_after": obs["url"]})
@@ -556,12 +613,15 @@ class Navigator:
         await self.b.goto(self.site, page, self.b.site_url(self.site, "/"))
         async with self._task_span("search", query, outcome):
             try:
-                async for kind, value in self._steps(page, goal, "search", outcome, pages):
-                    if kind == "results" and value:
-                        yield value
-            except GeneratorExit:  # the caller stopped reading pages: the trace can still teach a recipe
-                await self._learn("search", outcome, query)
-                raise
+                async with aclosing(self._steps(page, goal, "search", outcome, pages)) as steps:
+                    async for kind, value in steps:
+                        if kind == "results" and value:
+                            yield value
+            except GeneratorExit:
+                # The caller has what it needs (e.g. the site's page cap was reached). Not a failure: record
+                # it, learn from the trace, and end normally (returning after GeneratorExit is allowed).
+                outcome.success = True
+                outcome.reason = f"stopped by the caller after {outcome.pages_read} result page(s)"
             if outcome.success:
                 await self._learn("search", outcome, query)
 

@@ -61,7 +61,9 @@ def summarise(run_id: int, site: str = "bazaarly", engine: Any = None) -> dict[s
     listing = [r for r in rows if r["task"] == "listing"]
 
     def agg(rs: list[dict[str, Any]]) -> dict[str, Any]:
-        return {"tasks": len(rs), "succeeded": sum(bool(r["success"]) for r in rs),
+        # finished = the task completed (data returned); the model's own "success" flag can be false when a
+        # page simply has no seller details, so it is not used here
+        return {"tasks": len(rs), "succeeded": sum(r["status"] == "succeeded" for r in rs),
                 "modes": sorted({str(r["mode"]) for r in rs}), "steps": sum(r["steps"] for r in rs),
                 "tokens": sum(r["tokens"] for r in rs), "seconds": round(sum(r["seconds"] for r in rs), 1)}
 
@@ -70,7 +72,7 @@ def summarise(run_id: int, site: str = "bazaarly", engine: Any = None) -> dict[s
             "llm_calls": sum(m["calls"] for m in by_model.values()), "llm_by_model": dict(by_model),
             "tokens": sum(m["in"] + m["out"] for m in by_model.values()), "cost_usd": round(cost, 5),
             "recipe_versions": sorted({r["recipe_version"] for r in rows if r["recipe_version"] is not None}),
-            "failures": [r for r in rows if not r["success"]], "tasks": rows}
+            "failures": [r for r in rows if r["status"] != "succeeded"], "tasks": rows}
 
 
 def markdown(a: dict[str, Any], b: dict[str, Any]) -> str:

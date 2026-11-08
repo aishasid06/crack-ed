@@ -29,7 +29,7 @@ from bh.brand import BrandAssets, assets_for_run
 from bh.browser.session import BrowserManager, detect_challenge
 from bh.config import AppConfig, get_config
 from bh.db import Case, CaseStatus, Features, Listing, get_engine, session_scope
-from bh.enforce.guard import check_site, check_url
+from bh.enforce.guard import check_case_claimable, check_listing_target, check_site, check_url
 from bh.errors import BountyHunterError, HumanRequired
 from bh.notice import ReportPlan, build_plan
 from bh.trace import run_span, task_span
@@ -182,13 +182,16 @@ class PortalClient:
 # ---------------------------------------------------------------- drafting stage
 
 
-def load_case(engine: Engine, case_id: int) -> tuple[Case, Listing, Features | None]:
+def load_case(engine: Engine, case_id: int, cfg: AppConfig | None = None) -> tuple[Case, Listing, Features | None]:
     with Session(engine) as s:
         case = s.get(Case, case_id)
         listing = s.get(Listing, case.listing_id) if case else None
         feats = s.exec(select(Features).where(Features.listing_id == case.listing_id)).first() if case else None
+        if case is not None:
+            check_case_claimable(cfg or get_config(), s, case)  # never a claim from a real-brand demo
     if case is None or listing is None:
         raise KeyError(f"case {case_id} not found")
+    check_listing_target(cfg or get_config(), listing.platform, listing.url)  # drafting and submission load here
     return case, listing, feats
 
 
@@ -227,7 +230,7 @@ def draftable(engine: Engine, cfg: AppConfig, case_ids: list[int] | None = None)
 
 
 async def draft_one(run_id: int, case_id: int, client: PortalClient, assets: BrandAssets, engine: Engine) -> str:
-    case, listing, feats = load_case(engine, case_id)
+    case, listing, feats = load_case(engine, case_id, client.cfg)
     plan = build_plan(case, listing, assets, feats)
     async with task_span(run_id, "draft", SITE, f"draft:case:{case_id}", payload={"case_id": case_id,
                                                                                  "stage": "draft"}) as t:

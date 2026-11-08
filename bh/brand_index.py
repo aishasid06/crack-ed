@@ -45,6 +45,7 @@ class ProductInfo:
     goods_class: int | None
     generic_name: str | None
     image_paths: list[Path]
+    currency: str = "GBP"  # currency of rrp
 
 
 @dataclass
@@ -137,7 +138,7 @@ def load_brand_sync(cfg: AppConfig, encoder: ImageEncoder, engine: Engine | None
         assert row.id is not None
         paths = [assets.image_path(i) for i in pa.images]
         products.append(ProductInfo(row.id, pa.slug, pa.name, _short_name(pa.name, brand.name, marks), pa.rrp,
-                                    pa.goods_class, pa.generic_name, paths))
+                                    pa.goods_class, pa.generic_name, paths, pa.currency))
         for p in paths:
             hs = hashes(open_rgb(p))
             gold.append(GoldImage(row.id, p, hs["phash"], hs["dhash"], hs["phash_m"], hs["dhash_m"]))

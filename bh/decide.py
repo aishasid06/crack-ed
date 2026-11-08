@@ -82,6 +82,10 @@ def decide_cases(case_ids: list[int], cfg: AppConfig, engine: Engine | None = No
     with session_scope(eng) as s:
         everything = [c for c in (s.get(Case, i) for i in case_ids) if c is not None]
         cases = [c for c in everything if c.status in DECIDABLE]
+        from bh.enforce.guard import check_case_claimable
+
+        for c in cases:  # before anything is decided: no claim from a real-brand demo run
+            check_case_claimable(cfg, s, c)
         for c in cases:
             listing = s.get(Listing, c.listing_id)
             assert listing is not None
@@ -114,6 +118,29 @@ def decide_cases(case_ids: list[int], cfg: AppConfig, engine: Engine | None = No
         summary["awaiting_approval"] = len(queue)
         summary["in_review_budget"] = len(in_budget)
     return summary
+
+
+DISAGREE_LABEL = "model disagrees — review"
+
+
+def review_queue(engine: Engine | None = None, run_id: int | None = None) -> list[dict[str, Any]]:
+    """Cases waiting for a lawyer, in review order (EV rank; unranked last). Each row carries
+    ``model_disagrees`` and, when set, ``label`` = DISAGREE_LABEL with the model's reason."""
+    waiting = (CaseStatus.awaiting_approval, CaseStatus.drafted, CaseStatus.waiting_human)
+    with Session(engine or get_engine()) as s:
+        q = select(Case).where(Case.status.in_(waiting))  # type: ignore[attr-defined]
+        if run_id is not None:
+            q = q.where(Case.run_id == run_id)
+        rows = []
+        for c in sorted(s.exec(q), key=lambda c: (c.review_rank is None, c.review_rank or 0, c.id or 0)):
+            l = s.get(Listing, c.listing_id)
+            rows.append({"case_id": c.id, "run_id": c.run_id, "rank": c.review_rank, "status": str(c.status),
+                         "category": str(c.category), "rule": c.rule_id, "action": str(c.action),
+                         "expected_value": c.expected_value, "listing": l.title if l else None,
+                         "url": l.url if l else None, "model_disagrees": c.model_disagrees,
+                         "label": DISAGREE_LABEL if c.model_disagrees else None,
+                         "model_disagreement": c.model_disagreement})
+    return rows
 
 
 def cases_of_run(run_id: int | None, engine: Engine | None = None) -> list[int]:

@@ -100,6 +100,14 @@ class BrowserManager:
         self._pw: Playwright | None = None
         self._contexts: dict[str, BrowserContext] = {}
         self._ctx_lock = asyncio.Lock()
+        for name, sc in self.cfg.sites.items():  # re-validate: model_copy() skips validators (read_only limits)
+            try:
+                type(sc).model_validate(sc.model_dump())
+            except ValueError as e:
+                raise ValueError(f"site {name!r}: {e}") from None
+        from bh.browser.readonly import RobotsPolicy
+
+        self.robots = RobotsPolicy(self.cfg)  # robots.txt, enforced for read_only (real) sites
         self._sems = {s: asyncio.Semaphore(c.max_concurrency) for s, c in self.cfg.sites.items()}
         self._pacers = {s: SitePacer(c.min_delay_ms) for s, c in self.cfg.sites.items()}
         self._active: dict[str, int] = {s: 0 for s in self.cfg.sites}
@@ -158,9 +166,11 @@ class BrowserManager:
     # ------------------------------------------------------------ navigation
 
     async def goto(self, site: str, page: Page, url: str) -> Any:
-        """Paced, traced navigation followed by challenge detection."""
+        """Paced, traced navigation followed by challenge detection. On a read_only site the URL must be
+        allowed by robots.txt (checked before any request to it)."""
 
         async def _go() -> Any:
+            await self.robots.check(site, url)
             await self._pacers[site].wait()
             resp = await page.goto(url, wait_until="domcontentloaded")
             await detect_challenge(page, self.cfg.browser.challenge)

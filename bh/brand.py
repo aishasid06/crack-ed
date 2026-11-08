@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_valida
 from sqlalchemy.engine import Engine
 from sqlmodel import Session, select
 
+from bh.config import DEMO_BANNER  # noqa: F401  (re-exported: the UI shows it for real-brand demo runs)
 from bh.db import AuthorisedSeller, Brand, MarkType, Product, Run, TradeMark, get_engine, session_scope
 
 if TYPE_CHECKING:
@@ -31,6 +32,12 @@ IMAGE_FORMATS = {"JPEG", "PNG"}
 MAX_IMAGE_BYTES = 10 * 1024 * 1024
 MIN_IMAGE_SIDE = 300
 FICTIONAL_ERROR = "brand must be marked fictional: true (this project only runs on fictional brands)"
+# Real-brand demo (narrow exception to SPEC §1): "fictional": false only together with "demo_real_brand": true,
+# and only run with --allow-real-brand-demo (classify only, read_only sites only, no claims).
+REAL_DEMO_WARNING = ("real-brand demo: this brand is not fictional. It can only run with --allow-real-brand-demo, "
+                     "up to classify, on read_only sites; no case is ever decided, drafted, approved or submitted")
+REAL_DEMO_FLAG_ERROR = ("brand.json marks a real brand (demo_real_brand: true): run it only with "
+                        "--allow-real-brand-demo")
 
 
 class _M(BaseModel):
@@ -52,6 +59,7 @@ class BrandMeta(_M):
     name: str
     slug: str
     fictional: bool = True
+    demo_real_brand: bool = False  # with fictional: false only; see REAL_DEMO_WARNING
     owner: OwnerInfo | None = None
     copyright: CopyrightInfo | None = None
 
@@ -60,8 +68,9 @@ class ProductAsset(_M):
     slug: str
     name: str
     rrp: float = Field(gt=0)
+    currency: str = Field(default="GBP", pattern=r"^[A-Z]{3}$")  # currency of rrp (ISO 4217)
     goods_class: int = Field(ge=1, le=45)
-    images: list[str] = Field(min_length=1)
+    images: list[str] = Field(default_factory=list)  # ≥ 1 required, except in a real-brand demo (text only)
     product_type: str | None = None
     generic_name: str | None = None
     material: str | None = None
@@ -126,6 +135,7 @@ class BrandCheck(BaseModel):
     products: int = 0
     errors: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
+    real_brand_demo: bool = False  # fictional: false + demo_real_brand: true
 
 
 def _has_dotdot(path: str | Path) -> bool:
@@ -210,8 +220,14 @@ def validate_brand_dir(path: str | Path) -> BrandCheck:
         if not isinstance(raw_meta, dict):
             errors.append("brand.json: must be a JSON object")
         else:
-            if raw_meta.get("fictional") is not True:
+            demo = raw_meta.get("fictional") is False and raw_meta.get("demo_real_brand") is True
+            if demo:
+                check.real_brand_demo = True
+                warnings.append(f"brand.json: {REAL_DEMO_WARNING}")
+            elif raw_meta.get("fictional") is not True:
                 errors.append(f"brand.json.fictional: {FICTIONAL_ERROR}")
+            elif raw_meta.get("demo_real_brand"):
+                errors.append("brand.json.demo_real_brand: only allowed together with fictional: false")
             try:
                 meta = BrandMeta.model_validate(raw_meta)
                 check.slug, check.name = meta.slug, meta.name
@@ -239,6 +255,14 @@ def validate_brand_dir(path: str | Path) -> BrandCheck:
                     errors += _field_errors("products.json", i, e)
                     continue
                 slugs.append(prod.slug)
+                if not prod.images:
+                    if check.real_brand_demo:
+                        warnings.append(f"products.json[{i}] ({prod.slug}): no photos — text-only demo product: "
+                                        "image evidence (own photos, CLIP) cannot apply")
+                    else:
+                        errors.append(f"products.json[{i}].images: List should have at least 1 item after "
+                                      "validation, not 0")
+                    continue
                 if len(prod.images) < 3:
                     warnings.append(f"products.json[{i}] ({prod.slug}): only {len(prod.images)} photo(s); 3-4 "
                                     "recommended")
@@ -306,16 +330,20 @@ def load_brand_assets(brand_dir: Path) -> BrandAssets:
     )
 
 
-def config_for_brand_dir(cfg: "AppConfig", path: str | Path) -> "AppConfig":
-    """``cfg`` set up to protect the brand in ``path``: validated, absolute ``paths.brand_dir``, ``brand`` = slug."""
+def config_for_brand_dir(cfg: "AppConfig", path: str | Path, allow_real_brand_demo: bool = False) -> "AppConfig":
+    """``cfg`` set up to protect the brand in ``path``: validated, absolute ``paths.brand_dir``, ``brand`` = slug.
+    A real-brand demo folder needs ``allow_real_brand_demo`` and marks the config ``real_brand_demo``."""
     check = validate_brand_dir(path)
     if not check.ok:
         raise InvalidBrandDir(path, check.errors)
-    return cfg.model_copy(update={"brand": check.slug,
+    if check.real_brand_demo and not allow_real_brand_demo:
+        raise InvalidBrandDir(path, [REAL_DEMO_FLAG_ERROR])
+    return cfg.model_copy(update={"brand": check.slug, "real_brand_demo": check.real_brand_demo,
                                   "paths": cfg.paths.model_copy(update={"brand_dir": check.brand_dir})})
 
 
-def config_for_run(cfg: "AppConfig", run_id: int | None, engine: Engine | None = None) -> "AppConfig":
+def config_for_run(cfg: "AppConfig", run_id: int | None, engine: Engine | None = None,
+                   allow_real_brand_demo: bool = False) -> "AppConfig":
     """The configuration a run was started with, as far as the brand goes (``brand`` + ``paths.brand_dir``
     from ``Run.config_snapshot``). Falls back to ``cfg`` when the run has no snapshot of them."""
     if run_id is None:
@@ -327,9 +355,10 @@ def config_for_run(cfg: "AppConfig", run_id: int | None, engine: Engine | None =
     if not brand_dir:
         return cfg
     resolved = cfg.paths.resolve(brand_dir)
-    if snap.get("brand") == cfg.brand and resolved == cfg.paths.resolve(cfg.paths.brand_dir):
+    if snap.get("brand") == cfg.brand and resolved == cfg.paths.resolve(cfg.paths.brand_dir) \
+            and bool(snap.get("real_brand_demo")) == cfg.real_brand_demo:
         return cfg
-    return config_for_brand_dir(cfg, resolved)
+    return config_for_brand_dir(cfg, resolved, allow_real_brand_demo)
 
 
 def assets_for_run(cfg: "AppConfig", run_id: int | None, engine: Engine | None = None) -> BrandAssets:
@@ -345,6 +374,7 @@ def upsert_brand(assets: BrandAssets, engine: Engine | None = None) -> int:
             brand = Brand(name=assets.meta.name, slug=assets.meta.slug, is_fictional=assets.meta.fictional)
             s.add(brand)
             s.flush()
+        brand.is_fictional = assets.meta.fictional  # the claim guard reads this (bh/enforce/guard.py)
         assert brand.id is not None
         bid = brand.id
 

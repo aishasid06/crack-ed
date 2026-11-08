@@ -105,9 +105,12 @@ def enable_navigator(cfg: AppConfig) -> AppConfig:
 
 
 def marketplace_sites(cfg: AppConfig, only: list[str] | None = None, with_navigator: bool = False) -> list[str]:
-    """Searchable marketplaces. Navigator sites are included only with ``with_navigator`` (see navigator_active)."""
+    """Searchable marketplaces. Navigator sites are included only with ``with_navigator`` (see navigator_active).
+    Real (read_only) sites are never searched by default: only when named explicitly in ``only`` (--sites)."""
     sites = [s for s, c in cfg.sites.items() if c.adapter or c.search_url or (c.navigator and with_navigator)]
-    return [s for s in sites if not only or s in only]
+    if not only:
+        return [s for s in sites if cfg.site(s).mode != "read_only"]
+    return [s for s in sites if s in only]
 
 
 def _safe_id(text: str) -> str:
@@ -247,6 +250,11 @@ async def search_adaptive(browser: BrowserManager, site: str, query: str, prefil
                           llm: Any | None) -> dict[str, Any]:
     """Page through results until ``stop_after_empty_pages`` consecutive pages contain no
     prefilter-passing card, or the site's hard ``max_pages`` cap is reached."""
+    from bh.browser.readonly import query_refusal
+
+    if (why := query_refusal(browser.cfg, site, query)) is not None:  # never sent to a real site
+        log.warning("%s", why)
+        return {"pages": 0, "cards": 0, "passing": 0, "stop": "stop_list", "refused": why}
     cap = browser.cfg.site(site).max_pages
     patience = browser.cfg.discovery.stop_after_empty_pages
     pages = empty = cards = passing = 0

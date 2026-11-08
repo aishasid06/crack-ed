@@ -78,6 +78,24 @@ class MockSitesConfig(_Strict):
 # narrow it (enforce.allowed_hosts).
 ENFORCEMENT_HOSTS: frozenset[str] = frozenset({"127.0.0.1", "localhost"})
 
+# Real marketplaces (SPEC §9 Phase 11 item 6). A site on any host outside ENFORCEMENT_HOSTS must be registered
+# ``mode: read_only`` and stay within these limits; config cannot loosen them. robots.txt is honoured and
+# queries pass the real-brand stop-list (bh/browser/readonly.py).
+# Shown on every real-brand demo run (CLI output, Run.config_snapshot for the UI).
+DEMO_BANNER = ("Demo using publicly available product data. We don't represent this brand; no claim is made "
+               "against any seller.")
+
+READ_ONLY_MAX_CONCURRENCY = 1
+READ_ONLY_MAX_PAGES = 2
+READ_ONLY_MIN_DELAY_MS = 2000
+# Reserved top-level domains (RFC 2606 / 6761) never resolve on the internet: test doubles, not real sites.
+RESERVED_TLDS = (".test", ".example", ".invalid", ".localhost")
+
+
+def is_real_host(host: str) -> bool:
+    h = host.lower().rstrip(".")
+    return bool(h) and h not in ENFORCEMENT_HOSTS and not h.endswith(RESERVED_TLDS)
+
 
 class SiteConfig(_Strict):
     base_url: str
@@ -88,6 +106,28 @@ class SiteConfig(_Strict):
     adapter: str | None = None  # None → generic LLM extractor
     navigator: bool = False  # adapter-less site browsed by the agentic navigator (needs an LLM)
     search_url: str | None = None  # for sites without an adapter: "{base}/search?q={query}&page={page}"
+    # read_only only: other hosts of the same site the browser may read (e.g. "m.example.com"); never enforced on
+    extra_hosts: list[str] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def _real_sites_read_only(self) -> SiteConfig:
+        from urllib.parse import urlparse
+
+        host = (urlparse(self.base_url).hostname or "").lower()
+        if is_real_host(host) and self.mode != "read_only":
+            raise ValueError(f"{self.base_url}: a site on a real host must be registered mode: read_only "
+                             "(real marketplaces may only be read)")
+        if self.extra_hosts and self.mode != "read_only":
+            raise ValueError("extra_hosts is only allowed on read_only sites")
+        if self.mode == "read_only":
+            too = [f"max_concurrency {self.max_concurrency} > {READ_ONLY_MAX_CONCURRENCY}"] * (
+                self.max_concurrency > READ_ONLY_MAX_CONCURRENCY) + \
+                [f"max_pages {self.max_pages} > {READ_ONLY_MAX_PAGES}"] * (self.max_pages > READ_ONLY_MAX_PAGES) + \
+                [f"min_delay_ms {self.min_delay_ms} < {READ_ONLY_MIN_DELAY_MS}"] * (
+                    self.min_delay_ms < READ_ONLY_MIN_DELAY_MS)
+            if too:
+                raise ValueError(f"{self.base_url}: read_only site limits exceeded: {', '.join(too)}")
+        return self
 
 
 class NavigatorConfig(_Strict):
@@ -120,6 +160,7 @@ class BrowserConfig(_Strict):
     challenge: ChallengeConfig = Field(default_factory=ChallengeConfig)
     demo_mode: bool = False  # headed browser + highlight each element before the agent acts on it
     demo_highlight_ms: int = Field(default=700, ge=0)
+    robots_user_agent: str = "BountyHunter"  # robots.txt group checked for read_only sites (with "*")
 
 
 class ThresholdsConfig(_Strict):
@@ -179,6 +220,8 @@ class DiscoveryConfig(_Strict):
     max_image_mb: float = Field(default=8, gt=0)
     screenshot_full_page: bool = True
     stop_after_empty_pages: int = Field(default=2, gt=0)  # adaptive paging; site max_pages is the hard cap
+    # Real brand names (SPEC Phase 11 item 5). A query matching one is never sent to a read_only (real) site.
+    real_brand_stoplist: list[str] = Field(default_factory=list)
 
 
 class OwnPhotoConfig(_Strict):
@@ -233,6 +276,17 @@ class AppConfig(_Strict):
     text: TextConfig = Field(default_factory=TextConfig)
     models: ModelsConfig = Field(default_factory=ModelsConfig)
     navigator: NavigatorConfig = Field(default_factory=NavigatorConfig)
+    # Real-brand demo run (set only by config_for_brand_dir with --allow-real-brand-demo): classify only,
+    # read_only sites only; deciding, drafting, approval and submission are refused (bh/enforce/guard.py).
+    real_brand_demo: bool = False
+
+    @model_validator(mode="after")
+    def _stoplist_for_real_sites(self) -> AppConfig:
+        ro = [n for n, c in self.sites.items() if c.mode == "read_only"]
+        if ro and not self.discovery.real_brand_stoplist:
+            raise ValueError(f"read_only sites {ro} need discovery.real_brand_stoplist (real brand names that must "
+                             "never be searched for on a real marketplace)")
+        return self
 
     def site(self, name: str) -> SiteConfig:
         try:
@@ -241,8 +295,12 @@ class AppConfig(_Strict):
             raise KeyError(f"site {name!r} not configured in config.yaml") from None
 
     def snapshot(self) -> dict:
-        """JSON-safe snapshot for Run.config_snapshot (contains no secrets by construction)."""
-        return self.model_dump(mode="json")
+        """JSON-safe snapshot for Run.config_snapshot (contains no secrets by construction). Real-brand demo
+        runs carry the banner the UI must show."""
+        snap = self.model_dump(mode="json")
+        if self.real_brand_demo:
+            snap["demo_banner"] = DEMO_BANNER
+        return snap
 
 
 class Secrets(BaseModel):

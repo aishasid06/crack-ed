@@ -72,7 +72,7 @@ def compare_review(plan: ReportPlan, review: dict[str, Any], signatory: str) -> 
 async def submit_one(run_id: int, case_id: int, client: PortalClient, assets: BrandAssets, cfg: AppConfig,
                      engine: Engine) -> str:
     """Returns the outcome: submitted | awaiting_final_confirm | waiting_human."""
-    case, listing, feats = load_case(engine, case_id)
+    case, listing, feats = load_case(engine, case_id, cfg)
     if case.status != CaseStatus.approved or not case.decided_by:
         raise ValueError(f"case {case_id} is not approved by a named lawyer")
     plan = build_plan(case, listing, assets, feats)

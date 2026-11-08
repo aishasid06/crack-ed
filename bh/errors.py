@@ -54,3 +54,8 @@ class ExtractionFailed(BountyHunterError):
 
 class LoginFailed(BountyHunterError):
     """Credentials were rejected or the login form was not found. Never includes the password."""
+
+
+class ReadOnlyBlocked(ExtractionFailed):
+    """A read_only (real) site refused an action: query on the real-brand stop-list, or a URL robots.txt
+    disallows. Never retried or worked around."""

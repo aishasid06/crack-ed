@@ -56,7 +56,8 @@ def _narrowed(cfg: AppConfig, hosts: list[str]) -> AppConfig:
 
 
 BAD = [("non-allowlisted host", {"base_url": "http://evil.example/portal"}, "not in the enforcement allowlist"),
-       ("read_only site", {"mode": "read_only"}, "read_only")]
+       ("read_only site", {"mode": "read_only", "max_concurrency": 1, "max_pages": 1, "min_delay_ms": 2000},
+        "read_only")]
 
 
 def test_default_allowlist(cfg: AppConfig) -> None:

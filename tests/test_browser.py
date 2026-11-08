@@ -106,6 +106,9 @@ def _cfg_for(base: str, delay_ms: int = 0, **site_updates: Any) -> AppConfig:
     cfg = load_config()
     sites = {}
     for name, sc in cfg.sites.items():
+        if sc.mode == "read_only":  # real sites keep their config (never searched unless named in --sites)
+            sites[name] = sc
+            continue
         upd: dict[str, Any] = {"base_url": f"{base}/{name}", "min_delay_ms": delay_ms}
         upd.update(site_updates.get(name, {}))
         sites[name] = sc.model_copy(update=upd)

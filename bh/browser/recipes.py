@@ -43,11 +43,32 @@ if TYPE_CHECKING:
 
 log = logging.getLogger(__name__)
 
-RECIPE_SCHEMA = 1
+# 2: comma-decimal prices and single-result card patterns (2026-11-08); recipes learned before are ignored
+# (load() returns None) and re-learned by the agent on the next visit.
+RECIPE_SCHEMA = 2
 LISTING_FIELDS = ("title", "description", "price", "seller_name", "seller_location", "seller_age_days", "rating",
                   "quantity", "condition")
 _NUMERIC = {"price": float, "rating": float, "seller_age_days": int, "quantity": int}
 _NUM_GROUP = r"(\d[\d,]*(?:\.\d+)?)"
+_PRICE_GROUP = r"(\d[\d.,]*\d|\d)"  # "12.99", "1,234.50", "89,99", "1.234,56"
+
+
+def parse_price(text: str | None) -> float | None:
+    """A price in either convention: "£1,234.50" / "89,99 €" / "1.234,56 €" / "12"."""
+    m = re.search(_PRICE_GROUP, text or "")
+    if not m:
+        return None
+    t = m.group(1)
+    if "," in t and "." in t:  # the last separator is the decimal point
+        t = t.replace(".", "").replace(",", ".") if t.rfind(",") > t.rfind(".") else t.replace(",", "")
+    elif "," in t:  # "89,99" decimal comma; "1,234" thousands
+        t = t.replace(",", ".") if re.fullmatch(r"\d+,\d{1,2}", t) else t.replace(",", "")
+    elif t.count(".") > 1 or re.fullmatch(r"\d{1,3}(\.\d{3})+", t):  # "1.234.567" / "1.234" thousands
+        t = t.replace(".", "")
+    try:
+        return float(t)
+    except ValueError:
+        return None
 _CURRENCY = {"£": "GBP", "$": "USD", "€": "EUR", "GBP": "GBP", "USD": "USD", "EUR": "EUR"}
 _NEXT = re.compile(r"^\s*(next|next page|more results|show more|›|»|→)\b", re.I)
 
@@ -205,13 +226,23 @@ CSS_FOR_JS = r"""
 """
 
 _PROBE_CARDS_JS = "(cards) => {" + CSS_FOR_JS + r"""
+  const PRICE_RE = /[£$€]\s?\d|\d[.,]\d{2}\s?([£$€]|GBP|EUR|USD\b)/;
   const abs = h => { try { return new URL(h, location.href).href; } catch (e) { return ''; } };
   const want = new Map(cards.map(c => [c.url, c.title]));
   const links = [...document.querySelectorAll('a[href]')].filter(a => want.has(abs(a.getAttribute('href'))));
-  if (links.length < 2) return null;
+  if (!links.length) return null;
+  const title0 = bhNorm(want.get(abs(links[0].getAttribute('href'))));
   let c = links[0];
-  while (c.parentElement && c.parentElement !== document.body
-         && links.filter(l => c.parentElement.contains(l)).length === 1) c = c.parentElement;
+  if (links.length >= 2) {  // the largest ancestor holding exactly one result link
+    while (c.parentElement && c.parentElement !== document.body
+           && links.filter(l => c.parentElement.contains(l)).length === 1) c = c.parentElement;
+  } else {  // one result: the smallest ancestor that holds the title and a price (or a photo)
+    const holds = e => [...e.querySelectorAll('*')].some(x => x.children.length === 0 && bhNorm(x.innerText) === title0)
+      && ([...e.querySelectorAll('*')].some(x => x.children.length === 0 && PRICE_RE.test(x.innerText || ''))
+          || !!e.querySelector('img'));
+    while (c && c !== document.body && !holds(c)) c = c.parentElement;
+    if (!c || c === document.body) return null;
+  }
   const container = bhSig(c);
   const conts = [...document.querySelectorAll(container)];
   const covered = links.filter(l => conts.some(k => k.contains(l))).length;
@@ -220,7 +251,7 @@ _PROBE_CARDS_JS = "(cards) => {" + CSS_FOR_JS + r"""
   let titleSel = null, labelPrefix = null, priceSel = null;
   for (const e of c.querySelectorAll('*')) {
     if (!titleSel && title && bhNorm(e.innerText) === title && e.children.length === 0) titleSel = bhSig(e);
-    if (!priceSel && e.children.length === 0 && /[£$€]\s?\d|\d[.,]\d{2}\s?(GBP|EUR|USD)\b/.test(e.innerText || ''))
+    if (!priceSel && e.children.length === 0 && PRICE_RE.test(e.innerText || ''))
       priceSel = bhSig(e);
   }
   const label = bhNorm(links[0].getAttribute('aria-label'));
@@ -394,8 +425,9 @@ def _candidates(field: str, value: Any) -> list[str]:
         return []
     if field == "price":
         v = float(value)
-        out = [f"{v:,.2f}", f"{v:.2f}"]
-        return out + ([f"{int(v):,}", str(int(v))] if v.is_integer() else [])
+        dot = [f"{v:,.2f}", f"{v:.2f}"]
+        comma = [x.replace(",", "_").replace(".", ",").replace("_", ".") for x in dot]  # "1.234,56", "89,99"
+        return list(dict.fromkeys(dot + comma + ([f"{int(v):,}", str(int(v))] if v.is_integer() else [])))
     if field == "rating":
         v = float(value)
         return list(dict.fromkeys([f"{v:.1f}", f"{v:g}", f"{v:.2f}"]))
@@ -418,7 +450,7 @@ def field_pattern(field: str, text: str, value: str) -> str | None:
     rest = text[i + len(value):]
     suf = rest.split(" ")[1] if rest.startswith(" ") and len(rest.split(" ")) > 1 else rest.split(" ")[0]
     suf = suf[:12]
-    group = _NUM_GROUP if field in _NUMERIC else ("(.+?)" if suf else "(.+)")
+    group = _PRICE_GROUP if field == "price" else _NUM_GROUP if field in _NUMERIC else ("(.+?)" if suf else "(.+)")
     sep = r"\s*" if rest.startswith(" ") else ""
     return re.escape(pre) + group + (sep + re.escape(suf) if suf else r"\s*$")
 
@@ -432,6 +464,8 @@ def parse_field(field: str, text: str | None, loc: FieldLoc) -> Any:
         if not m:
             return None
         raw = m.group(1).strip()
+    if field == "price":
+        return parse_price(raw)
     if field in _NUMERIC:
         m = re.search(_NUM_GROUP, raw)
         if not m:
@@ -516,6 +550,7 @@ class Replayer:
         args = {"index": el["index"], **args}
         try:
             self.nav._check(action, args, el, page.url, obs["elements"])
+            await self.nav._robots_before(page, action, args, el)
         except GuardrailBlocked as e:
             raise ReplayFailed(f"{what}: guardrail refused the recipe step: {e}") from e
         try:
@@ -523,9 +558,12 @@ class Replayer:
         except Exception as e:  # noqa: BLE001
             raise ReplayFailed(f"{what}: {type(e).__name__}: {str(e).splitlines()[0][:160]}") from e
         await self.nav._settle(page)
-        if not self.nav._same_host(page.url):
-            await page.go_back()
-            raise ReplayFailed(f"{what} left the site; undone")
+        from bh.browser.agent_nav import NavigationFailed
+
+        try:
+            await self.nav.after_navigation(page)  # same site, robots.txt (read_only sites)
+        except NavigationFailed as e:
+            raise ReplayFailed(f"{what}: {e}") from e
 
     async def _consent(self, page: Page, outcome: NavOutcome) -> None:
         obs = await self.nav.observe(page)
@@ -535,10 +573,8 @@ class Replayer:
     def _card(site: str, raw: dict[str, Any]) -> Card | None:
         if not raw.get("title"):
             return None
-        price, currency = None, None
-        m = re.search(_NUM_GROUP, raw.get("price") or "")
-        if m:
-            price = float(m.group(1).replace(",", ""))
+        price, currency = parse_price(raw.get("price")), None
+        if price is not None:
             sym = next((s for s in _CURRENCY if s in (raw.get("price") or "")), None)
             currency = _CURRENCY.get(sym) if sym else None
         return Card(site=site, url=raw["url"], title=raw["title"], price=price, currency=currency)
@@ -608,6 +644,10 @@ class Replayer:
                     if page.url == before:
                         break
                 outcome.success, outcome.reason = True, f"replayed recipe v{self.r.version}"
+            except GeneratorExit:  # the caller stopped reading pages (e.g. the page cap): not a failure
+                outcome.success = True
+                outcome.reason = (f"replayed recipe v{self.r.version}; stopped by the caller after "
+                                  f"{outcome.pages_read} result page(s)")
             except ReplayFailed as e:
                 outcome.reason = str(e)
                 raise

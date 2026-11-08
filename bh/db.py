@@ -214,6 +214,10 @@ class Case(SQLModel, table=True):
     status: CaseStatus = Field(default=CaseStatus.classified, index=True)
     reasoning: str = ""
     llm_used: bool = False  # extra: borderline vision call was made
+    # extra: the borderline model's assessment contradicts the rules' outcome, which is kept; shown in the review
+    # queue as "model disagrees — review"
+    model_disagrees: bool = False
+    model_disagreement: str | None = None
     notice_text: str | None = None  # extra: factual notice preview shown in review queue
     portal_draft_id: str | None = None  # extra: resume point for submit-on-approval
     submission_ref: str | None = None  # extra: portal submission id once submitted

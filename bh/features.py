@@ -354,7 +354,7 @@ class FeatureExtractor:
 
         # commercial / seller
         prod = self.ctx.product(f.matched_product_id)
-        if prod and li.price is not None and (li.currency or "GBP").upper() == "GBP":
+        if prod and li.price is not None and (li.currency or "GBP").upper() == prod.currency.upper():  # same currency only
             f.price_ratio = round(li.price / prod.rrp, 4)
         f.authorised = self.ctx.is_authorised(li.platform, li.seller_name)
         f.origin_outside_uk_eea, f.origin_evidence = origin(li.seller_location, text, self.cfg)
