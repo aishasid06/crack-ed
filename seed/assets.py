@@ -191,10 +191,11 @@ def render_object(shape: str, body: RGB, accent: RGB, *, mark: str | None = MARK
 
 
 def render_logo(path: Path) -> None:
-    im = Image.new("RGBA", (420, 160), (0, 0, 0, 0))
+    """1050x400 PNG: brand-folder images must be at least 300 px on the shorter side."""
+    im = Image.new("RGBA", (1050, 400), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
-    emblem(d, 70, 80, 55, (38, 70, 83))
-    d.text((145, 45), MARK, font=font(72), fill=(38, 70, 83))
+    emblem(d, 175, 200, 137, (38, 70, 83))
+    d.text((362, 112), MARK, font=font(180), fill=(38, 70, 83))
     im.save(path)
 
 

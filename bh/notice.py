@@ -90,6 +90,8 @@ def build_plan(case: Case, listing: Listing, assets: BrandAssets, features: Feat
                                   details=_details(case, listing, assets, features))],
                 evidence=[Path(listing.screenshot_path)] if listing.screenshot_path else [])
     if statute == TRADE_MARK_STATUTE:
+        if not assets.trademarks:
+            raise NotAReportableCase(f"case {case.id}: no trade mark registration for this brand")
         word = next((t for t in assets.trademarks if t.mark_type == "word"), assets.trademarks[0])
         plan.update(right_type="trade_mark", registration_number=word.registration_number,
                     classes=list(word.classes), territory=word.territory)

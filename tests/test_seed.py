@@ -327,12 +327,14 @@ def test_brand_loader_and_upsert(gen: dict[str, Any], engine: Any) -> None:
 def test_brand_loader_missing_files(tmp_path: Path, gen: dict[str, Any]) -> None:
     import shutil
 
-    with pytest.raises(FileNotFoundError):
+    from bh.brand import InvalidBrandDir
+
+    with pytest.raises(InvalidBrandDir):
         load_brand_assets(tmp_path / "nope")
     d = tmp_path / "brand"
     shutil.copytree(gen["base"] / "brand", d)
     next((d / "photos").glob("*.jpg")).unlink()
-    with pytest.raises(FileNotFoundError):
+    with pytest.raises(InvalidBrandDir, match="file not found"):
         load_brand_assets(d)
 
 

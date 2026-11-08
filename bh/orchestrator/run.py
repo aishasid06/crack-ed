@@ -1,9 +1,10 @@
 """CLI entry for the full pipeline (SPEC §7.1, Phase 8): one command, one Run, one trace.
 
-    python -m bh.orchestrator.run --brand vaelo                 # discovery → classify → decide → draft → report
-    python -m bh.orchestrator.run --brand vaelo --llm           # + generic extractor fallback / borderline vision check
-    python -m bh.orchestrator.run --brand vaelo --until discovery   # e.g. collect listings before fitting the scorer
-    python -m bh.orchestrator.run --brand vaelo --resume 12     # after a human cleared a challenge: same run, skip done work
+    python -m bh.orchestrator.run --brand <slug>                # discovery → classify → decide → draft → report
+    python -m bh.orchestrator.run --brand <slug> --llm          # + generic extractor fallback / borderline vision check
+    python -m bh.orchestrator.run --brand <slug> --until discovery  # e.g. collect listings before fitting the scorer
+    python -m bh.orchestrator.run --brand <slug> --resume 12    # after a human cleared a challenge: same run, skip done work
+    python -m bh.orchestrator.run --brand-dir data/brands/acme  # protect the brand in that folder (UI-created brands)
 
 Needs the mock sites running (``make mock``). The run never approves or submits: lawyers approve in the UI
 and ``python -m bh.enforce.submit --poll 10`` submits the approved cases.
@@ -23,6 +24,7 @@ import httpx
 from sqlalchemy.engine import Engine
 from sqlmodel import Session, select
 
+from bh.brand import InvalidBrandDir, config_for_brand_dir, config_for_run
 from bh.browser.session import BrowserManager
 from bh.classify import Scorer
 from bh.config import AppConfig, Secrets, get_config, get_secrets, load_config
@@ -162,7 +164,9 @@ def summarise(state: dict[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--brand", default=None, help="brand slug; must match the config's brand")
+    ap.add_argument("--brand", default=None, help="brand slug; must match the config's (or --brand-dir's) brand")
+    ap.add_argument("--brand-dir", type=Path, default=None,
+                    help="brand folder in the seed/brand layout (e.g. data/brands/<slug>); validated before anything runs")
     ap.add_argument("--config", type=Path, default=None, help="alternative config.yaml")
     ap.add_argument("--until", choices=STAGES, default="draft", help="last stage to run (report always runs)")
     ap.add_argument("--sites", nargs="+", default=None, help="marketplaces to search (default: all configured)")
@@ -176,6 +180,14 @@ def main(argv: list[str] | None = None) -> int:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
     cfg = load_config(args.config) if args.config else get_config()
+    try:
+        if args.brand_dir is not None:
+            cfg = config_for_brand_dir(cfg, args.brand_dir)
+        elif args.resume is not None:  # continue with the brand the run was started with
+            cfg = config_for_run(cfg, args.resume)
+    except InvalidBrandDir as e:
+        print(f"cannot start: {e}", file=sys.stderr)
+        return 2
     if args.max_queries:
         cfg = cfg.model_copy(update={"discovery": cfg.discovery.model_copy(update={"max_queries": args.max_queries})})
     llm = None

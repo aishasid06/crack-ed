@@ -348,4 +348,12 @@ Pages:
   - Outputs: `data/eval/run_<id>_<split>/metrics.json` (schema_version 1, read by the UI's Evaluation page) and `report.md`.
 - Task status `superseded`: a step span (e.g. a login or navigation that hit a portal challenge) whose parent task was retried after the human hand-off. The retry replaces it, so it is not an error. Run output, the evaluation report and the UI must show it neutrally, e.g. "2 superseded by human hand-off" (`bh.trace.describe_task_statuses`), never as a failure. Earlier runs had these recorded as `failed`; they were migrated in place (backup `data/bounty_hunter.<timestamp>.bak.db`).
 - Enforcement allowlist and `read_only` site mode were implemented early (before Phase 11) because they back a §1 hard constraint. Tests (`tests/test_guard.py`): config widening is rejected; a non-allowlisted portal host and a `read_only` portal are refused, with a log entry and no browser navigation, by drafting, submission, the CLIs and portal login; off-host page URLs block form submission.
+- Brand folders: `python -m bh.orchestrator.run --brand-dir <path>` protects the brand in any folder with the `seed/brand/` layout (e.g. UI-created `data/brands/<slug>/`); `bh.brand.validate_brand_dir(path)` lists every error and warning without raising. Rules:
+  - `fictional: true` is required (§1).
+  - Photos and logo must be JPEG or PNG, ≤ 10 MB, and ≥ 300 px on the shorter side; image paths must stay inside the folder (no `..`, no absolute paths, no symlink escape).
+  - The folder path must not contain `..` and must resolve to a directory.
+  - `trademark.json` is optional (copyright-only brand: trade mark rules cannot apply, and trade mark notices are not reportable).
+  - A registration number may belong to one brand only.
+  - Each run records its brand and `brand_dir` in `Run.config_snapshot`; decide, drafting and the submit loop load the brand of each case's run (`config_for_run`, `BrandsByRun`), so one submit loop can serve several brands. `--resume` reuses the run's brand.
+- The seed logo is rendered at 1050×400 so seed brands meet the 300 px rule.
 

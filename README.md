@@ -38,6 +38,20 @@ challenge pauses drafting, a human clears it in their own browser and then runs
 
 On Windows, set `PYTHONUTF8=1` so the CLIs can print non-ASCII output.
 
+### Running a brand from a folder
+
+Any brand folder in the `seed/brand/` layout can be protected without editing config (e.g. one the UI
+writes to `data/brands/<slug>/`):
+
+```bash
+.venv/bin/python -c "from bh.brand import validate_brand_dir; print(validate_brand_dir('data/brands/acme'))"
+.venv/bin/python -m bh.orchestrator.run --brand-dir data/brands/acme      # same flags as make run
+```
+
+`validate_brand_dir` lists every problem (errors block a run, warnings do not); the CLI exits 2 with the
+same list if the folder is invalid. The brand must be marked `"fictional": true`. Later stages (decide,
+drafting, the submit loop) use the brand folder recorded in each case's run.
+
 ### Seed images
 
 Brand and listing photos come from the Amazon Berkeley Objects dataset (see Attribution):

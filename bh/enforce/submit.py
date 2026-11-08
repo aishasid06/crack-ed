@@ -23,12 +23,12 @@ from typing import Any
 from sqlalchemy.engine import Engine
 from sqlmodel import Session, select
 
-from bh.brand import BrandAssets, load_brand_assets
+from bh.brand import BrandAssets
 from bh.browser.session import BrowserManager
 from bh.config import AppConfig, get_config
 from bh.db import Case, CaseStatus, get_engine, utcnow
 from bh.enforce.guard import check_site
-from bh.enforce.portal import SITE, PortalClient, load_case, set_case
+from bh.enforce.portal import SITE, BrandsByRun, PortalClient, load_case, set_case
 from bh.errors import HumanRequired, ReviewMismatch
 from bh.notice import ReportPlan, build_plan
 from bh.trace import run_span, task_span
@@ -124,12 +124,12 @@ async def process_approved(run_id: int, cfg: AppConfig, browser: BrowserManager,
                            engine: Engine | None = None) -> dict[str, Any]:
     check_site(cfg, SITE)  # before any case is loaded or any page opened
     eng = engine or get_engine()
-    assets = load_brand_assets(cfg.paths.resolve(cfg.paths.brand_dir))
     client = PortalClient(browser, cfg)
+    brands = BrandsByRun(cfg, eng)  # each case is signed with its own brand's data
     out: dict[str, Any] = {"submitted": [], "awaiting_final_confirm": [], "waiting_human": [], "failed": []}
     for cid in approved_cases(eng):
         try:
-            result = await submit_one(run_id, cid, client, assets, cfg, eng)
+            result = await submit_one(run_id, cid, client, brands.for_case(cid), cfg, eng)
             out.setdefault(result, []).append(cid)
         except ReviewMismatch as e:
             out["waiting_human"].append({"case_id": cid, "url": e.url, "reason": str(e)})

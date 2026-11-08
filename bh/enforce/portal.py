@@ -25,7 +25,7 @@ from PIL import Image
 from sqlalchemy.engine import Engine
 from sqlmodel import Session, select
 
-from bh.brand import BrandAssets, load_brand_assets
+from bh.brand import BrandAssets, assets_for_run
 from bh.browser.session import BrowserManager, detect_challenge
 from bh.config import AppConfig, get_config
 from bh.db import Case, CaseStatus, Features, Listing, get_engine, session_scope
@@ -200,6 +200,23 @@ def set_case(engine: Engine, case_id: int, **fields: Any) -> None:
             setattr(case, k, v)
 
 
+class BrandsByRun:
+    """Brand assets for each case, taken from the run that created the case (its config snapshot), so a
+    loop serving several brands always drafts and signs with the right owner and registration."""
+
+    def __init__(self, cfg: AppConfig, engine: Engine) -> None:
+        self.cfg, self.engine = cfg, engine
+        self._cache: dict[int | None, BrandAssets] = {}
+
+    def for_case(self, case_id: int) -> BrandAssets:
+        with Session(self.engine) as s:
+            case = s.get(Case, case_id)
+        rid = case.run_id if case else None
+        if rid not in self._cache:
+            self._cache[rid] = assets_for_run(self.cfg, rid, self.engine)
+        return self._cache[rid]
+
+
 def draftable(engine: Engine, cfg: AppConfig, case_ids: list[int] | None = None) -> list[int]:
     with Session(engine) as s:
         q = select(Case).where(Case.status == CaseStatus.awaiting_approval, Case.portal_draft_id.is_(None))  # type: ignore[union-attr]
@@ -233,12 +250,12 @@ async def draft_cases(run_id: int, cfg: AppConfig, browser: BrowserManager, engi
     the portal challenge is per-IP, so further attempts would be challenged too until a human verifies."""
     check_site(cfg, SITE)  # before any case is loaded or any page opened
     eng = engine or get_engine()
-    assets = load_brand_assets(cfg.paths.resolve(cfg.paths.brand_dir))
     client = PortalClient(browser, cfg)
     out: dict[str, Any] = {"drafted": [], "failed": [], "waiting_human": None}
+    brands = BrandsByRun(cfg, eng)
     for cid in draftable(eng, cfg, case_ids):
         try:
-            out["drafted"].append((cid, await draft_one(run_id, cid, client, assets, eng)))
+            out["drafted"].append((cid, await draft_one(run_id, cid, client, brands.for_case(cid), eng)))
         except HumanRequired as e:
             out["waiting_human"] = {"case_id": cid, "url": e.url}
             break
